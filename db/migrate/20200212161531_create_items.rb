@@ -5,11 +5,12 @@ class CreateItems < ActiveRecord::Migration[6.0]
       t.string :name
       t.boolean :restricted
       t.boolean :ageRestricted
-      t.int :quantity
+      t.integer :quantity
       t.float :cost
       t.string :taxSlab
-
+	  t.string :imageURL
       t.timestamps
+	  t.references :category
     end
   end
 end

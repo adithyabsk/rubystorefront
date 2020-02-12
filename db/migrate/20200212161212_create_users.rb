@@ -4,15 +4,15 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :email
       t.string :password
-      t.int :phoneNumber
-      t.DateTime :dateOfBirth
+      t.string :phoneNumber
+      t.string :dateOfBirth
       t.string :addressL1
       t.string :addressL2
       t.string :adressL3
       t.string :cardName
-      t.long :cardNum
-      t.DateTime :cardExpire
-      t.int :cardCCV
+      t.string :cardNum
+      t.string :cardExpire
+      t.integer :cardCCV
       t.boolean :isAdmin
       t.boolean :hasSecurePassword
 

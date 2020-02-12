@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :categories
   resources :restricted_requests
   resources :return_requests
   resources :requests

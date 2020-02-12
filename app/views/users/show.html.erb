@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @user.password %>
+</p>
+
+<p>
+  <strong>Phonenumber:</strong>
+  <%= @user.phoneNumber %>
+</p>
+
+<p>
+  <strong>Dateofbirth:</strong>
+  <%= @user.dateOfBirth %>
+</p>
+
+<p>
+  <strong>Addressl1:</strong>
+  <%= @user.addressL1 %>
+</p>
+
+<p>
+  <strong>Addressl2:</strong>
+  <%= @user.addressL2 %>
+</p>
+
+<p>
+  <strong>Adressl3:</strong>
+  <%= @user.adressL3 %>
+</p>
+
+<p>
+  <strong>Cardname:</strong>
+  <%= @user.cardName %>
+</p>
+
+<p>
+  <strong>Cardnum:</strong>
+  <%= @user.cardNum %>
+</p>
+
+<p>
+  <strong>Cardexpire:</strong>
+  <%= @user.cardExpire %>
+</p>
+
+<p>
+  <strong>Cardccv:</strong>
+  <%= @user.cardCCV %>
+</p>
+
+<p>
+  <strong>Isadmin:</strong>
+  <%= @user.isAdmin %>
+</p>
+
+<p>
+  <strong>Hassecurepassword:</strong>
+  <%= @user.hasSecurePassword %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

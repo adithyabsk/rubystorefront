@@ -1,0 +1,17 @@
+<%= form_with(model: restricted_request, local: true) do |form| %>
+  <% if restricted_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(restricted_request.errors.count, "error") %> prohibited this restricted_request from being saved:</h2>
+
+      <ul>
+        <% restricted_request.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

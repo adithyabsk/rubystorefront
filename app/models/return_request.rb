@@ -1,0 +1,2 @@
+class ReturnRequest < Request
+end

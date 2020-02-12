@@ -1,0 +1,2 @@
+class RestrictedRequest < Request
+end

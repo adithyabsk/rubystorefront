@@ -14,7 +14,6 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
   end
 
   # GET /users/1/edit
@@ -24,8 +23,13 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+	  puts "This is params for :user"
+	  puts params[:user]
     @user = User.new(user_params)
-
+    puts @user.inspect
+    if User[:isAdmin] == nil
+	User[:isAdmin] = false
+    end
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -69,6 +73,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :phoneNumber, :dateOfBirth, :addressL1, :addressL2, :adressL3, :cardName, :cardNum, :cardExpire, :cardCCV, :isAdmin, :hasSecurePassword)
+      params.require(:user).permit(:name, :email, :password, :phoneNumber, :dateOfBirth, :addressL1, :addressL2, :adressL3, :cardName, :cardNum, :cardExpire, :cardCCV, :isAdmin)
     end
 end

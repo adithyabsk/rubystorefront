@@ -10,5 +10,5 @@ class Item < ApplicationRecord
 	validates :imageURL, presence: true
 	validates :quantity, presence: true, numericality: { only_integer: true, minimum: 0 }
 	validates :price, presence: true, numericality: { greater_than: 0 }
-	validates :taxSlab, presence: true, inclusion: { in: [food, general, alcohol]}
+	validates :taxSlab, presence: true, inclusion: { in: ['food', 'general', 'alcohol']}
 end

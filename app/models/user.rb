@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
 	has_many :requests
 	has_many :returnrequests
 	has_many :restrictedrequests
@@ -11,8 +15,8 @@ class User < ApplicationRecord
 	validates :addressL3, presence: true
 	validates :cardName, presence: true
 	validates :cardNum, presence: true, length: {in: 12..19}
-	validates :cardExpire, presence: true, format: {with: /\A[0-9]{2}/[0-9]{2}\z/}
+	validates :cardExpire, presence: true, format: {with: /\A[0-9]{2}\/[0-9]{2}\z/}
 	validates :cardCCV, presence: true, numericality: { only_integer: true }, length: {is: 3}
 	validates :isAdmin, inclusion: { in: [true, false] }
-	validates :hasSecurePassword, inclusion: { in: [true, false] }
+
 end

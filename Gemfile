@@ -54,3 +54,6 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'validates_timeliness', '~> 5.0.0.alpha3'
+
+#used for auth
+gem 'devise'

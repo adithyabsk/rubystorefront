@@ -1,0 +1,86 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phoneNumber %>
+    <%= f.text_field :phoneNumber %>
+  </div>
+
+  <div class="field">
+    <%= f.label :dateOfBirth %>
+    <%= f.text_field :dateOfBirth %>
+  </div>
+
+  <div class="field">
+    <%= f.label :addressL1 %>
+    <%= f.text_field :addressL1 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :addressL2 %>
+    <%= f.text_field :addressL2 %>
+  </div>
+ 
+  <div class="field">
+    <%= f.label :addressL3 %>
+    <%= f.text_field :addressL3 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cardName %>
+    <%= f.text_field :cardName %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cardNum %>
+    <%= f.text_field :cardNum %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cardExpire %>
+    <%= f.text_field :cardExpire %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'card CCV' %>
+    <%= f.text_field :cardCCV %>
+  </div>
+
+  <%= unless current_user.isAdmin?%>
+  <div class="field">
+    <%= f.label :isAdmin %>
+    <%= f.check_box :isAdmin %>
+  </div>
+  <%= end %>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>

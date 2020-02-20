@@ -1,0 +1,37 @@
+<%= form_with model: @item, local: true do |form| %>
+ 
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@item.errors.count, "error") %> prohibited
+        this item from being saved:
+      </h2>
+      <ul>
+        <% @item.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+  <p>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </p>
+ 
+  <p>
+    <%= form.label :cost %><br>
+    <%= form.number_field :cost %>
+  </p>
+
+  <p>
+    <% if current_user %>
+	    <%=form.label "One Time Password" %><br>
+            <%=form.text_field :otp %>
+
+    <%end%>
+  <p>
+    <%= form.submit %>
+  </p>
+ 
+<% end %>

@@ -7,6 +7,17 @@
     <th>Email</th>
     <th>Password</th>
     <th>isAdmin?</th>
+    <th>Phone #</th>
+    <th>DOB</th>
+    <th>Address L1</th>
+    <th>Address L2</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip Code</th>
+    <th>Card Name</th>
+    <th>Card #</th>
+    <th>Card Exp Date</th>
+    <th>Card CCV</th>
     <th></th>
   </tr>
  
@@ -16,6 +27,18 @@
       <td><%= user.email %></td>
       <td><%= user.password %></td>
       <td><%= user.isAdmin %></td>
+      <td><%= user.phone_num%></td>
+      <td><%= user.dob %></td>
+      <td><%= user.address_l1 %></td>
+      <td><%= user.address_l2 %></td>
+      <td><%= user.city %></td>
+      <td><%= user.state %></td>
+      <td><%= user.zip %></td>
+      <td><%= user.card_name %></td>
+      <td><%= user.card_num %></td>
+      <td><%= user.card_expire %></td>
+      <td><%= user.card_ccv %></td>
+
       <td><%= link_to 'Show', user_path(user) %></td>
       <td><%= link_to 'Edit', edit_user_path(user) %></td>
       <%if current_user && current_user.isAdmin == true%>

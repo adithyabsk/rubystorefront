@@ -15,6 +15,51 @@
   <strong>isAdmin?:</strong>
   <%= @user.isAdmin %>
 </p>
+<p>
+  <strong>Phone #</strong>
+  <%= @user.phone_num %>
+</p>
+<p>
+  <strong>DOB:</strong>
+  <%= @user.dob %>
+</p>
+<p>
+  <strong>Address L1:</strong>
+  <%= @user.address_l1 %>
+</p>
+<p>
+  <strong>Address L2:</strong>
+  <%= @user.address_l2 %>
+</p>
+<p>
+  <strong>City:</strong>
+  <%= @user.city %>
+</p>
+<p>
+  <strong>State:</strong>
+  <%= @user.state %>
+</p>
+<p>
+  <strong>Zip Code:</strong>
+  <%= @user.zip %>
+</p>
+<p>
+  <strong>Card Name:</strong>
+  <%= @user.card_name %>
+</p>
+<p>
+  <strong>Card #:</strong>
+  <%= @user.card_num %>
+</p>
+<p>
+  <strong>Card Expire Date:</strong>
+  <%= @user.card_expire %>
+</p>
+<p>
+  <strong>Card CCV:</strong>
+  <%= @user.card_ccv %>
+</p>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Destroy', user_path(@user), method: :delete, data: {confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', users_path %>

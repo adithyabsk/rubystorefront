@@ -10,13 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_19_024732) do
+ActiveRecord::Schema.define(version: 2020_02_20_192319) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.string "taxSlab"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.float "cost"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "brand"
+    t.boolean "restricted"
+    t.boolean "ageRestricted"
+    t.integer "quantity"
+    t.string "imageURL"
+    t.integer "category_id"
+    t.integer "popularity", default: 0
+    t.index ["category_id"], name: "index_items_on_category_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -29,4 +44,5 @@ ActiveRecord::Schema.define(version: 2020_02_19_024732) do
     t.string "otp_secret_key"
   end
 
+  add_foreign_key "items", "categories"
 end

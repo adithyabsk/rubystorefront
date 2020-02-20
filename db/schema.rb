@@ -42,6 +42,17 @@ ActiveRecord::Schema.define(version: 2020_02_20_192319) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "isAdmin"
     t.string "otp_secret_key"
+    t.string "phone_num"
+    t.date "dob"
+    t.string "address_l1"
+    t.string "address_l2"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "card_name"
+    t.string "card_num"
+    t.string "card_expire"
+    t.integer "card_ccv"
   end
 
   add_foreign_key "items", "categories"

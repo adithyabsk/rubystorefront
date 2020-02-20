@@ -1,10 +1,34 @@
 class ItemsController < ApplicationController
 	def index
 		@items = Item.order(params[:sort])
+		session[:cart] ||= [] unless session.include?(:cart)
 	end
 
 	def show
           @item = Item.find(params[:id])
+	end
+	
+	def add
+		@item = Item.find(params[:id])
+		session[:cart] << @item.id
+		redirect_to items_path
+	end
+	
+	def purchase
+		@item = Item.find(params[:id])
+		@Total = @item.cost
+		@FoodTax = 0
+		@AlcTax = 0
+		@ComTax = 0
+		##if Category.find(@item.category_id).taxSlab == 'Food - 2%'
+		##	@FoodTax = @item.cost.to_f * 0.02
+		##end
+		##if Category.find(@item.category_id).taxSlab == 'Alcohol - 10%'
+		##	@AlcTax = @item.cost.to_f * 0.1
+		##end
+		##if Category.find(@item.category_id).taxSlab == 'Commodity - 7%'
+		##	@ComTax = @item.cost.to_f * 0.07
+		##end
 	end
 
 	def new

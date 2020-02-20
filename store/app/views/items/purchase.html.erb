@@ -1,0 +1,42 @@
+<h1>Purchasing Single Item</h1>
+
+<table border = "1">
+  <tr>
+	<th>Image</th>
+    <th><%= link_to "Name", :sort => "name"%></th>
+	<th><%= link_to "Brand", :sort => "brand"%></th>
+    <th><%= link_to "Cost", :sort => "cost"%></th>
+	<th><%= link_to "Restricted", :sort => "restricted"%></th>
+	<th><%= link_to "Age Restricted", :sort => "ageRestricted"%></th>
+	<th><%= link_to "Category", :sort => "category_id"%></th>
+	<th>Tax Slab</th>
+  </tr>
+    <tr>
+	  <td><%= image_tag @item.imageURL, :size => "150"%></td>
+      <td><%= @item.name %></td>
+	  <td><%= @item.brand %></td>
+      <td>$<%= @item.cost %></td>
+      <td><%= @item.restricted %></td>
+	  <td><%= @item.ageRestricted %></td>
+	  <td><%= Category.find(@item.category_id).name %></td>
+	  <td><%= Category.find(@item.category_id).taxSlab %></td>
+    </tr>
+</table>
+
+
+<p>
+  <strong>Price:</strong>
+  <%= @item.cost %>
+</p>
+<p>
+  <strong>Food Tax:</strong>
+  <%= @FoodTax %>
+</p>
+<p>
+  <strong>Alcohol Tax:</strong>
+  <%= @AlcTax %>
+</p>
+<p>
+  <strong>Commodity Tax:</strong>
+  <%= @ComTax %>
+</p>

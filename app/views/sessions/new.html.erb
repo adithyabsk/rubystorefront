@@ -1,0 +1,20 @@
+<p id='alert'><%= alert %></p>
+<h1>Login</h1>
+<%= form_with url: sessions_create_path, local: true do |form| %>
+ 
+  <p>
+    <%= form.label :email %><br>
+    <%= form.text_field :email %>
+  </p>
+
+  <p>
+    <%= form.label :password %><br>
+    <%= form.password_field :password %>
+  </p>
+
+ 
+  <p>
+    <%= form.submit "Login" %>
+  </p>
+ 
+<% end %>

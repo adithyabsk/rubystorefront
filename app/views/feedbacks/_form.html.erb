@@ -13,12 +13,12 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, :readonly=>true, :value => current_user ? current_user.name : "Anonymous" %>
   </div>
 
   <div class="field">
     <%= form.label :email %>
-    <%= form.text_field :email %>
+    <%= form.text_field :email, :readonly=>true, :value => current_user ? current_user.email : "anon@anon.com" %>
   </div>
 
   <div class="field">

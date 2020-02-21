@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get 'users/index'
 
+  get 'feedbacks/index'
   get 'feedbacks/new'
 
   resources :categories

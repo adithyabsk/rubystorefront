@@ -45,6 +45,13 @@ ActiveRecord::Schema.define(version: 2020_02_22_002844) do
     t.index ["category_id"], name: "index_items_on_category_id"
   end
 
+  create_table "items_wishlists", id: false, force: :cascade do |t|
+    t.integer "item_id", null: false
+    t.integer "wishlist_id", null: false
+    t.index ["item_id"], name: "index_items_wishlists_on_item_id"
+    t.index ["wishlist_id"], name: "index_items_wishlists_on_wishlist_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -66,5 +73,13 @@ ActiveRecord::Schema.define(version: 2020_02_22_002844) do
     t.integer "card_ccv"
   end
 
+  create_table "wishlists", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_wishlists_on_user_id"
+  end
+
   add_foreign_key "items", "categories"
+  add_foreign_key "wishlists", "users"
 end

@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+	has_one :wishlist, dependent: :destroy
 	has_secure_password
 	has_one_time_password
 	validates :name, presence: true

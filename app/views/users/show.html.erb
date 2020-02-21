@@ -60,6 +60,7 @@
   <%= @user.card_ccv %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Destroy', user_path(@user), method: :delete, data: {confirm: 'Are you sure?' } %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Edit', edit_user_path(@user) %> 
+<%if !@user.isAdmin && current_user.isAdmin %>
+<%= link_to ' | Destroy', user_path(@user), method: :delete, data: {confirm: 'Are you sure?' } %> |
+<%end%>

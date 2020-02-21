@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2020_02_20_192319) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.string "taxSlab"
@@ -29,7 +32,7 @@ ActiveRecord::Schema.define(version: 2020_02_20_192319) do
     t.boolean "ageRestricted"
     t.integer "quantity"
     t.string "imageURL"
-    t.integer "category_id"
+    t.bigint "category_id"
     t.integer "popularity", default: 0
     t.index ["category_id"], name: "index_items_on_category_id"
   end

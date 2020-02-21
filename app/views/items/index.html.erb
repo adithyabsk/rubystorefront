@@ -31,7 +31,7 @@
       <td>$<%= item.cost %></td>
       <td><%= item.restricted %></td>
 	  <td><%= item.ageRestricted %></td>
-	  <td><%= Category.find(item.category_id).name %></td>
+	  <td><%= Category.find_by_id(item.category_id).name %></td>
 	  <td><%= Category.find(item.category_id).taxSlab %></td>
 	  <%if current_user && current_user.isAdmin == true%>
 	  <td><%= link_to 'Edit', edit_item_path(item) %></td>

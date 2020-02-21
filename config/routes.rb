@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   post 'sessions/create'
   get 'sessions/destroy'
   get 'users/index'
-  root 'users#index'
+  root 'items#index'
   resources :users
   resources :items
   resources :sessions, only:[:new, :create, :destroy]

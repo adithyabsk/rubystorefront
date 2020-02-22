@@ -3,6 +3,7 @@ class Item < ApplicationRecord
 	validates :cost, presence: true
 	validates :brand, presence: true
 	validates :quantity, presence: true
-	validates :imageURL, presence: true
 	validates :category_id, presence: true
+	attribute :restricted, :boolean, default: false
+	attribute :age_restricted, :boolean, default: false
 end

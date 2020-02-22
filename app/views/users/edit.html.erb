@@ -1,5 +1,5 @@
 <h1> Edit User </h1>
-<% if @user.isAdmin%>
+<% if @user.is_admin%>
   <%= render 'admin_edit'%>
 <% else%>
 	<%= render 'form' %>

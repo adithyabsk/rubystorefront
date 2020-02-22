@@ -20,13 +20,13 @@ class ItemsController < ApplicationController
 		@FoodTax = 0
 		@AlcTax = 0
 		@ComTax = 0
-		##if Category.find(@item.category_id).taxSlab == 'Food - 2%'
+		##if Category.find(@item.category_id).tax_slab == 'Food - 2%'
 		##	@FoodTax = @item.cost.to_f * 0.02
 		##end
-		##if Category.find(@item.category_id).taxSlab == 'Alcohol - 10%'
+		##if Category.find(@item.category_id).tax_slab == 'Alcohol - 10%'
 		##	@AlcTax = @item.cost.to_f * 0.1
 		##end
-		##if Category.find(@item.category_id).taxSlab == 'Commodity - 7%'
+		##if Category.find(@item.category_id).tax_slab == 'Commodity - 7%'
 		##	@ComTax = @item.cost.to_f * 0.07
 		##end
 	end
@@ -77,6 +77,6 @@ class ItemsController < ApplicationController
 	private
 
 	def item_params
-		params.require(:item).permit(:name, :cost, :imageURL, :brand, :restricted, :ageRestricted, :quantity, :category_id)
+		params.require(:item).permit(:name, :cost, :image_url, :brand, :restricted, :age_restricted, :quantity, :category_id)
 	end
 end

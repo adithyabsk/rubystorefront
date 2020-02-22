@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_22_060938) do
+ActiveRecord::Schema.define(version: 2020_02_22_220818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2020_02_22_060938) do
     t.string "image_url"
     t.bigint "category_id"
     t.integer "popularity", default: 0
+    t.boolean "disabled", default: false
     t.index ["category_id"], name: "index_items_on_category_id"
   end
 

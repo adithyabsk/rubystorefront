@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   resources :feedbacks
   resources :items do
 	  member do
+	    post :disable
+		post :enable
 		put :add
 		get :purchase
 	  end

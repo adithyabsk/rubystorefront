@@ -1,6 +1,11 @@
 class ItemsController < ApplicationController
 	def index
+	
+	if current_user && current_user.is_admin == true
 		@items = Item.order(params[:sort])
+	else
+		@items = Item.order(params[:sort]).select { |i| i.disabled == false }
+	end
 		session[:cart] ||= [] unless session.include?(:cart)
 	end
 
@@ -68,9 +73,32 @@ class ItemsController < ApplicationController
 
   end
 
-  def destroy
+  def disable
 	  @item = Item.find(params[:id])
-	  @item.destroy
+	  #disable item
+	  @item.disabled = true
+      @item.save
+	  
+	  @users = User.all
+	  @users.each do |user|
+		#Delete from wishlist
+		user.wishlist.items.delete(@item)
+		#Delete from cart
+		if user.cart.items.include?(@item)
+			user.cart.cart_items.find_by(item_id: @item).destroy
+		end
+	  end
+	   
+	  
+	  redirect_to items_path
+  end
+  
+  def enable
+	  @item = Item.find(params[:id])
+	  #disable item
+	  @item.disabled = false
+      @item.save
+	  
 	  redirect_to items_path
   end
 

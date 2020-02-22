@@ -33,9 +33,9 @@
  
   <% @items.each do |item| %>
     <tr>
-      <td>
+      <td height="100">
         <%if item.image_url.present?%>
-          <%= image_tag item.image_url, :size => "150"%>
+          <%= image_tag item.image_url, :style => "max-height:100px;max-width:100px;height:auto" %>
         <% else %>
           <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
         <% end %>

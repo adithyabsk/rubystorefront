@@ -1,30 +1,34 @@
 <h1>Listing Items</h1>
 <p id="notice"><%= notice %></p>
 
- <%= link_to "Sort By Popular", :sort => "popularity"%>
- <%= link_to "Cart", cart_path(current_user.cart) %>
- <%= session[:cart].size %>
- </br>
+<%= link_to "Sort By Popular", :sort => "popularity"%>
+<% if current_user %>
+  <%= link_to "Cart", cart_path(current_user.id) %>
+  <% size = current_user.cart.cart_items.size %>
+  <%= size %>
+<% end %>
+</br>
  
 <table border = "1">
   <tr>
-	<th>Image</th>
+    <th>Image</th>
     <th><%= link_to "Name", :sort => "name"%></th>
-	<th><%= link_to "Brand", :sort => "brand"%></th>
-	<th><%= link_to "Inventory", :sort => "inventory"%></th>
+    <th><%= link_to "Brand", :sort => "brand"%></th>
+    <th><%= link_to "Inventory", :sort => "inventory"%></th>
     <th><%= link_to "Cost", :sort => "cost"%></th>
-	<th><%= link_to "Restricted", :sort => "restricted"%></th>
-	<th><%= link_to "Age Restricted", :sort => "age_restricted"%></th>
-	<th><%= link_to "Category", :sort => "category_id"%></th>
-	<th>Tax Slab</th>
-  <th>Add to Wishlist</th>
-	<th>Add to Cart</th>
-	<th>Buy It Now</th>
-	<%if current_user && current_user.is_admin == true%>
-    <th>Edit</th>
-	  <th>Delete</th>
-	<% end %>
-	<th>Request Unavailable Item</th>
+    <th><%= link_to "Restricted", :sort => "restricted"%></th>
+    <th><%= link_to "Age Restricted", :sort => "age_restricted"%></th>
+    <th><%= link_to "Category", :sort => "category_id"%></th>
+    <th>Tax Slab</th>
+    <% if current_user %>
+      <th>Add to Cart</th>
+      <th>Buy It Now</th>
+      <th>Request Unavailable Item</th>
+      <%if current_user && current_user.is_admin == true%>
+        <th>Edit</th>
+        <th>Delete</th>
+      <% end %>
+    <%end%>
   </tr>
  
   <% @items.each do |item| %>
@@ -33,27 +37,36 @@
         <%if item.image_url.present?%>
           <%= image_tag item.image_url, :size => "150"%>
         <% else %>
-         <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
+          <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
         <% end %>
       </td>
       <td><%= item.name %></td>
-	    <td><%= item.brand %></td>
-	    <td><%= item.inventory %><%if item.inventory < 1%> - Currently Unavailable<% end %></td>
+      <td><%= item.brand %></td>
+      <td><%= item.inventory %>
+        <%if item.inventory < 1%> - Currently Unavailable<% end %>
+      </td>
       <td>$<%= item.cost %></td>
       <td><%= item.restricted %></td>
-	    <td><%= item.age_restricted %></td>
-	    <td><%= Category.find_by_id(item.category_id).name %></td>
-	    <td><%= Category.find(item.category_id).tax_slab %></td>
-      <td><%= link_to 'Add to wishlist', add_item_path(item), method: :put%></td>
-	    <td><%if item.inventory > 0%><%= button_to 'Add to cart', cart_items_path(:item_id => item.id)%><% end %></td>
-	    <td>Buy It Now<%#if item.inventory > 0%><%#= link_to 'Buy It Now', purchase_item_path(item)%><%# end %></td>
-	    <%if current_user && current_user.is_admin == true%>
-	      <td><%= link_to 'Edit', edit_item_path(item) %></td>
-	      <td><%= link_to 'Delete', item_path(item), method: :delete, data: {confirm: 'Are you sure?' } %> </td>
-	    <% end %>
-      <td>Request Item</td>
+      <td><%= item.age_restricted %></td>
+      <td><%= Category.find_by_id(item.category_id).name %></td>
+      <td><%= Category.find(item.category_id).tax_slab %></td>
+      <% if current_user %>
+        <td>
+          <%if item.inventory > 0%>
+          <%= button_to 'Add to cart', cart_items_path(:item_id => item.id)%><% end %>
+        </td>
+
+        <td>Buy It Now<%#if item.inventory > 0%><%#= link_to 'Buy It Now', purchase_item_path(item)%><%# end %></td>
+        <td>Request Item</td>
+      <%else%>
+        <td><%=link_to "Signup to purchase", new_user_path %></td>
+      <%end%>
+      <%if current_user && current_user.is_admin == true%>
+	<td><%= link_to 'Edit', edit_item_path(item) %></td>
+	<td><%= link_to 'Delete', item_path(item), method: :delete, data: {confirm: 'Are you sure?' } %> </td>
+      <% end %>
     </tr>
-   <% end %>
+  <% end %>
 </table>
 
 <%if current_user && current_user.is_admin == true%>

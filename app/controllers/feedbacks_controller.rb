@@ -26,12 +26,10 @@ class FeedbacksController < ApplicationController
   def create
     @feedback = Feedback.new(feedback_params)
 
-    respond_to do |format|
-      if @feedback.save
-        redirect_to feedbacks_new_url, notice: 'Feedback was successfully created.'
-      else
-        render :new
-      end
+    if @feedback.save
+      redirect_to feedbacks_new_url, notice: 'Feedback was successfully created.'
+    else
+      render :new
     end
   end
 

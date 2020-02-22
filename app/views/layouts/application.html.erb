@@ -4,29 +4,29 @@
     <title>Store</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-	  <% if current_user %>
-		  Logged in as <%= current_user.name %>
-	  <%= link_to "Profile", user_path(current_user.id) %>
-                  <%= link_to "Log Out", sessions_destroy_path %>
-	  <% else %>
-		  <%= link_to "Sign Up", new_user_path %>
+    <% if current_user %>
+      Logged in as <%= current_user.name %>
+      <%= link_to "Profile", user_path(current_user.id) %>
+      <%= link_to "Log Out", sessions_destroy_path %>
+    <% else %>
+      <%= link_to "Sign Up", new_user_path %>
       <%= link_to "Log In", sessions_new_path %>
-	  <%end%>
+    <%end%>
     <%= link_to "Feedback", feedbacks_new_path %>
-	  <br>
-	  <br>
-	  <%= link_to "Items", items_path %>
-	  <%= link_to "Wishlist", user_wishlist_path(current_user.wishlist.id, current_user.id) %>
-	  <% if current_user && current_user.is_admin %>
-		  <%= link_to "Users", users_path %>
+    <br>
+    <br>
+    <%= link_to "Items", items_path %>
+    <% if current_user %>
+      <%= link_to "Wishlist", user_wishlist_path(current_user.wishlist.id, current_user.id) %>
+    <% end %>
+    <% if current_user && current_user.is_admin %>
+      <%= link_to "Users", users_path %>
       <%= link_to "Feedback List", feedbacks_index_path %>
-	  <%end%>
-	  <%= yield %>
+    <%end%>
+    <%= yield %>
   </body>
 </html>

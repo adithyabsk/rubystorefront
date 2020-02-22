@@ -23,6 +23,7 @@ class User < ApplicationRecord
 	private
 	def build_default_cart
 		build_cart
+		build_wishlist
 		true
 	end
 end

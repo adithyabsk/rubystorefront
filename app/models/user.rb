@@ -1,5 +1,7 @@
 class User < ApplicationRecord
 	has_one :wishlist, dependent: :destroy
+	has_one :cart, dependent: :destroy
+
 	has_secure_password
 	has_one_time_password
 	validates :name, presence: true
@@ -15,4 +17,12 @@ class User < ApplicationRecord
 	validates :card_name, presence: true
 	validates :card_expire, presence: true
 	validates :card_ccv, presence: true
+
+	before_create :build_default_cart
+
+	private
+	def build_default_cart
+		build_cart
+		true
+	end
 end

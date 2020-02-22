@@ -28,17 +28,17 @@ end
 # Items
 # Food
 [["Apple", "Fuji"], ["Orange", "Paramount Citrus"], ["Bannana", "Del Monte"]].each do |name, brand|
-  Item.create!(name: name, cost: rand(0.5..10.0), brand: brand, quantity: 100, category_id: Category.find_by(name: "Food").id)
+  Item.create!(name: name, cost: rand(0.5..10.0), brand: brand, inventory: 100, category_id: Category.find_by(name: "Food").id)
 end
 # Commodities
 [["Chair", "Herman Miller"], ["Umbrella", "Swiss Gear"], ["Backpack", "Jansport"]].each do |name, brand|
-  Item.create!(name: name, cost: rand(0.5..10.0), brand: brand, quantity: 100,
+  Item.create!(name: name, cost: rand(0.5..10.0), brand: brand, inventory: 100,
                   category_id: Category.find_by(name: "Commodity").id, age_restricted: true
   )
 end
 # Luxuries
 [["Watch", "Rolex"], ["Sports Car", "Mercedes"], ["Cologne", "Armani"]].each do |name, brand|
-  Item.create!(name: name, cost: rand(0.5..10.0), brand: brand, quantity: 100,
+  Item.create!(name: name, cost: rand(0.5..10.0), brand: brand, inventory: 100,
                   category_id: Category.find_by(name: "Luxury").id, restricted: true
   )
 end

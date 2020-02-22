@@ -17,11 +17,17 @@
  
   <% @wishlist_items.each do |item| %>
     <tr>
-      <td><%= image_tag item.image_url, :size => "150"%></td>
+      <td>
+        <%if item.image_url.present?%>
+          <%= image_tag item.image_url, :size => "150"%>
+        <% else %>
+          <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
+        <% end %>
+      </td>
       <td><%= item.name %></td>
       <td><%= item.brand %></td>
-      <td><%= item.quantity %>
-      <%if item.quantity < 1%> - Currently Unavailable<% end %></td>
+      <td><%= item.inventory %>
+      <%if item.inventory < 1%> - Currently Unavailable<% end %></td>
       <td>$<%= item.cost %></td>
       <td><%= item.restricted %></td>
       <td><%= item.age_restricted %></td>

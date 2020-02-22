@@ -17,6 +17,7 @@
 	<th><%= link_to "Age Restricted", :sort => "age_restricted"%></th>
 	<th><%= link_to "Category", :sort => "category_id"%></th>
 	<th>Tax Slab</th>
+  <th>Add to Wishlist</th>
 	<th>Add to Cart</th>
 	<th>Buy It Now</th>
 	<%if current_user && current_user.is_admin == true%>
@@ -43,6 +44,7 @@
 	    <td><%= item.age_restricted %></td>
 	    <td><%= Category.find_by_id(item.category_id).name %></td>
 	    <td><%= Category.find(item.category_id).tax_slab %></td>
+      <td><%= link_to 'Add to wishlist', add_item_path(item), method: :put%></td>
 	    <td><%if item.inventory > 0%><%= button_to 'Add to cart', cart_items_path(:item_id => item.id)%><% end %></td>
 	    <td>Buy It Now<%#if item.inventory > 0%><%#= link_to 'Buy It Now', purchase_item_path(item)%><%# end %></td>
 	    <%if current_user && current_user.is_admin == true%>

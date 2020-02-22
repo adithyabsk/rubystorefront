@@ -11,7 +11,7 @@
 	<th>Image</th>
     <th><%= link_to "Name", :sort => "name"%></th>
 	<th><%= link_to "Brand", :sort => "brand"%></th>
-	<th><%= link_to "Quantity", :sort => "quantity"%></th>
+	<th><%= link_to "Inventory", :sort => "inventory"%></th>
     <th><%= link_to "Cost", :sort => "cost"%></th>
 	<th><%= link_to "Restricted", :sort => "restricted"%></th>
 	<th><%= link_to "Age Restricted", :sort => "age_restricted"%></th>
@@ -37,14 +37,14 @@
     </td>
     <td><%= item.name %></td>
 	  <td><%= item.brand %></td>
-	  <td><%= item.quantity %><%if item.quantity < 1%> - Currently Unavailable<% end %></td>
+	  <td><%= item.inventory %><%if item.inventory < 1%> - Currently Unavailable<% end %></td>
     <td>$<%= item.cost %></td>
     <td><%= item.restricted %></td>
 	  <td><%= item.age_restricted %></td>
 	  <td><%= Category.find_by_id(item.category_id).name %></td>
 	  <td><%= Category.find(item.category_id).tax_slab %></td>
-	  <td><%if item.quantity > 0%><%= link_to 'Add', add_item_path(item), method: :put %><% end %></td>
-	  <td><%if item.quantity > 0%><%= link_to 'Buy It Now', purchase_item_path(item)%><% end %></td>
+	  <td><%if item.inventory > 0%><%= link_to 'Add', add_item_path(item), method: :put %><% end %></td>
+	  <td><%if item.inventory > 0%><%= link_to 'Buy It Now', purchase_item_path(item)%><% end %></td>
 	  <%if current_user && current_user.is_admin == true%>
 	  <td><%= link_to 'Edit', edit_item_path(item) %></td>
 	  <td><%= link_to 'Delete', item_path(item), method: :delete, data: {confirm: 'Are you sure?' } %> </td>

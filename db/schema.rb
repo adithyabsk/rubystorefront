@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_22_002844) do
+ActiveRecord::Schema.define(version: 2020_02_22_060215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 2020_02_22_002844) do
     t.string "brand"
     t.boolean "restricted", default: false
     t.boolean "age_restricted", default: false
-    t.integer "quantity"
+    t.integer "inventory"
     t.string "image_url"
     t.bigint "category_id"
     t.integer "popularity", default: 0

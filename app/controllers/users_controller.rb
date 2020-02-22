@@ -24,6 +24,10 @@ class UsersController < ApplicationController
 	    params.delete(:password)
     end
     @user = User.new(user_params)
+    if not user.cart_id.present?
+      @user.cart = Cart.create
+    end
+
     if @user.save
       Wishlist.create(user_id:@user.id)
       redirect_to @user

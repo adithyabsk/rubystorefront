@@ -1,8 +1,8 @@
-
 <h1>Listing Items</h1>
- 
+<p id="notice"><%= notice %></p>
+
  <%= link_to "Sort By Popular", :sort => "popularity"%>
- <%= link_to "Cart" %>
+ <%= link_to "Cart", cart_path(current_user.cart) %>
  <%= session[:cart].size %>
  </br>
  
@@ -21,34 +21,35 @@
 	<th>Buy It Now</th>
 	<%if current_user && current_user.is_admin == true%>
     <th>Edit</th>
-	<th>Delete</th>
+	  <th>Delete</th>
 	<% end %>
 	<th>Request Unavailable Item</th>
   </tr>
  
   <% @items.each do |item| %>
     <tr>
-	  <td>
-      <%if item.image_url.present?%>
-        <%= image_tag item.image_url, :size => "150"%>
-      <% else %>
-        <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
-      <% end %>
-    </td>
-    <td><%= item.name %></td>
-	  <td><%= item.brand %></td>
-	  <td><%= item.inventory %><%if item.inventory < 1%> - Currently Unavailable<% end %></td>
-    <td>$<%= item.cost %></td>
-    <td><%= item.restricted %></td>
-	  <td><%= item.age_restricted %></td>
-	  <td><%= Category.find_by_id(item.category_id).name %></td>
-	  <td><%= Category.find(item.category_id).tax_slab %></td>
-	  <td><%if item.inventory > 0%><%= link_to 'Add', add_item_path(item), method: :put %><% end %></td>
-	  <td><%if item.inventory > 0%><%= link_to 'Buy It Now', purchase_item_path(item)%><% end %></td>
-	  <%if current_user && current_user.is_admin == true%>
-	  <td><%= link_to 'Edit', edit_item_path(item) %></td>
-	  <td><%= link_to 'Delete', item_path(item), method: :delete, data: {confirm: 'Are you sure?' } %> </td>
-  <% end %>
+      <td>
+        <%if item.image_url.present?%>
+          <%= image_tag item.image_url, :size => "150"%>
+        <% else %>
+         <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
+        <% end %>
+      </td>
+      <td><%= item.name %></td>
+	    <td><%= item.brand %></td>
+	    <td><%= item.inventory %><%if item.inventory < 1%> - Currently Unavailable<% end %></td>
+      <td>$<%= item.cost %></td>
+      <td><%= item.restricted %></td>
+	    <td><%= item.age_restricted %></td>
+	    <td><%= Category.find_by_id(item.category_id).name %></td>
+	    <td><%= Category.find(item.category_id).tax_slab %></td>
+	    <td><%if item.inventory > 0%><%= button_to 'Add to cart', cart_items_path(:item_id => item.id)%><% end %></td>
+	    <td>Buy It Now<%#if item.inventory > 0%><%#= link_to 'Buy It Now', purchase_item_path(item)%><%# end %></td>
+	    <%if current_user && current_user.is_admin == true%>
+	      <td><%= link_to 'Edit', edit_item_path(item) %></td>
+	      <td><%= link_to 'Delete', item_path(item), method: :delete, data: {confirm: 'Are you sure?' } %> </td>
+	    <% end %>
+      <td>Request Item</td>
     </tr>
    <% end %>
 </table>

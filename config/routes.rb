@@ -1,6 +1,20 @@
 Rails.application.routes.draw do
   root 'items#index'
 
+  get 'ledger_entries/index'
+  get 'ledger_entries/show'
+  get 'ledger_entries/new'
+
+  get 'carts/:id' => "carts#show", as: "cart"
+  delete 'carts/:id' => "carts#empty"
+
+  post 'cart_items/:id/add' => "cart_items#add_quantity", as: "cart_item_add"
+  post 'cart_items/:id/reduce' => "cart_items#reduce_quantity", as: "cart_item_reduce"
+  post 'cart_items' => "cart_items#create"
+  get 'cart_items/:id' => "cart_items#show", as: "cart_item"
+  delete 'cart_items/:id' => "cart_items#destroy"
+
+
   get 'sessions/new'
   post 'sessions/create'
   get 'sessions/destroy'
@@ -10,6 +24,8 @@ Rails.application.routes.draw do
   get 'feedbacks/index'
   get 'feedbacks/new'
 
+  resources :ledger_entries
+  resources :carts
   resources :categories
   resources :feedbacks
   resources :items do

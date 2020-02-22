@@ -48,3 +48,13 @@ end
   user = User.find_by(name: name)
   Feedback.create!(name: user.name, email: user.email, message: Faker::Lorem.paragraph(sentence_count: 30))
 end
+
+# Wishlist
+["Carl Klier", "Adithya Balaji", "Standard User"].each do |name|
+  user = User.find_by(name: name)
+  Wishlist.create(user_id:user.id)
+  ["Watch", "Apple", "Chair"].each do |name|
+    item = Item.find_by(name: name)
+    user.wishlist.items<<item
+  end
+end

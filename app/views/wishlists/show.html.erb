@@ -17,16 +17,16 @@
  
   <% @wishlist_items.each do |item| %>
     <tr>
-      <td><%= image_tag item.imageURL, :size => "150"%></td>
+      <td><%= image_tag item.image_url, :size => "150"%></td>
       <td><%= item.name %></td>
       <td><%= item.brand %></td>
       <td><%= item.quantity %>
       <%if item.quantity < 1%> - Currently Unavailable<% end %></td>
       <td>$<%= item.cost %></td>
       <td><%= item.restricted %></td>
-      <td><%= item.ageRestricted %></td>
+      <td><%= item.age_restricted %></td>
       <td><%= Category.find_by_id(item.category_id).name %></td>
-      <td><%= Category.find(item.category_id).taxSlab %></td>
+      <td><%= Category.find(item.category_id).tax_slab %></td>
       <td><%= link_to 'Delete', remove_item_from_wishlist_path(item.id), method: :post, data: {confirm: 'Are you sure?' } %> </td>
     </tr>
    <% end %>

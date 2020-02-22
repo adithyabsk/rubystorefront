@@ -5,5 +5,6 @@ class Item < ApplicationRecord
 	validates :brand, presence: true
 	validates :inventory, presence: true, numericality: { is_greater_than_or_equal_to: 0 }
 	validates :category_id, presence: true
+	validates :image_url, format: { with: /\A.*(.png|.jpg)\z/ }
 
 end

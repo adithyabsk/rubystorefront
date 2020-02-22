@@ -27,18 +27,24 @@ end
 
 # Items
 # Food
-[["Apple", "Fuji"], ["Orange", "Paramount Citrus"], ["Bannana", "Del Monte"]].each do |name, brand|
-  Item.create!(name: name, cost: rand(0.5..10.0), brand: brand, inventory: 100, category_id: Category.find_by(name: "Food").id)
+[["Apple", "Fuji", "https://cdn11.bigcommerce.com/s-la1x8o7zmn/images/stencil/800x800/products/622/489/RedApple__23344.1570489422.jpg"], 
+["Orange", "Paramount Citrus", "https://soappotions.com/wp-content/uploads/2017/10/orange.jpg"], 
+["Bannana", "Del Monte", "https://cdn.mos.cms.futurecdn.net/42E9as7NaTaAi4A6JcuFwG-320-80.jpg"]].each do |name, brand, image_url|
+  Item.create!(name: name, cost: rand(0.5..10.0), image_url:image_url, brand: brand, inventory: 100, category_id: Category.find_by(name: "Food").id)
 end
 # Commodities
-[["Chair", "Herman Miller"], ["Umbrella", "Swiss Gear"], ["Backpack", "Jansport"]].each do |name, brand|
-  Item.create!(name: name, cost: rand(0.5..10.0), brand: brand, inventory: 100,
+[["Chair", "Herman Miller", "https://images-na.ssl-images-amazon.com/images/I/71Qa44-4WPL._AC_SX522_.jpg"],
+ ["Umbrella", "Swiss Gear", "https://i.pinimg.com/originals/27/44/ea/2744ead4eebca68b62abfa7c14361d5e.jpg"],
+ ["Backpack", "Jansport", "https://images-na.ssl-images-amazon.com/images/I/61dCHkBQInL._AC_SL1000_.jpg"]].each do |name, brand, image_url|
+  Item.create!(name: name, cost: rand(0.5..10.0), brand: brand, image_url:image_url, inventory: 100,
                   category_id: Category.find_by(name: "Commodity").id, age_restricted: true
   )
 end
 # Luxuries
-[["Watch", "Rolex"], ["Sports Car", "Mercedes"], ["Cologne", "Armani"]].each do |name, brand|
-  Item.create!(name: name, cost: rand(0.5..10.0), brand: brand, inventory: 100,
+[["Watch", "Rolex", "https://www.swissluxury.com/product_images/116710BLNR.jpg"],
+ ["Sports Car", "Mercedes", "https://www.mbusa.com/content/dam/mb-nafta/us/myco/my20/e/sedan/all-vehicles/2020-E350-SEDAN-AVP-DR.png"],
+ ["Cologne", "Armani", "https://images-na.ssl-images-amazon.com/images/I/51CbWZt0jLL._SL1000_.jpg"]].each do |name, brand, image_url|
+  Item.create!(name: name, cost: rand(0.5..10.0), brand: brand, image_url:image_url, inventory: 100,
                   category_id: Category.find_by(name: "Luxury").id, restricted: true
   )
 end
@@ -58,3 +64,4 @@ end
     user.wishlist.items<<item
   end
 end
+

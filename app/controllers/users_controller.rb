@@ -25,6 +25,7 @@ class UsersController < ApplicationController
     end
     @user = User.new(user_params)
     if @user.save
+      Wishlist.create(user_id:@user.id)
       redirect_to @user
     else
       render 'new'

@@ -74,6 +74,15 @@ class ItemsController < ApplicationController
 	  redirect_to items_path
   end
 
+  def add_item_to_wishlist
+		  @item = Item.find(params[:id])
+	  	current_user.wishlist.items<<@item
+		current_user.wishlist.save
+		current_user.save
+	  	flash[:alert] = "Item added to wishlist"
+	  redirect_to item_path(@item.id)
+  end
+
 	private
 
 	def item_params

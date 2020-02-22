@@ -56,3 +56,6 @@ gem 'active_model_otp'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Allows for fake data generation
+gem "faker", "~> 2.10"

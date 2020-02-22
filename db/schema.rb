@@ -64,6 +64,13 @@ ActiveRecord::Schema.define(version: 2020_02_22_060938) do
     t.index ["category_id"], name: "index_items_on_category_id"
   end
 
+  create_table "items_wishlists", id: false, force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "wishlist_id", null: false
+    t.index ["item_id"], name: "index_items_wishlists_on_item_id"
+    t.index ["wishlist_id"], name: "index_items_wishlists_on_wishlist_id"
+  end
+
   create_table "ledger_entries", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -71,13 +78,6 @@ ActiveRecord::Schema.define(version: 2020_02_22_060938) do
     t.string "kind"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "items_wishlists", id: false, force: :cascade do |t|
-    t.bigint "item_id", null: false
-    t.bigint "wishlist_id", null: false
-    t.index ["item_id"], name: "index_items_wishlists_on_item_id"
-    t.index ["wishlist_id"], name: "index_items_wishlists_on_wishlist_id"
   end
 
   create_table "users", force: :cascade do |t|

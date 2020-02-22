@@ -32,7 +32,11 @@
   </tr>
  
   <% @items.each do |item| %>
-    <tr>
+    <% if item.disabled == true %>
+        <tr bgcolor="#7D7D7D">
+    <% else %>
+        <tr>
+    <% end %>
       <td height="100">
         <%if item.image_url.present?%>
           <%= image_tag item.image_url, :style => "max-height:100px;max-width:100px;height:auto" %>
@@ -63,7 +67,12 @@
       <%end%>
       <%if current_user && current_user.is_admin == true%>
 	<td><%= link_to 'Edit', edit_item_path(item) %></td>
-	<td><%= link_to 'Delete', item_path(item), method: :delete, data: {confirm: 'Are you sure?' } %> </td>
+	<% if item.disabled == true %>
+        <td><%= link_to 'Enable', enable_item_path(item), method: :enable, data: {confirm: 'Are you sure?' } %> </td>
+    <% else %>
+        <td><%= link_to 'Disable', disable_item_path(item), method: :disable, data: {confirm: 'Are you sure?' } %> </td>
+    <% end %>
+	
       <% end %>
     </tr>
   <% end %>

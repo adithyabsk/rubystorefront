@@ -19,8 +19,11 @@ Rails.application.routes.draw do
 	  end
 	end
   resources :users do
-	  resources :wishlist
+	  resources :wishlists
   end
+  resources :items
+  post 'items/:id/add_item_to_wishlist', to: 'items#add_item_to_wishlist', as: 'add_item_to_wishlist'
+  post 'wishlists/:id/remove_item_from_wishlist', to: 'wishlists#remove_item_from_wishlist', as: 'remove_item_from_wishlist'
   resources :sessions, only:[:new, :create, :destroy]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 2020_02_22_002844) do
   end
 
   create_table "items_wishlists", id: false, force: :cascade do |t|
-    t.integer "item_id", null: false
-    t.integer "wishlist_id", null: false
+    t.bigint "item_id", null: false
+    t.bigint "wishlist_id", null: false
     t.index ["item_id"], name: "index_items_wishlists_on_item_id"
     t.index ["wishlist_id"], name: "index_items_wishlists_on_wishlist_id"
   end
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2020_02_22_002844) do
   end
 
   create_table "wishlists", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_wishlists_on_user_id"

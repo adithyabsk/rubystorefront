@@ -1,3 +1,4 @@
+<p id='alert'><%= alert %></p>
 <h1>Showing Item Details</h1>
 
 <p>
@@ -9,6 +10,11 @@
   <strong>Cost:</strong>
   <%= @item.cost %>
 </p>
+<br>
+<% if current_user %>
+	<%= link_to 'Add to Wishlist', add_item_to_wishlist_path, method: :post %>
+<%end%>
+<br>
 
 <%= link_to 'Edit', edit_item_path(@item) %> |
 <%= link_to 'Back', items_path %>

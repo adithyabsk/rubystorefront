@@ -11,8 +11,8 @@
 
 Filters:
 
-Category - 
 <%= form_tag items_path, method: :get do %>
+Category - 
 <%= select_tag :category, options_for_select(Item.all.collect{|i| Category.find_by_id(i.category_id).name}.uniq.unshift("All"), params[:category]), onchange: "this.form.submit();"%>
 Brand - 
 <%= select_tag :brand, options_for_select(Item.all.collect{|i| i.brand}.uniq.unshift("All"), params[:brand]), onchange: "this.form.submit();"%>
@@ -29,7 +29,7 @@ Availability -
     <th><%= link_to "Cost", :sort => "cost", :category => params[:category], :brand => params[:brand], :available => params[:available]%></th>
     <th><%= link_to "Restricted", :sort => "restricted", :category => params[:category], :brand => params[:brand], :available => params[:available]%></th>
     <th><%= link_to "Age Restricted", :sort => "age_restricted", :category => params[:category], :brand => params[:brand], :available => params[:available]%></th>
-    <th><%= link_to "Category", :sort => "category_id", :category => params[:category], :brand => params[:brand], :available => params[:available]%></th>
+    <th><%= link_to "Category", :sort => "category", :category => params[:category], :brand => params[:brand], :available => params[:available]%></th>
     <th>Tax Slab</th>
     <% if current_user %>
       <th>Add to Cart</th>

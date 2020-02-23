@@ -2,9 +2,13 @@ class ItemsController < ApplicationController
 	def index
 	
 	if current_user && current_user.is_admin == true
-		@items = Item.order(params[:sort])
+		@items = Item.order(params[:sort]).select { |i| (params[:category] == nil || Category.find_by_id(i.category_id).name == params[:category].gsub("+", " ") || params[:category] == "All") &&
+		(params[:brand] == nil || i.brand == params[:brand].gsub("+", " ") || params[:brand] == "All") && 
+		(params[:available] == nil || (params[:available] == "Available" && i.inventory > 0) || (params[:available] == "Unavilable" && i.inventory == 0))} 
 	else
-		@items = Item.order(params[:sort]).select { |i| i.disabled == false }
+		@items = Item.order(params[:sort]).select { |i| i.disabled == false && (params[:category] == nil || Category.find_by_id(i.category_id).name == params[:category].gsub("+", " ") || params[:category] == "All") &&
+		(params[:brand] == nil || i.brand == params[:brand].gsub("+", " ") || params[:brand] == "All") && 
+		(params[:available] == nil || (params[:available] == "Available" && i.inventory > 0) || (params[:available] == "Unavilable" && i.inventory == 0)) }
 	end
 		session[:cart] ||= [] unless session.include?(:cart)
 	end
@@ -12,6 +16,7 @@ class ItemsController < ApplicationController
 	def show
           @item = Item.find(params[:id])
 	end
+	
 	
 	def add
 		@item = Item.find(params[:id])

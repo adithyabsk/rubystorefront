@@ -18,10 +18,10 @@ class User < ApplicationRecord
 	validates :card_expire, presence: true
 	validates :card_ccv, presence: true
 
-	before_create :build_default_cart
+	before_create :setup_user_defaults
 
 	private
-	def build_default_cart
+	def setup_user_defaults
 		build_cart
 		build_wishlist
 		true

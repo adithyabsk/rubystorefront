@@ -1,0 +1,42 @@
+<h1>Checkout</h1>
+<h1>Cart</h1>
+<ul>
+  <% @cart.cart_items.each do |cart_item| %>
+    <li>Item: <%= cart_item.item.name %>/ Price: <%= number_to_currency(cart_item.item.cost) %>/ Quantity: <%= cart_item.quantity %>/ Total Price: <%= number_to_currency(cart_item.total_cost) %>
+  <% end %>
+</ul>
+<h3>Sub total: <%= number_to_currency(@cart.sub_total) %></h3>
+<h3>Credit Card and Shipping Info</h3>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone #</th>
+    <th>Address L1</th>
+    <th>Address L2</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip Code</th>
+    <th>Card Name</th>
+    <th>Card #</th>
+    <th>Card Exp Date</th>
+    <th>Card CCV</th>
+  </tr>
+  <tr>
+    <td><%= @user.name %></td>
+    <td><%= @user.email %></td>
+    <td><%= @user.phone_num%></td>
+    <td><%= @user.address_l1 %></td>
+    <td><%= @user.address_l2 %></td>
+    <td><%= @user.city %></td>
+    <td><%= @user.state %></td>
+    <td><%= @user.zip %></td>
+    <td><%= @user.card_name %></td>
+    <td><%= @user.card_num %></td>
+    <td><%= @user.card_expire %></td>
+    <td><%= @user.card_ccv %></td>
+  </tr>
+</table>
+
+<%= link_to "Proceed to checkout", new_ledger_entry_path %><br>
+<%= link_to "Empty cart", cart_path(@cart),method: :delete, data: {confirm: "Are you sure?"}%>

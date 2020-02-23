@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'cart_items/:id' => "cart_items#show", as: "cart_item"
   delete 'cart_items/:id' => "cart_items#destroy"
 
+  get 'checkout/show'
 
   get 'sessions/new'
   post 'sessions/create'

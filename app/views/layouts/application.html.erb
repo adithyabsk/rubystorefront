@@ -16,16 +16,22 @@
       <%= link_to "Sign Up", new_user_path %>
       <%= link_to "Log In", sessions_new_path %>
     <%end%>
-    <%= link_to "Feedback", feedbacks_new_path %>
     <br>
     <br>
-    <%= link_to "Items", items_path %>
+    <%= link_to "Items", items_path %>  |  
     <% if current_user %>
-      <%= link_to "Wishlist", user_wishlist_path(current_user.wishlist.id, current_user.id) %>
+      <%= link_to "Cart", cart_path(current_user.id) %>
+      <%size=current_user.cart.cart_items.size %>
+      <%=size%>  |  
+      <%= link_to "Wishlist", user_wishlist_path(current_user.wishlist.id, current_user.id) %>  |  
     <% end %>
+    
+    <%= link_to "Give Feedback", feedbacks_new_path %>  |  
     <% if current_user && current_user.is_admin %>
-      <%= link_to "Users", users_path %>
-      <%= link_to "Feedback List", feedbacks_index_path %>
+      <%= link_to "Modify Users", users_path %>  |  
+      <%= link_to "View Feedback", feedbacks_index_path %>  |  
+      <%= link_to "Create Item", new_item_path %>  |  
+      <%= link_to "Modify Categories", categories_path %>  |  
     <%end%>
     <%= yield %>
   </body>

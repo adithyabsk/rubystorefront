@@ -2,22 +2,15 @@
 <p id="notice"><%= notice %></p>
 
 <%= link_to "Sort By Popular", :sort => "popularity"%>
-<% if current_user %>
-  <%= link_to "Cart", cart_path(current_user.id) %>
-  <% size = current_user.cart.cart_items.size %>
-  <%= size %>
-<% end %>
 </br>
 
-Filters:
-
 <%= form_tag items_path, method: :get do %>
-Category - 
-<%= select_tag :category, options_for_select(Item.all.collect{|i| Category.find_by_id(i.category_id).name}.uniq.unshift("All"), params[:category]), onchange: "this.form.submit();"%>
-Brand - 
-<%= select_tag :brand, options_for_select(Item.all.collect{|i| i.brand}.uniq.unshift("All"), params[:brand]), onchange: "this.form.submit();"%>
+  Filters: Category - 
+  <%= select_tag :category, options_for_select(Item.all.collect{|i| Category.find_by_id(i.category_id).name}.uniq.unshift("All"), params[:category]), onchange: "this.form.submit();"%>
+  Brand - 
+  <%= select_tag :brand, options_for_select(Item.all.collect{|i| i.brand}.uniq.unshift("All"), params[:brand]), onchange: "this.form.submit();"%>
 Availability - 
-<%= select_tag :available, options_for_select(["Available", "Unvailable"], params[:available]), onchange: "this.form.submit();" %>
+  <%= select_tag :available, options_for_select(["All", "Available", "Unavailable"], params[:available]), onchange: "this.form.submit();" %>
 <% end %>
  
 <table border = "1">
@@ -25,17 +18,10 @@ Availability -
     <th>Image</th>
     <th><%= link_to "Name", :sort => "name", :category => params[:category], :brand => params[:brand], :available => params[:available]%></th>
     <th><%= link_to "Brand", :sort => "brand", :category => params[:category], :brand => params[:brand], :available => params[:available]%></th>
-    <th><%= link_to "Inventory", :sort => "inventory", :category => params[:category], :brand => params[:brand], :available => params[:available]%></th>
     <th><%= link_to "Cost", :sort => "cost", :category => params[:category], :brand => params[:brand], :available => params[:available]%></th>
-    <th><%= link_to "Restricted", :sort => "restricted", :category => params[:category], :brand => params[:brand], :available => params[:available]%></th>
-    <th><%= link_to "Age Restricted", :sort => "age_restricted", :category => params[:category], :brand => params[:brand], :available => params[:available]%></th>
-    <th><%= link_to "Category", :sort => "category", :category => params[:category], :brand => params[:brand], :available => params[:available]%></th>
-    <th>Tax Slab</th>
     <% if current_user %>
-      <th>Add to Cart</th>
       <th>Buy It Now</th>
-      <th>Request Unavailable Item</th>
-      <%if current_user && current_user.is_admin == true%>
+      <%if current_user.is_admin%>
         <th>Edit</th>
         <th>Delete</th>
       <% end %>
@@ -43,53 +29,38 @@ Availability -
   </tr>
  
   <% @items.each do |item| %>
-		<% if item.disabled == true %>
-			<tr bgcolor="#7D7D7D">
-		<% else %>
-			<tr>
-		<% end %>
-		  <td height="100">
-			<%if item.image_url.present?%>
-			  <%= image_tag item.image_url, :style => "max-height:100px;max-width:100px;height:auto" %>
-			<% else %>
-			  <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
-			<% end %>
-		  </td>
-		  <td><%= item.name %></td>
-		  <td><%= item.brand %></td>
-		  <td><%= item.inventory %>
-			<%if item.inventory < 1%> - Currently Unavailable<% end %>
-		  </td>
-		  <td>$<%= item.cost %></td>
-		  <td><%= item.restricted %></td>
-		  <td><%= item.age_restricted %></td>
-		  <td><%= Category.find_by_id(item.category_id).name %></td>
-		  <td><%= Category.find(item.category_id).tax_slab %></td>
-		  <% if current_user %>
-			<td>
-			  <%if item.inventory > 0%>
-			  <%= button_to 'Add to cart', cart_items_path(:item_id => item.id)%><% end %>
-			</td>
-
-			<td>Buy It Now<%#if item.inventory > 0%><%#= link_to 'Buy It Now', purchase_item_path(item)%><%# end %></td>
-			<td>Request Item</td>
-		  <%else%>
-			<td><%=link_to "Signup to purchase", new_user_path %></td>
-		  <%end%>
-		  <%if current_user && current_user.is_admin == true%>
-		<td><%= link_to 'Edit', edit_item_path(item) %></td>
-		<% if item.disabled == true %>
-			<td><%= link_to 'Enable', enable_item_path(item), method: :enable, data: {confirm: 'Are you sure?' } %> </td>
-		<% else %>
-			<td><%= link_to 'Disable', disable_item_path(item), method: :disable, data: {confirm: 'Are you sure?' } %> </td>
-		<% end %>
-		
-		  <% end %>
-		</tr>
+    <% if item.disabled == true %>
+      <tr bgcolor="#7D7D7D">
+    <% else %>
+      <tr>
+    <% end %>
+    <td height="100">
+      <%= link_to item_path(item.id) do %>
+	<%if item.image_url.present?%>
+	  <%= image_tag item.image_url, :style => "max-height:100px;max-width:100px;height:auto" %>
+	<% else %>
+	  <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
 	<% end %>
+      </td>
+      <td><%= link_to item.name, item_path(item.id) %></td>
+      <td><%= item.brand %></td>
+      <td>$<%= item.cost %></td>
+      <% if current_user %>
+	<%if item.inventory > 0%>
+	  <td>Buy It Now</td>
+	<%else%>
+	  <td></td>
+	<%end%>
+	<%if current_user.is_admin%>
+	  <td><%= link_to 'Edit', edit_item_path(item) %></td>
+	  <% if item.disabled == true %>
+	    <td><%= link_to 'Enable', enable_item_path(item), method: :enable, data: {confirm: 'Are you sure?' } %> </td>
+	  <% else %>
+	    <td><%= link_to 'Disable', disable_item_path(item), method: :disable, data: {confirm: 'Are you sure?' } %> </td>
+	  <% end %>
+	<% end %>
+      <%end%>
+    </tr>
+  <% end %>
+<%end%>
 </table>
-
-<%if current_user && current_user.is_admin == true%>
-	<%= link_to "Create Item", new_item_path %>
-<% end %>
-<%= link_to "View Categories", categories_path %>

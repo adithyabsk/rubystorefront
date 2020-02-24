@@ -1,6 +1,7 @@
 <h1>Your Wishlist</h1>
 <br>
 <p id='alert'><%= alert %></p>
+<p id='notice'><%=notice%></p>
  
 <table border = "1">
     <tr>
@@ -13,6 +14,9 @@
     <th>Age Restricted?</th>
     <th>Category</th>
     <th>Tax Slab</th>
+    <th>Add to Cart</th>
+    <th>Buy It Now</th>
+    <th>Request Unavailable Item</th>
   </tr>
  
   <% @wishlist_items.each do |item| %>
@@ -33,6 +37,15 @@
       <td><%= item.age_restricted %></td>
       <td><%= Category.find_by_id(item.category_id).name %></td>
       <td><%= Category.find(item.category_id).tax_slab %></td>
+      <%if item.inventory > 0%>
+        <td><%= button_to 'Add to cart', cart_items_path(:item_id => item.id, :wishlist => true)%></td>
+        <td>Buy It Now</td>
+        <td>Item still available</td>
+      <%else%>
+        <td></td>
+        <td></td>
+        <td>Request Item </td>
+      <%end%>
       <td><%= link_to 'Delete', remove_item_from_wishlist_path(item.id), method: :post, data: {confirm: 'Are you sure?' } %> </td>
     </tr>
    <% end %>

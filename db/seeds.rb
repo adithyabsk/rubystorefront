@@ -32,6 +32,11 @@ end
 ["Bannana", "Del Monte", "https://cdn.mos.cms.futurecdn.net/42E9as7NaTaAi4A6JcuFwG-320-80.jpg"]].each do |name, brand, image_url|
   Item.create!(name: name, cost: rand(0.5..10.0), image_url:image_url, brand: brand, inventory: 100, category_id: Category.find_by(name: "Food").id)
 end
+
+#Add item with 0 inventory
+[["Coffee", "Starbucks", "https://globalassets.starbucks.com/assets/1b68ff25144844af8cee77c0de7f2c63.jpg"]].each do |name, brand, image_url|
+  Item.create!(name: name, cost: rand(0.5..10.0), image_url:image_url, brand: brand, inventory: 0, category_id: Category.find_by(name: "Food").id)
+end
 # Commodities
 [["Chair", "Herman Miller", "https://images-na.ssl-images-amazon.com/images/I/71Qa44-4WPL._AC_SX522_.jpg"],
  ["Umbrella", "Swiss Gear", "https://i.pinimg.com/originals/27/44/ea/2744ead4eebca68b62abfa7c14361d5e.jpg"],

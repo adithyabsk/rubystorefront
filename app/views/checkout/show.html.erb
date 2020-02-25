@@ -1,5 +1,5 @@
 <h1>Checkout</h1>
-<h1>Cart</h1>
+<h2>Cart</h2>
 <ul>
   <% @cart.cart_items.each do |cart_item| %>
     <li>Item: <%= cart_item.item.name %>/ Price: <%= number_to_currency(cart_item.item.cost) %>/ Quantity: <%= cart_item.quantity %>/ Total Price: <%= number_to_currency(cart_item.total_cost) %>

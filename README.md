@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Login Info:
 
-Things you may want to cover:
+Admin: carl@gmail.com
+Password: 123456
 
-* Ruby version
+Testing:
 
-* System dependencies
+The model and controller we tested on was Category using Rspec
+run using rspec spec/categories_spec.rb
+note: rake db:seed RAILS_ENV=test must be run first
 
-* Configuration
+Edge Case Scenarios:
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+If an item is disabled from the store, it will be removed from all carts and wishlists. When it is enabled, it will not reappear.
+This will not remove the item from any past purchase history

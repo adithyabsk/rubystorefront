@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   resources :ledger_entries
   resources :carts
-  resources :categories
+  resources :categories, only: [:index, :new, :create, :show, :update, :edit]
   resources :feedbacks
   resources :items do
 	  member do

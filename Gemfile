@@ -59,3 +59,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Allows for fake data generation
 gem "faker", "~> 2.10"
+
+#Allow for Request Testing
+gem "rspec", "~> 3.0"
+gem 'rspec-rails'
+gem 'rails-controller-testing'

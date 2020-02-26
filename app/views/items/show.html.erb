@@ -59,7 +59,7 @@
         <%else%>
           <td></td>
           <td></td>
-          <td>Request Item </td>
+          <td><%= link_to "Subscribe for availability notifications", add_user_to_subscriber_list_path, method: :post%> </td>
         <%end%>
       <%else%>
         <td>Item Disabled</td>

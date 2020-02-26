@@ -40,6 +40,7 @@ Rails.application.routes.draw do
 	  resources :wishlists
   end
   resources :items
+  post 'items/:id/add_user_to_subscriber_list', to: 'items#add_user_to_subscriber_list', as: 'add_user_to_subscriber_list'
   post 'items/:id/add_item_to_wishlist', to: 'items#add_item_to_wishlist', as: 'add_item_to_wishlist'
   post 'wishlists/:id/remove_item_from_wishlist', to: 'wishlists#remove_item_from_wishlist', as: 'remove_item_from_wishlist'
   resources :sessions, only:[:new, :create, :destroy]

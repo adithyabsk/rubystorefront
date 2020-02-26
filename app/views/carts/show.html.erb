@@ -14,5 +14,5 @@
   <% end %>
 </ul>
 <h3>Sub total: <%= number_to_currency(@cart.sub_total) %></h3>
-<%= link_to "Proceed to checkout", new_ledger_entry_path %><br>
+<%= link_to "Proceed to checkout", checkout_show_path %><br>
 <%= link_to "Empty cart", cart_path(@cart),method: :delete, data: {confirm: "Are you sure?"}%>

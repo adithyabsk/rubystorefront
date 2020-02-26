@@ -29,7 +29,6 @@ class UsersController < ApplicationController
     end
 
     if @user.save
-      Wishlist.create(user_id:@user.id)
       redirect_to sessions_new_path
     else
       render 'new'

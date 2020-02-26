@@ -9,9 +9,12 @@
 require 'faker'
 
 [
-    ["Carl Klier", "carl@gmail.com", "123456", true],
-    ["Adithya Balaji", "adithya@gmail.com", "adithya", true],
-    ["Standard User", "standard@user.com", "standard", false]
+    ["Admin", "csc517store@gmail.com", "admin", true],
+    ["Carl Klier", "caklier@ncsu.edu", "carl", false],
+    ["Adithya Balaji", "abalaji2@ncsu.com", "adithya", false],
+    ["Colin Foley", "cmfoley2@ncsu.edu", "colin", false],
+    ["Generic", "generic@email.com", "generic", false],
+    ["Broken", "broken@email.com", "broken", false]
 ].each do |name, email, password, is_admin|
   User.create!(name:name, email:email, password: password, password_confirmation: password, is_admin: is_admin,
               phone_num: "5555555555", dob: "01/01/1998", address_l1: "line 1", address_l2: "line 2", city: "gso",
@@ -55,18 +58,16 @@ end
 end
 
 # Feedback
-["Carl Klier", "Adithya Balaji", "Standard User"].each do |name|
+["Carl Klier", "Adithya Balaji", "Generic"].each do |name|
   user = User.find_by(name: name)
   Feedback.create!(name: user.name, email: user.email, message: Faker::Lorem.paragraph(sentence_count: 30))
 end
 
 # Wishlist
-["Carl Klier", "Adithya Balaji", "Standard User"].each do |name|
+["Carl Klier", "Adithya Balaji", "Generic"].each do |name|
   user = User.find_by(name: name)
-  Wishlist.create(user_id:user.id)
   ["Watch", "Apple", "Chair"].each do |name|
     item = Item.find_by(name: name)
     user.wishlist.items<<item
   end
 end
-

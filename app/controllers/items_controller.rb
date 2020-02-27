@@ -42,6 +42,9 @@ class ItemsController < ApplicationController
 	end
 
 	def new
+		if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+			redirect_to root_url
+		end
 		##if current_user
 		##	OtpMailer.with(user: current_user).otp_email.deliver_now
 		##end
@@ -49,6 +52,9 @@ class ItemsController < ApplicationController
 	end
 
 	def create
+		if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+			redirect_to root_url
+		end
 		#if current_user and current_user.authenticate_otp(params[:items][:otp]) == false
 		#	self.errors[:base] << "OTP is incorrect"
 		#	render 'new'
@@ -63,12 +69,18 @@ class ItemsController < ApplicationController
 	
 	# GET /recipes/1/edit
     def edit
+		if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+			redirect_to items_path(params[:id])
+		end
 		@item = Item.find(params[:id])
     end
 	
 	# PATCH/PUT /recipes/1
     # PATCH/PUT /recipes/1.json
 	def update
+	  if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+			redirect_to items_path(params[:id])
+		end
 	  @user = Item.find(params[:id])
 	  if @item.update(item_params)
 		  redirect_to @item
@@ -79,6 +91,9 @@ class ItemsController < ApplicationController
   end
 
   def disable
+		if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+			redirect_to items_path(params[:id])
+		end
 	  @item = Item.find(params[:id])
 	  #disable item
 	  @item.disabled = true
@@ -99,6 +114,9 @@ class ItemsController < ApplicationController
   end
   
   def enable
+		if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+			redirect_to items_path(params[:id])
+		end
 	  @item = Item.find(params[:id])
 	  #disable item
 	  @item.disabled = false

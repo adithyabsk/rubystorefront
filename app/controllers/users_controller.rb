@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
-	if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+	if session[:user_id] == nil || (User.find(session[:user_id]).is_admin? == false && User.find(params[:id]).id != session[:user_id])
 		redirect_to root_url
 	end
     @user =User.find(params[:id])
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-	if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+	if session[:user_id] == nil || (User.find(session[:user_id]).is_admin? == false && User.find(params[:id]).id != session[:user_id])
 		redirect_to root_url
 	end
 	  @user = User.find(params[:id])
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
   end
 
   def update
-	if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+	if session[:user_id] == nil || (User.find(session[:user_id]).is_admin? == false && User.find(params[:id]).id != session[:user_id])
 		redirect_to root_url
 	end
 	  @user = User.find(params[:id])

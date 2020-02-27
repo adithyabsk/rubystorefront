@@ -9,7 +9,9 @@ Extra Credit:
 
 1) No user/visitor should access any private content associated with other user/admin's account.
 
-Did this through restricting the paths that could be called in the user controller class to only be able to be called by admins who are logged in. No guests or other users are able to call these to create users, edit users, destroy users, view users, or view users by their id. 
+Did this through restricting the paths that could be called in the User controller class to only be able to be called by admins who are logged in. No guests or other users are able to call these to create users, edit users, destroy users, view users besides being able to edit and view themselves. 
+Addionally, no guest is able to access anyone's cart or wishlist via code to protect the controllers.
+Lastly, users cannot access or edit eachther's cart or wishlist.
 
 Testing:
 

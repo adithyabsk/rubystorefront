@@ -41,7 +41,7 @@
 
 <p>
     <%= form.label :dob %><br>
-    <%= form.text_field :dob %>
+    <%= form.date_field :dob, as: :dob, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
   </p>
 <p>
     <%= form.label :address_l1 %><br>

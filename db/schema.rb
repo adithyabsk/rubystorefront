@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_22_220818) do
+ActiveRecord::Schema.define(version: 2020_02_26_055719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,20 @@ ActiveRecord::Schema.define(version: 2020_02_22_220818) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "subscriber_lists", force: :cascade do |t|
+    t.bigint "item_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_subscriber_lists_on_item_id"
+  end
+
+  create_table "subscriber_lists_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "subscriber_list_id", null: false
+    t.index ["subscriber_list_id", "user_id"], name: "index_subscriber_lists_users_on_subscriber_list_id_and_user_id"
+    t.index ["user_id", "subscriber_list_id"], name: "index_subscriber_lists_users_on_user_id_and_subscriber_list_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -100,6 +114,8 @@ ActiveRecord::Schema.define(version: 2020_02_22_220818) do
     t.string "card_num"
     t.string "card_expire"
     t.integer "card_ccv"
+    t.bigint "subscriber_list_id"
+    t.index ["subscriber_list_id"], name: "index_users_on_subscriber_list_id"
   end
 
   create_table "wishlists", force: :cascade do |t|
@@ -110,5 +126,6 @@ ActiveRecord::Schema.define(version: 2020_02_22_220818) do
   end
 
   add_foreign_key "items", "categories"
+  add_foreign_key "users", "subscriber_lists"
   add_foreign_key "wishlists", "users"
 end

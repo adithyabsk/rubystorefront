@@ -1,10 +1,18 @@
 class UserMailer < ApplicationMailer
   default from: 'csc517store@gmail.com'
-  
+
   def subscribe_email
-    @user = current_user
-    mail(to: @user.email, subject: "Item Now Available")
+    @user = params[:user]
+    @item = params[:item]
+    mail(to: @user.email, subject: "#{@item.name} Now Available")
   end
+      
+  
+ # def subscribe_email(user, item)
+   # @user = user
+   # @item = item
+   # mail(to: @user.email, subject: "#{@item.name} Now Available")
+  #end
 
   def otp_email
     @user = params[:user]

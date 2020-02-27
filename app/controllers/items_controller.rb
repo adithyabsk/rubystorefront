@@ -17,28 +17,9 @@ class ItemsController < ApplicationController
           @item = Item.find(params[:id])
 	end
 	
-	
-	def add
-		@item = Item.find(params[:id])
-		session[:cart] << @item.id
-		redirect_to items_path
-	end
-	
 	def purchase
 		@item = Item.find(params[:id])
 		@Total = @item.cost
-		@FoodTax = 0
-		@AlcTax = 0
-		@ComTax = 0
-		##if Category.find(@item.category_id).tax_slab == 'Food - 2%'
-		##	@FoodTax = @item.cost.to_f * 0.02
-		##end
-		##if Category.find(@item.category_id).tax_slab == 'Alcohol - 10%'
-		##	@AlcTax = @item.cost.to_f * 0.1
-		##end
-		##if Category.find(@item.category_id).tax_slab == 'Commodity - 7%'
-		##	@ComTax = @item.cost.to_f * 0.07
-		##end
 	end
 
 	def new
@@ -81,9 +62,16 @@ class ItemsController < ApplicationController
 	  if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
 			redirect_to items_path(params[:id])
 		end
-	  @user = Item.find(params[:id])
+    @item = Item.find(params[:id])
+    orig_inventory = @item.inventory
 	  if @item.update(item_params)
-		  redirect_to @item
+            if orig_inventory <= 0 && @item.inventory > 0 && !@item.disabled
+              @item.subscriber_list.users.each do |user|
+                UserMailer.with(user: user, item: @item).subscribe_email.deliver_now
+              end
+              @item.subscriber_list.users.clear
+            end
+	    redirect_to @item
 	  else
 	    render 'edit'
 	  end
@@ -120,7 +108,14 @@ class ItemsController < ApplicationController
 	  @item = Item.find(params[:id])
 	  #disable item
 	  @item.disabled = false
-      @item.save
+      if @item.save
+        if @item.inventory > 0
+          @item.subscriber_list.users.each do |user|
+            UserMailer.with(user: user, item: @item).subscribe_email.deliver_now
+          end
+          @item.subscriber_list.users.clear
+        end
+      end
 	  
 	  redirect_to items_path
   end
@@ -134,6 +129,13 @@ class ItemsController < ApplicationController
 	  redirect_to item_path(@item.id)
   end
 
+  def add_user_to_subscriber_list
+    @item = Item.find(params[:id])
+    @item.subscriber_list.users << current_user
+    @item.subscriber_list.save
+    flash[:alert] = "You have been added to the item's notifcation list"
+    redirect_to item_path(@item.id)
+  end
 	private
 
 	def item_params

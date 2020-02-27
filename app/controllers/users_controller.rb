@@ -1,22 +1,37 @@
 class UsersController < ApplicationController
 	
   def index
+	if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+		redirect_to root_url
+	end
     @users = User.all
   end
 
   def show
+	if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+		redirect_to root_url
+	end
     @user =User.find(params[:id])
   end
 
   def new
+	if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+		redirect_to root_url
+	end
 	  @user = User.new
   end
 
   def edit
+	if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+		redirect_to root_url
+	end
 	  @user = User.find(params[:id])
   end
 
   def create
+	if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+		redirect_to root_url
+	end
     #if params[:user][:password] == ""
     #	    params[:user][:password] = "badpassword"
     #end
@@ -36,16 +51,21 @@ class UsersController < ApplicationController
   end
 
   def update
+	if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+		redirect_to root_url
+	end
 	  @user = User.find(params[:id])
 	  if @user.update(user_params)
 		  redirect_to @user
 	  else
-	    render 'edit'
+		render 'edit'
 	  end
-
   end
 
   def destroy
+	if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+		redirect_to root_url
+	end
 	  @user = User.find(params[:id])
 	  @user.destroy
 	  redirect_to users_path

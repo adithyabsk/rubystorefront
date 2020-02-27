@@ -8,7 +8,7 @@ Password: 123456
 Testing:
 
 The model and controller we tested on was Category using Rspec
-run using rspec spec/categories_spec.rb
+run using rspec spec/categories_controller_spec.rb or spec/categories_model_spec.rb
 note: rake db:seed RAILS_ENV=test must be run first
 
 Edge Case Scenarios:

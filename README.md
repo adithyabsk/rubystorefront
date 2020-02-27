@@ -5,6 +5,12 @@ Login Info:
 Admin: carl@gmail.com
 Password: 123456
 
+Extra Credit:
+
+1) No user/visitor should access any private content associated with other user/admin's account.
+
+Did this through restricting the paths that could be called in the user controller class to only be able to be called by admins who are logged in. No guests or other users are able to call these to create users, edit users, destroy users, view users, or view users by their id. 
+
 Testing:
 
 The model and controller we tested on was Category using Rspec

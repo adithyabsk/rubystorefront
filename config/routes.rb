@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'ledger_entries/index'
   get 'ledger_entries/show'
   get 'ledger_entries/new'
+  get 'ledger_entries/user_entries'
 
   get 'carts/:id' => "carts#show", as: "cart"
   delete 'carts/:id' => "carts#empty"
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
   delete 'cart_items/:id' => "cart_items#destroy"
 
   get 'checkout/show'
+  post 'checkout/purchase'
 
   get 'sessions/new'
   post 'sessions/create'

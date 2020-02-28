@@ -24,6 +24,7 @@
       <%size=current_user.cart.cart_items.size %>
       <%=size%>  |  
       <%= link_to "Wishlist", user_wishlist_path(current_user.wishlist.id, current_user.id) %>  |  
+      <%= link_to "My Purchases", ledger_entries_user_entries_path(:user_id => current_user.id) %>  |  
     <% end %>
     
     <%= link_to "Give Feedback", feedbacks_new_path %>  |  
@@ -32,6 +33,7 @@
       <%= link_to "View Feedback", feedbacks_index_path %>  |  
       <%= link_to "Create Item", new_item_path %>  |  
       <%= link_to "Modify Categories", categories_path %>  |  
+      <%= link_to "Manage Purchases/Requests", ledger_entries_index_path %>
     <%end%>
     <%= yield %>
   </body>

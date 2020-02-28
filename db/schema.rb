@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_26_055719) do
+ActiveRecord::Schema.define(version: 2020_02_28_023007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,13 +18,11 @@ ActiveRecord::Schema.define(version: 2020_02_26_055719) do
   create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id"
     t.bigint "item_id"
-    t.bigint "ledger_entry_id"
     t.integer "quantity", default: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
     t.index ["item_id"], name: "index_cart_items_on_item_id"
-    t.index ["ledger_entry_id"], name: "index_cart_items_on_ledger_entry_id"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -73,12 +71,15 @@ ActiveRecord::Schema.define(version: 2020_02_26_055719) do
   end
 
   create_table "ledger_entries", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.text "address"
-    t.string "kind"
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "total_cost"
+    t.integer "quantity"
+    t.bigint "user_id"
+    t.bigint "item_id"
+    t.index ["item_id"], name: "index_ledger_entries_on_item_id"
+    t.index ["user_id"], name: "index_ledger_entries_on_user_id"
   end
 
   create_table "subscriber_lists", force: :cascade do |t|
@@ -126,6 +127,8 @@ ActiveRecord::Schema.define(version: 2020_02_26_055719) do
   end
 
   add_foreign_key "items", "categories"
+  add_foreign_key "ledger_entries", "items"
+  add_foreign_key "ledger_entries", "users"
   add_foreign_key "users", "subscriber_lists"
   add_foreign_key "wishlists", "users"
 end

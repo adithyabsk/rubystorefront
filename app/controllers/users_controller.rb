@@ -17,16 +17,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    #if params[:user][:password] == ""
-    #	    params[:user][:password] = "badpassword"
-    #end
     if params[:password].blank?
 	    params.delete(:password)
     end
     @user = User.new(user_params)
-    if not @user.cart.present?
-      @user.cart = Cart.create
-    end
 
     if @user.save
       redirect_to sessions_new_path

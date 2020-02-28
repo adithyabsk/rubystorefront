@@ -1,2 +1,32 @@
-<h1>LedgerEntries#show</h1>
-<p>Find me in app/views/ledger_entries/show.html.erb</p>
+<h1>My Purchases</h1>
+
+<table border = "1">
+  <tr>
+    <th>User Name</th>
+    <th>Image</th>
+    <th>Name</th>
+    <th>Brand</th>
+    <th>Quantity Bought</th>
+    <th>Total Cost</th>
+    <th>Status</th>
+  </tr>
+
+  <% @ledger_entries.each do |entry| %>
+    <tr>
+    <td><%=entry.item.name %></td>
+    <td height="100">
+        <%if entry.item.image_url.present?%>
+          <%= image_tag entry.item.image_url, :style => "max-height:100px;max-width:100px;height:auto" %>
+        <% else %>
+          <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
+        <% end %>
+    </td>
+        <td><%= entry.item.name%></td>
+        <td><%= entry.item.brand %></td>
+        <td><%= entry.quantity %></td>
+        <td><%= number_to_currency(entry.total_cost) %></td>
+        <td><%= entry.status%>
+    </tr>
+  <%end%>
+</table>
+<%= link_to 'Back to Items', root_path %>

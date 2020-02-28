@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   get 'checkout/show'
   post 'checkout/purchase'
+  post 'checkout/send_otp'
 
   get 'sessions/new'
   post 'sessions/create'

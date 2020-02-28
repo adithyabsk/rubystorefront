@@ -38,5 +38,5 @@
   </tr>
 </table>
 
-<%= link_to "Proceed to checkout", new_ledger_entry_path %><br>
+<%= button_to "Purchase", checkout_purchase_path %><br>
 <%= link_to "Empty cart", cart_path(@cart),method: :delete, data: {confirm: "Are you sure?"}%>

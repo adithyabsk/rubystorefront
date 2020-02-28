@@ -1,5 +1,8 @@
 class Item < ApplicationRecord
 	has_and_belongs_to_many :wishlists
+        has_many :ledger_entries
+        has_many :users, :through => :ledger_entries
+
         has_one :subscriber_list
         has_many :users, :through => :subscriber_list
 	validates :name, presence: true

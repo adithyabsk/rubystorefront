@@ -1,4 +1,4 @@
-<h1>Purchases</h1>
+<h1>My Purchases</h1>
 
 <table border = "1">
   <tr>
@@ -10,7 +10,7 @@
     <th>Total Cost</th>
     <th>Status</th>
   </tr>
-
+<% if @ledger_entries %>
   <% @ledger_entries.each do |entry| %>
     <tr>
     <td><%=entry.user.name %></td>
@@ -28,5 +28,6 @@
         <td><%= entry.status%>
     </tr>
   <%end%>
+<%end%>
 </table>
 <%= link_to 'Back to Items', root_path %>

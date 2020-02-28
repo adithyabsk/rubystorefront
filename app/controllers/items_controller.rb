@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
 	def index
-	
+	#All of the sorting and filters makes this complecated
 	if current_user && current_user.is_admin == true
 		@items = Item.order(params[:sort]).select { |i| (params[:category] == nil || Category.find_by_id(i.category_id).name == params[:category].gsub("+", " ") || params[:category] == "All") &&
 		(params[:brand] == nil || i.brand == params[:brand].gsub("+", " ") || params[:brand] == "All") && 

@@ -8,8 +8,7 @@ class LedgerEntriesController < ApplicationController
   end
 
   def user_entries
-    @ledger_entries = LedgerEntry.where(user_id: params[:user_id])
-    render "show"
+    @ledger_entries = LedgerEntry.where(user_id: params[:id])
   end
 
   def new

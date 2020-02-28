@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   root 'items#index'
 
-  get 'ledger_entries/index'
+  match 'ledger_entries/index', via: [:get, :post]
   get 'ledger_entries/show'
   get 'ledger_entries/new'
-  get 'ledger_entries/user_entries/:id' => "ledger_entries#user_entries", as: "ledger_entries_user"
+  match 'ledger_entries/user_entries/:id' => "ledger_entries#user_entries", as: "ledger_entries_user", via: [:get, :post]
 
   get 'carts/:id' => "carts#show", as: "cart"
   delete 'carts/:id' => "carts#empty"

@@ -2,10 +2,16 @@
 <h2>Cart</h2>
 <ul>
   <% @cart.cart_items.each do |cart_item| %>
-    <li>Item: <%= cart_item.item.name %>/ Price: <%= number_to_currency(cart_item.item.cost) %>/ Quantity: <%= cart_item.quantity %>/ Total Price: <%= number_to_currency(cart_item.total_cost) %>
+    <li>Item: <%= cart_item.item.name %>/ Price: <%= number_to_currency(cart_item.item.cost) %>/ Quantity: <%= cart_item.quantity %>/Tax: <%= number_to_percentage(Category.find(cart_item.item.category_id).tax_slab)%>=><%= number_to_currency(cart_item.tax)%>/ Total Price: <%= number_to_currency(cart_item.total_cost) %>
   <% end %>
 </ul>
 <h3>Sub total: <%= number_to_currency(@cart.sub_total) %></h3>
+<h3>Tax: <%= number_to_currency(@cart.tax) %></h3>
+<% if ((Time.zone.now - current_user.dob.to_time) / 1.year.seconds).floor > 65%>
+<h3>10% Senior Discount</h3>
+<h3>Saving <%= number_to_currency(cart_item.total_cost/9) %></h3>
+<% end %>
+<h3>Total: <%= number_to_currency(@cart.total_cost) %></h3>
 <h3>Credit Card and Shipping Info</h3>
 <table>
   <tr>

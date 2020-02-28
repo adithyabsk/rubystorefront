@@ -13,7 +13,7 @@
 <% if @ledger_entries %>
   <% @ledger_entries.each do |entry| %>
     <tr>
-    <td><%=entry.item.name %></td>
+    <td><%=entry.user.name %></td>
     <td height="100">
         <%if entry.item.image_url.present?%>
           <%= image_tag entry.item.image_url, :style => "max-height:100px;max-width:100px;height:auto" %>

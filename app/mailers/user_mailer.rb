@@ -20,6 +20,7 @@ class UserMailer < ApplicationMailer
   end
 
   def purchase_email
+    @cart_items = params[:cart_items]
     @user = params[:user]
     # make purchased items available as an instance variable
     mail(to: @user.email, subject: "Your Recent Purchase")

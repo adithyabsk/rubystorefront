@@ -39,9 +39,6 @@ class UsersController < ApplicationController
 	    params.delete(:password)
     end
     @user = User.new(user_params)
-    if not @user.cart.present?
-      @user.cart = Cart.create
-    end
 
     if @user.save
       redirect_to sessions_new_path

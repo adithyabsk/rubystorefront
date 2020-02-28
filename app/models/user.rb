@@ -2,7 +2,9 @@ class User < ApplicationRecord
 	has_one :wishlist, dependent: :destroy
 	has_one :cart, dependent: :destroy
         has_and_belongs_to_many :subscriber_lists
-
+        has_many :ledger_entries
+        has_many :items, :through => :ledger_entries
+        
 	has_secure_password
 	has_one_time_password
 	validates :name, presence: true

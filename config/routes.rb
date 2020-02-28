@@ -27,7 +27,6 @@ Rails.application.routes.draw do
   get 'feedbacks/index'
   get 'feedbacks/new'
 
-  resources :ledger_entries
   resources :carts
   resources :categories, only: [:index, :new, :create, :show, :update, :edit]
   resources :feedbacks

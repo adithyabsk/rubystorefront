@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-	if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+	if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false || User.find(params[:id]).is_admin? == true
 		redirect_to root_url
 	end
 	  @user = User.find(params[:id])

@@ -15,9 +15,6 @@ class UsersController < ApplicationController
   end
 
   def new
-	if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
-		redirect_to root_url
-	end
 	  @user = User.new
   end
 
@@ -29,9 +26,6 @@ class UsersController < ApplicationController
   end
 
   def create
-	if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
-		redirect_to root_url
-	end
     #if params[:user][:password] == ""
     #	    params[:user][:password] = "badpassword"
     #end

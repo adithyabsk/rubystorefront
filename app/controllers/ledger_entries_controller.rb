@@ -1,6 +1,6 @@
 class LedgerEntriesController < ApplicationController
   def index
-	if session[:user_id] == nil || User.find(params[:id]).id != session[:user_id]
+	if session[:user_id] == nil
 		redirect_to root_path
 	end
     @ledger_entries = LedgerEntry.all

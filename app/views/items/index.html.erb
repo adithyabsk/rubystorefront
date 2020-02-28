@@ -47,7 +47,7 @@ Availability -
       <td>$<%= item.cost %></td>
       <% if current_user %>
 	<%if item.inventory > 0%>
-	  <td>Buy It Now</td>
+	  <td><%= link_to "Buy it now", cart_items_path(:item_id => item.id, :buynow =>true), method: :post%></td>
 	<%else%>
 	  <td></td>
 	<%end%>

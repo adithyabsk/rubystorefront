@@ -54,7 +54,7 @@
         <%if @item.inventory > 0%>
     
 	  <td><%= button_to 'Add to cart', cart_items_path(:item_id => @item.id)%></td>
-          <td>Buy It Now</td>
+          <td><%= button_to "Buy it now", cart_items_path(:item_id => @item.id, :buynow =>true), method: :post%></td>
           <td>Item still available</td>
         <%else%>
           <td></td>

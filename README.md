@@ -21,5 +21,23 @@ note: rake db:seed RAILS_ENV=test must be run first
 
 Edge Case Scenarios:
 
-If an item is disabled from the store, it will be removed from all carts and wishlists. When it is enabled, it will not reappear.
-This will not remove the item from any past purchase history
+If an item is disabled from the store, it will be removed from all carts and wishlists. When it is enabled, it will not reappear.This will not remove the item from any past purchase history
+
+We decided that categories could not be deleted. Instead, any categories without items will not show as options to the user
+
+Example Screenshots:
+(this is not exhaustive, please use the app to test all features :P)
+![AppSS](https://i.imgur.com/X1390qW.png)
+![AppSS](https://i.imgur.com/pwNG1ID.png)
+![AppSS](https://i.imgur.com/1K7LX8v.png)
+![AppSS](https://i.imgur.com/6eplx6m.png)
+![AppSS](https://i.imgur.com/UuZoQkl.png)
+![AppSS](https://i.imgur.com/ayh090y.png)
+![AppSS](https://i.imgur.com/7izLnjd.png)
+![AppSS](https://i.imgur.com/Vu9wQH9.png)
+![AppSS](https://i.imgur.com/CNGvYWs.png)
+![AppSS](https://i.imgur.com/8xs0KCB.png)
+![AppSS](https://i.imgur.com/oQBRHIR.png)
+![AppSS](https://i.imgur.com/LNdp434.png)
+![AppSS](https://i.imgur.com/V1Tz4BN.png)
+![AppSS](https://i.imgur.com/1iIwxDx.png)

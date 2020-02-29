@@ -18,8 +18,9 @@ class User < ApplicationRecord
 	validates :state, presence: true
 	validates :zip, presence: true
 	validates :card_name, presence: true
-	validates :card_expire, presence: true
-	validates :card_ccv, presence: true
+	validates :card_num, presence: true, length: { is: 16 }
+	validates :card_expire, presence: true, format: { with: /\A([0][0-9]|[1][0-2])[\/][0-2][0-9]\z/, message: "must be format MM/YY" }
+	validates :card_ccv, presence: true, length: { is: 3 }
 
 	before_create :setup_user_defaults
 

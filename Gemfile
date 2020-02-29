@@ -64,3 +64,5 @@ gem "faker", "~> 2.10"
 gem "rspec", "~> 3.0"
 gem 'rspec-rails'
 gem 'rails-controller-testing'
+
+gem "aasm", "~> 5.0"

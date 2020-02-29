@@ -1,14 +1,16 @@
 <h1>My Purchases</h1>
 
+
+
 <table border = "1">
   <tr>
-    <th>User Name</th>
-    <th>Image</th>
+    <th><%= link_to "User Name", :sort => "user_id" %></th>
+    <th><%= link_to "Image", :sort => "item_id" %></th>
     <th>Name</th>
     <th>Brand</th>
     <th>Quantity Bought</th>
     <th>Total Cost</th>
-    <th>Status</th>
+    <th><%= link_to "Status", :sort => "status" %></th>
   </tr>
 
   <% @ledger_entries.each do |entry| %>

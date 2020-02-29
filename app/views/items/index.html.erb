@@ -44,7 +44,7 @@ Availability -
       </td>
       <td><%= link_to item.name, item_path(item.id) %></td>
       <td><%= item.brand %></td>
-      <td>$<%= item.cost %></td>
+      <td><%= number_to_currency(item.cost) %></td>
       <% if current_user %>
 	<%if item.inventory > 0 && (!item.age_restricted || ((Time.zone.now - current_user.dob.to_time) / 1.year.seconds).floor > 18) %>
 	  <td><%= link_to "Buy it now", cart_items_path(:item_id => item.id, :buynow =>true), method: :post%></td>

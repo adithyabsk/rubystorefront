@@ -2,8 +2,8 @@
 
 Login Info:
 
-Admin: carl@gmail.com
-Password: 123456
+Admin: csc517store@gmail.com
+Password: admin
 
 Extra Credit:
 

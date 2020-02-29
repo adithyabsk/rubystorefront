@@ -2,13 +2,13 @@
 
 <table border="1">
   <tr>
-    <th><%= link_to "User Name", :sort => "user_id" %></th>
-    <th><%= link_to "Image", :sort => "item_id" %></th>
-    <th>Name</th>
+    <th><%= link_to "User Name", :sort => "user_id", :show_all => params[:show_all] %></th>
+	<th>Image</th>
+    <th><%= link_to "Name", :sort => "name", :show_all => params[:show_all] %></th>
     <th>Brand</th>
     <th>Quantity Bought</th>
     <th>Total Cost</th>
-    <th><%= link_to "Status", :sort => "status" %></th>
+    <th><%= link_to "Status", :sort => "status", :show_all => params[:show_all] %></th>
     <th>Action</th>
   </tr>
   <% if @ledger_entries %>

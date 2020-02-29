@@ -19,7 +19,7 @@ class CheckoutController < ApplicationController
 		if ((Time.zone.now - current_user.dob.to_time) / 1.year.seconds).floor > 65
 			@total = cart_item.total_cost*0.9
 		else
-			@total = cart_item.total_cost*0.9
+			@total = cart_item.total_cost
 		end
         is_admin = current_user.is_admin
         status =  (cart_item.item.restricted) ?  "approval_requested" : "purchased"

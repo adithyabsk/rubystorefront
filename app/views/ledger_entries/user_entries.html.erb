@@ -28,7 +28,7 @@
         <td><%= number_to_currency(entry.total_cost) %></td>
         <td><%= entry.status_data.name %></td>
         <td><%= button_to entry.status_data.action_string(@is_admin),
-                          ledger_entries_user_path(),
+                          ledger_entries_index_path,
                           disabled: entry.status_data.should_disable?(@is_admin),
                           params: { next_state_entry_id: entry.id } %></td>
       </tr>

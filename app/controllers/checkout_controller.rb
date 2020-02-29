@@ -18,6 +18,6 @@ class CheckoutController < ApplicationController
         item_id: cart_item.item.id)
     end
     current_user.cart.cart_items.clear
-    redirect_to ledger_entries_user_path(current_user.id)
+    redirect_to ledger_entries_index_path(current_user.id)
   end
 end

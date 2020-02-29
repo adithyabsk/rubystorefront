@@ -16,8 +16,11 @@ class CheckoutController < ApplicationController
       redirect_to checkout_show_path
     else
       current_user.cart.cart_items.each do |cart_item|
-        @total = cart_item.item.cost* (1+Category.find(cart_item.item.category_id).tax_slab) * cart_item.quantity
-        # add in any discount for over 65 age customers
+		if ((Time.zone.now - current_user.dob.to_time) / 1.year.seconds).floor > 65
+			@total = cart_item.total_cost*0.9
+		else
+			@total = cart_item.total_cost*0.9
+		end
         is_admin = current_user.is_admin
         status =  (cart_item.item.restricted) ?  "approval_requested" : "purchased"
         LedgerEntry.create!(status: status,

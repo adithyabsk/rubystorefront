@@ -6,7 +6,11 @@
 
 <%= form_tag items_path, method: :get do %>
   Filters: Category - 
+  <% if current_user && current_user.is_admin == true%>
   <%= select_tag :category, options_for_select(Item.all.collect{|i| Category.find_by_id(i.category_id).name}.uniq.unshift("All"), params[:category]), onchange: "this.form.submit();"%>
+  <% else %>
+  <%= select_tag :category, options_for_select(Item.all.select { |i| i.disabled == false}.collect{|i| Category.find_by_id(i.category_id).name}.uniq.unshift("All"), params[:category]), onchange: "this.form.submit();"%>
+  <% end %>
   Brand - 
   <%= select_tag :brand, options_for_select(Item.all.collect{|i| i.brand}.uniq.unshift("All"), params[:brand]), onchange: "this.form.submit();"%>
 Availability - 

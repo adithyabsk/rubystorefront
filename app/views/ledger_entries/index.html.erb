@@ -1,44 +1,39 @@
 <h1>Purchases</h1>
-
 <table border="1">
   <tr>
     <th><%= link_to "User Name", :sort => "user_id", :show_all => params[:show_all] %></th>
-	<th>Image</th>
+    <th>Image</th>
     <th><%= link_to "Name", :sort => "name", :show_all => params[:show_all] %></th>
     <th>Brand</th>
     <th>Quantity Bought</th>
     <th>Total Cost</th>
     <th><%= link_to "Status", :sort => "status", :show_all => params[:show_all] %></th>
-    <th>Action</th>
+    <th>Action Selector</th>
+    <th>Apply Action</th>
   </tr>
   <% if @ledger_entries %>
     <% @ledger_entries.each do |entry| %>
-      <tr>
-        <td><%= entry.user.name %></td>
-        <td height="100">
-          <% if entry.item.image_url.present? %>
-            <%= image_tag entry.item.image_url, :style => "max-height:100px;max-width:100px;height:auto" %>
-          <% else %>
-            <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
-          <% end %>
-        </td>
-        <td><%= entry.item.name %></td>
-        <td><%= entry.item.brand %></td>
-        <td><%= entry.quantity %></td>
-        <td><%= number_to_currency(entry.total_cost) %></td>
-        <td><%= entry.status_data.name %></td>
-        <% if params[:show_all]%>
-          <td><%= button_to entry.status_data.action_string(@is_admin),
-                          ledger_entries_index_path(:show_all=>true),
-                          disabled: entry.status_data.should_disable?(@is_admin),
-                          params: { next_state_entry_id: entry.id } %></td>
-        <% else %>
-          <td><%= button_to entry.status_data.action_string(@is_admin),
-                          ledger_entries_index_path(current_user.id),
-                          disabled: entry.status_data.should_disable?(@is_admin),
-                          params: { next_state_entry_id: entry.id } %></td>
-        <%end%>
-      </tr>
+      <%= form_with url: ledger_entries_index_path do |form| %>
+        <tr>
+          <td><%= entry.user.name %></td>
+          <td height="100">
+            <% if entry.item.image_url.present? %>
+              <%= image_tag entry.item.image_url, :style => "max-height:100px;max-width:100px;height:auto" %>
+            <% else %>
+              <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
+            <% end %>
+          </td>
+          <td><%= entry.item.name %></td>
+          <td><%= entry.item.brand %></td>
+          <td><%= entry.quantity %></td>
+          <td><%= number_to_currency(entry.total_cost) %></td>
+          <td><%= entry.status.split("_").join(" ").titleize %></td>
+          <% options = entry.aasm.events({permitted: true}, current_user).map(&:name) %>
+          <%= form.hidden_field :entry_id, value: entry.id %>
+          <td><%= form.select :action_option, options, {prompt: true}, disabled: !options.any? %></td>
+          <td><%= form.submit "Apply", disabled: !options.any? %></td>
+        </tr>
+      <% end %>
     <% end %>
   <% end %>
 </table>

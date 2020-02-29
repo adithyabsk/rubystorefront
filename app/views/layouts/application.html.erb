@@ -33,7 +33,7 @@
       <%= link_to "View Feedback", feedbacks_index_path %>  |  
       <%= link_to "Create Item", new_item_path %>  |  
       <%= link_to "Modify Categories", categories_path %>  |  
-      <%= link_to "Manage Purchases/Requests", ledger_entries_index_path(:show_all => true)%>
+      <%= link_to "Manage Purchases/Requests", ledger_entries_index_path(:show_all => true), :method => :post%>
     <%end%>
     <%= yield %>
   </body>

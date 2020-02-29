@@ -11,7 +11,7 @@ require 'faker'
 [
     ["Admin", "csc517store@gmail.com", "admin", true],
     ["Carl Klier", "caklier@ncsu.edu", "carl", false],
-    ["Adithya Balaji", "abalaji2@ncsu.com", "adithya", false],
+    ["Adithya Balaji", "abalaji2@ncsu.edu", "adithya", false],
     ["Colin Foley", "cmfoley2@ncsu.edu", "colin", false],
     ["Generic", "generic@email.com", "generic", false],
     ["Broken", "broken@email.com", "broken", false]

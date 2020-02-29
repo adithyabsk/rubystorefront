@@ -1,23 +1,18 @@
 class LedgerEntriesController < ApplicationController
   def index
-	if session[:user_id] == nil
-		redirect_to root_path
-	end
-    @ledger_entries = LedgerEntry.order(params[:sort])
-  end
-
-  def show
-	if session[:user_id] == nil || User.find(params[:id]).id != session[:user_id]
-		ledger_entries_user_path(session[:user_id])
-	end
-    @ledger_entries = LedgerEntry.where(user_id: params[:id]).order(params[:sort])
-  end
-
-  def user_entries
-	if session[:user_id] == nil || User.find(params[:id]).id != session[:user_id]
-		redirect_to ledger_entries_user_path(session[:user_id])
-	end
-    @ledger_entries = LedgerEntry.where(user_id: params[:id]).order(params[:sort])
+	  if session[:user_id] == nil
+		  redirect_to root_path
+    end
+    if params.has_key?(:next_state_entry_id)
+      le = LedgerEntry.find(params[:next_state_entry_id]).set_next_state!
+    end
+    @ledger_entries =
+      if params.has_key?(:show_all)
+        LedgerEntry.all
+      else
+        LedgerEntry.where(user_id: params[:id])
+      end
+    @is_admin = current_user.is_admin
   end
 
   def new

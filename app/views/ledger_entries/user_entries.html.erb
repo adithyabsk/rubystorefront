@@ -1,6 +1,6 @@
 <h1>My Purchases</h1>
 
-<table border = "1">
+<table border="1">
   <tr>
     <th><%= link_to "User Name", :sort => "user_id" %></th>
     <th><%= link_to "Image", :sort => "item_id" %></th>
@@ -9,25 +9,30 @@
     <th>Quantity Bought</th>
     <th>Total Cost</th>
     <th><%= link_to "Status", :sort => "status" %></th>
+    <th>Action</th>
   </tr>
-<% if @ledger_entries %>
-  <% @ledger_entries.each do |entry| %>
-    <tr>
-    <td><%=entry.user.name %></td>
-    <td height="100">
-        <%if entry.item.image_url.present?%>
-          <%= image_tag entry.item.image_url, :style => "max-height:100px;max-width:100px;height:auto" %>
-        <% else %>
-          <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
-        <% end %>
-    </td>
-        <td><%= entry.item.name%></td>
+  <% if @ledger_entries %>
+    <% @ledger_entries.each do |entry| %>
+      <tr>
+        <td><%= entry.user.name %></td>
+        <td height="100">
+          <% if entry.item.image_url.present? %>
+            <%= image_tag entry.item.image_url, :style => "max-height:100px;max-width:100px;height:auto" %>
+          <% else %>
+            <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
+          <% end %>
+        </td>
+        <td><%= entry.item.name %></td>
         <td><%= entry.item.brand %></td>
         <td><%= entry.quantity %></td>
         <td><%= number_to_currency(entry.total_cost) %></td>
-        <td><%= entry.status%>
-    </tr>
-  <%end%>
-<%end%>
+        <td><%= entry.status_data.name %></td>
+        <td><%= button_to entry.status_data.action_string(@is_admin),
+                          ledger_entries_index_path,
+                          disabled: entry.status_data.should_disable?(@is_admin),
+                          params: { next_state_entry_id: entry.id } %></td>
+      </tr>
+    <% end %>
+  <% end %>
 </table>
 <%= link_to 'Back to Items', root_path %>

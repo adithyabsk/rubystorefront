@@ -31,8 +31,8 @@ Availability -
   <% @items.each do |item| %>
     <% if item.disabled == true %>
       <tr bgcolor="#7D7D7D">
-    <% else %>
-      <tr>
+    <% elsif current_user && item.age_restricted && ((Time.zone.now - current_user.dob.to_time) / 1.year.seconds).floor < 18 %>
+      <tr bgcolor="#7D7D7D">
     <% end %>
     <td height="100">
       <%= link_to item_path(item.id) do %>
@@ -46,8 +46,8 @@ Availability -
       <td><%= item.brand %></td>
       <td>$<%= item.cost %></td>
       <% if current_user %>
-	<%if item.inventory > 0%>
-	  <td>Buy It Now</td>
+	<%if item.inventory > 0 && (!item.age_restricted || ((Time.zone.now - current_user.dob.to_time) / 1.year.seconds).floor > 18) %>
+	  <td><%= link_to "Buy it now", cart_items_path(:item_id => item.id, :buynow =>true), method: :post%></td>
 	<%else%>
 	  <td></td>
 	<%end%>

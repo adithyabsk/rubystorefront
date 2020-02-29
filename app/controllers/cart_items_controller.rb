@@ -13,10 +13,14 @@ class CartItemsController < ApplicationController
     end
     # Save cart item and redirect back to cart_path
     if @cart_item.save
-      if params[:wishlist]
-        redirect_to user_wishlist_path(current_user.id, current_user.wishlist.id), notice: "Item was successfully added to cart."
-      else 
-        redirect_to item_path(selected_item.id), notice: 'Item was successfully added to cart.'
+      if params[:buynow]
+        redirect_to checkout_show_path
+      else
+        if params[:wishlist]
+          redirect_to user_wishlist_path(current_user.id, current_user.wishlist.id), notice: "Item was successfully added to cart."
+        else 
+          redirect_to item_path(selected_item.id), notice: 'Item was successfully added to cart.'
+        end
       end
     else
       if params[:wishlist]

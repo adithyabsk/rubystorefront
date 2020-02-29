@@ -45,7 +45,7 @@
     <td><%= @item.inventory %>
       <%if @item.inventory < 1%> - Currently Unavailable<% end %>
     </td>
-    <td>$<%= @item.cost %></td>
+    <td><%= number_to_currency(@item.cost) %></td>
     <td><%= @item.restricted %></td>
     <td><%= @item.age_restricted %></td>
     <td><%= Category.find_by_id(@item.category_id).name %></td>

@@ -6,8 +6,6 @@ class LedgerEntriesController < ApplicationController
     if params.has_key?(:next_state_entry_id)
       le = LedgerEntry.find(params[:next_state_entry_id]).set_next_state!
     end
-    puts "THIS IS A TEST"
-    puts params
     @ledger_entries =
       if params.has_key?(:show_all)
         LedgerEntry.all

@@ -23,7 +23,11 @@ Edge Case Scenarios:
 
 If an item is disabled from the store, it will be removed from all carts and wishlists. When it is enabled, it will not reappear.This will not remove the item from any past purchase history
 
-We decided that categories could not be deleted. Instead, any categories without items will not show as options to the user
+We decided that categories could not be deleted. Instead, any categories without items will not show as options to the user.
+
+Users will be garenteed that items price will not change between adding to cart and purchasing. Having an admin change a price will not effect the price when purchasing. Addionally, items that are in the cart cannot be restricted or age restricted once already in the cart.
+
+When a user is deleted, their feedback is still kept in the system.
 
 Example Screenshots:
 (this is not exhaustive, please use the app to test all features :P)

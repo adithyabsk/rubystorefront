@@ -9,7 +9,7 @@ class CheckoutController < ApplicationController
       @total = cart_item.item.cost* (1+Category.find(cart_item.item.category_id).tax_slab) * cart_item.quantity
       # add in any discount for over 65 age customers
       is_admin = current_user.is_admin
-      status =  (cart_item.item.restricted and not is_admin) ?  "approval_requested" : "purchased"
+      status =  (cart_item.item.restricted) ?  "approval_requested" : "purchased"
       LedgerEntry.create!(
         status: status,
         quantity: cart_item.quantity,

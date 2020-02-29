@@ -27,10 +27,17 @@
         <td><%= entry.quantity %></td>
         <td><%= number_to_currency(entry.total_cost) %></td>
         <td><%= entry.status_data.name %></td>
-        <td><%= button_to entry.status_data.action_string(@is_admin),
+        <% if params[:show_all]%>
+          <td><%= button_to entry.status_data.action_string(@is_admin),
+                          ledger_entries_index_path(:show_all=>true),
+                          disabled: entry.status_data.should_disable?(@is_admin),
+                          params: { next_state_entry_id: entry.id } %></td>
+        <% else %>
+          <td><%= button_to entry.status_data.action_string(@is_admin),
                           ledger_entries_index_path(current_user.id),
                           disabled: entry.status_data.should_disable?(@is_admin),
                           params: { next_state_entry_id: entry.id } %></td>
+        <%end%>
       </tr>
     <% end %>
   <% end %>

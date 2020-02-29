@@ -1,3 +1,5 @@
+<p id='alert'><%= alert%></p>
+<p id='notice'><%= notice%></p>
 <h1>Checkout</h1>
 <h2>Cart</h2>
 <ul>
@@ -38,5 +40,16 @@
   </tr>
 </table>
 
-<%= button_to "Purchase", checkout_purchase_path %><br>
+<%= button_to "Send Another OTP Code", checkout_send_otp_path%>
+
+<%= form_with url: checkout_purchase_path, method: :post, local: true do |form| %>
+  <p>
+    <%= form.label "OTP Code Sent To Email" %>
+    <%= form.text_field :otp %>
+  </p>
+
+  <%= form.submit "Purchase" %>
+<%end%>
+
+<!-- <%= button_to "Purchase", checkout_purchase_path %><br> -->
 <%= link_to "Empty cart", cart_path(@cart),method: :delete, data: {confirm: "Are you sure?"}%>

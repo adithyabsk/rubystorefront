@@ -28,6 +28,8 @@
  
   <% if @item.disabled == true %>
     <tr bgcolor="#7D7D7D">
+	<% elsif current_user && @item.age_restricted && ((Time.zone.now - current_user.dob.to_time) / 1.year.seconds).floor < 18%>
+      <tr bgcolor="#7D7D7D">
   <% else %>
     <tr>
   <% end %>
@@ -48,13 +50,13 @@
     <td><%= @item.age_restricted %></td>
     <td><%= Category.find_by_id(@item.category_id).name %></td>
     <td><%= Category.find(@item.category_id).tax_slab %></td>
-    <% if current_user %>
+    <% if current_user && (!@item.age_restricted || ((Time.zone.now - current_user.dob.to_time) / 1.year.seconds).floor > 18) %>
       <% if !@item.disabled %>
         <td><%= button_to "Add Item to Wishlist", add_item_to_wishlist_path(@item.id, current_user.id), method: :post%></td>
         <%if @item.inventory > 0%>
     
 	  <td><%= button_to 'Add to cart', cart_items_path(:item_id => @item.id)%></td>
-          <td>Buy It Now</td>
+          <td><%= button_to "Buy it now", cart_items_path(:item_id => @item.id, :buynow =>true), method: :post%></td>
           <td>Item still available</td>
         <%else%>
           <td></td>

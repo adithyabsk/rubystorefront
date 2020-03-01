@@ -67,15 +67,24 @@
   * Check that your user email receives an email
 - [x] Does the application impose age-specific-functionality? (Disallow under 18s to buy age-restricted items, apply discounts for 65+)
   * To test this use the above age specific accounts (for ease)
-  * Test young user first, age restricted items are greyed out
-  * Login as old user, add any item to cart and go to cart page, see 10% off displayed and total cost reduced
+  * Test young user first, login with young user credentials, click on items, see age restricted items are greyed out and add to cart and buy now features are disabled.
+  * Login as old user, add any item to cart and go to cart page, see 10% off displayed and total cost reduced.
 - [x]   Is the user able to see a “buy now” button for an item and does it redirect to the payment page?
-  * Login as a user or admin and go to the items page. Click buy now which brings you directly to the checkout page with the item.
+  * Login as a user or admin and go to the items page by clicking Items in the navigaiton header. Click buy now which brings you directly to the checkout page with the item to pruchase.
 - [x] Is the user able to clear the cart?
-  * Click on cart, click on empty cart
+  * Add any item to cart, Click on cart, click on empty cart, see item get removed from cart.
 - [x] Does “check out cart” take you to the payment page for all the items in the cart?
-  * click on cart, click on proceed to checkout, see payment page with all the items from your cart
-- [x] 
+  * Add two items to cart, click on cart, click on proceed to checkout, see payment page with all the items from your cart
+- [x] Are emails being sent on completion of a purchase?
+  * Logout, Click signup, register with an email address you have access to, Add item to cart, click on proceed to checkout, check your email and enter otp, click on purchase, check email for an email with the subject "Your Recent Purchase"
+- [x] Is the user able to request a return for a purchased item?
+  * Purchase an item as one of the registered users, Click on My Purchases, under action selector select request_return, under apply action click apply, see status change from Ordered to Return Requested.
+- [x] Is the user able to view his purchase history?
+  * purchase an item as one of the users, click on My Purchases in the navigation header, see history of purchases. 
+- [x] Is the user receiving emails on the approval of a return request?
+  * Login with a email that you have access to, purchase an item, go to My Purchases, select return_request and click apply. Then, login with admin and click on Manage Purchases/Requests, Find your user and select the action to approve return. hit apply. Then check your email address for an email with the subject "Return Request approved"
+- [x] Does the item status change in purchase history on approval of a return item by admin?
+  * Login with a email that you have access to, purchase an item, go to My Purchases, for that item - select return_request and click apply. Verify status says "Return Requested" Then, login with admin and click on Manage Purchases/Requests, Find your user and item and select the action to approve return. hit apply. Log back in with your user, click on My Purchases, find the item you bought and verify status says "Return Approved"
   
 
 Extra Credit:

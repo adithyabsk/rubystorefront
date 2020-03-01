@@ -26,16 +26,20 @@ class UsersController < ApplicationController
   end
 
   def create
-    #if params[:user][:password] == ""
-    #	    params[:user][:password] = "badpassword"
-    #end
+    if current_user && !current_user.is_admin
+      redirect_to root_url
+    end
     if params[:password].blank?
 	    params.delete(:password)
     end
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to sessions_new_path
+      if current_user && current_user.is_admin
+        redirect_to users_path
+      else
+        redirect_to sessions_new_path
+      end
     else
       render 'new'
     end  

@@ -62,6 +62,7 @@ class UsersController < ApplicationController
 		redirect_to root_url
 	end
 	  @user = User.find(params[:id])
+          @user.subscriber_lists.clear
 	  @user.destroy
 	  redirect_to users_path
   end

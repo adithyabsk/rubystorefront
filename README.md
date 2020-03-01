@@ -86,6 +86,17 @@
 - [x] Does the item status change in purchase history on approval of a return item by admin?
   * Login with a email that you have access to, purchase an item, go to My Purchases, for that item - select return_request and click apply. Verify status says "Return Requested" Then, login with admin and click on Manage Purchases/Requests, Find your user and item and select the action to approve return. hit apply. Log back in with your user, click on My Purchases, find the item you bought and verify status says "Return Approved"
   
+## Visitor
+- [x] Can a visitor view all existing items?
+  * Yep, the items view is home page
+- [x] Can the visitor see a “register now” button or “register to buy” button?
+  * These "sign up" button is at the top of the page
+- [x] Are the features that should be visible only to registered users, hidden for visitors? (For example, visitors should not be able to add to cart/subscribe to an unavailable item)
+  * Yes, the visitors don't have access to purchase views on both the index and show item views
+- [x] Are the visitors able to give feedback?
+  * Click on the Feedback link at the top of the page and fill out the feedback form
+  * Log in as admin above and view that the "Anonymous" feedback was submitted
+
 
 Extra Credit:
 

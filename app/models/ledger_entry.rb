@@ -42,4 +42,5 @@ class LedgerEntry < ApplicationRecord
   def is_admin_ledger?
     user.is_admin?
   end
+  
 end

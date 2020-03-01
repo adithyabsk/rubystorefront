@@ -6,13 +6,6 @@ class UserMailer < ApplicationMailer
     @item = params[:item]
     mail(to: @user.email, subject: "#{@item.name} Now Available")
   end
-      
-  
- # def subscribe_email(user, item)
-   # @user = user
-   # @item = item
-   # mail(to: @user.email, subject: "#{@item.name} Now Available")
-  #end
 
   def otp_email
     @user = params[:user]
@@ -26,8 +19,15 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: "Your Recent Purchase")
   end
 
-  def approval_email
+  def status_of_request_email
+    @status = params[:status]
+    @type = params[:type]
+    @item = params[:item]
     @user = params[:user]
-    mail(to: @user.email, subject: "Your Purchase Has Been Approved")
+    if @type == "return"
+      mail(to: @user.email, subject: "Return Request #{@status}")
+    else
+      mail(to: @user.email, subject: "Restricted Item Purchase #{@status}")
+    end
   end
 end

@@ -5,7 +5,7 @@ class LedgerEntry < ApplicationRecord
   belongs_to :item
 
   aasm column: :status do
-    state :ordered, :return_requested, :return_approved, :approval_requested, :order_approved
+    state :ordered, :return_requested, :return_approved, :return_rejected, :approval_requested, :order_approved, :order_rejected
     initial_state lambda { |ledger_entry|
       ledger_entry.item.restricted? ? :approval_requested : :ordered
     }
@@ -18,8 +18,16 @@ class LedgerEntry < ApplicationRecord
       transitions from: :return_requested, to: :return_approved
     end
 
+    event :reject_return, guard: Proc.new {|cu| cu.is_admin? }  do
+      transitions from: :return_requested, to: :return_rejected
+    end
+
     event :approve_restricted, guard: Proc.new {|cu| cu.is_admin? }  do
       transitions from: :approval_requested, to: :order_approved
+    end
+
+    event :reject_restricted, guard: Proc.new {|cu| cu.is_admin? }  do
+      transitions from: :approval_requested, to: :order_rejected
     end
   end
 

@@ -108,6 +108,13 @@
   * Please note that the Google Doc requirements stated to allow for filter capabilities and not sort
   * This functionality is implemented using a drop down interface
 
+## Other
+- [x] Does the payment fail when an incorrect OTP is entered during checkout? In case of a failure, the items should not be added to the purchase history of the user - is this working as expected?
+  * To test this, log in as a normal user.
+  * Walk through above add to items to cart
+  * On the checkout page try to purchase 
+
+
 Extra Credit:
 
 1) No user/visitor should access any private content associated with other user/admin's account.

@@ -58,13 +58,13 @@ end
 end
 
 # Feedback
-["Carl Klier", "Adithya Balaji", "Generic"].each do |name|
+["Carl Klier", "Adithya Balaji"].each do |name|
   user = User.find_by(name: name)
   Feedback.create!(name: user.name, email: user.email, message: Faker::Lorem.paragraph(sentence_count: 30))
 end
 
 # Wishlist
-["Carl Klier", "Adithya Balaji", "Generic"].each do |name|
+["Carl Klier", "Adithya Balaji"].each do |name|
   user = User.find_by(name: name)
   ["Watch", "Apple", "Chair"].each do |name|
     item = Item.find_by(name: name)

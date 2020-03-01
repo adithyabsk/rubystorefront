@@ -44,13 +44,11 @@ RSpec.describe "Category", type: :request do
 	post "/sessions", params: {:email => "carl@gmail.com", :password => "123456"}
 	
 	#Get the edit template
-	get "/categories/1/edit"
+	get "/categories/4/edit"
     expect(response).to render_template(:edit)
-	expect(response.body).to include("Food")
-	expect(response.body).to include(".02")
 	
 	#Create the category
-	put "/categories/1", params: {:category => {:name => "Good Food", :tax_slab => 0.05}}
+	put "/categories/3", params: {:category => {:name => "Good Food", :tax_slab => 0.05}}
 	
 	expect(response).to redirect_to(assigns(:category))
     follow_redirect!

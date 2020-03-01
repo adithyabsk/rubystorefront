@@ -1,9 +1,19 @@
 # README
 
-Login Info:
-
-Admin: csc517store@gmail.com
-Password: admin
+## General Information
+*Login Info*
+* Admin
+  * Username: csc517store@gmail.com
+  * Password: admin
+* Users
+  * Please create a user to test email functionality
+  * Users for testing age functionality
+    * Young User:
+      * Username: young@gmail.com
+      * Password: young
+    * Old User:
+      * Username: old@gmail.com
+      * Password: old
 
 Extra Credit:
 

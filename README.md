@@ -47,6 +47,28 @@
   * Run through purchase flow
   * Look at admin purchased items in "My Purchases" tab
 
+## User
+- [x] Is the user able to log in with his/her email id and password?
+  * Use your user/login from above
+- [x] Is the user able to edit his own profile?
+  * Click Profile > Edit, to verify this as true
+- [x] Is the user able to add items to the cart?
+  * Add items to cart by clicking on any item
+- [x] Is the user able to add items to the wishlist?
+  * Test this on the item page as well
+- [x] Is the mailer implemented for “subscribe” to unavailable items?
+  * Test this on the coffee page
+    * Other people might have modified this item so you need to log in to admin
+    * Set inventory to zero
+    * Log back in as user
+  * Subscribe to the item's availability
+  * Log in as admin and set the inventory to a number greater than zero
+  * Check that your user email receives an email
+- [x] Does the application impose age-specific-functionality? (Disallow under 18s to buy age-restricted items, apply discounts for 65+)
+  * To test this use the above age specific accounts (for ease)
+  * Test young user first
+  
+
 Extra Credit:
 
 1) No user/visitor should access any private content associated with other user/admin's account.

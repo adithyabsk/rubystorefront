@@ -66,7 +66,15 @@
   * Check that your user email receives an email
 - [x] Does the application impose age-specific-functionality? (Disallow under 18s to buy age-restricted items, apply discounts for 65+)
   * To test this use the above age specific accounts (for ease)
-  * Test young user first
+  * Test young user first, age restricted items are greyed out
+  * Login as old user, add any item to cart and go to cart page, see 10% off displayed and total cost reduced
+- [x]   Is the user able to see a “buy now” button for an item and does it redirect to the payment page?
+  * Login as a user or admin and go to the items page. Click buy now which brings you directly to the checkout page with the item.
+- [x] Is the user able to clear the cart?
+  * Click on cart, click on empty cart
+- [x] Does “check out cart” take you to the payment page for all the items in the cart?
+  * click on cart, click on proceed to checkout, see payment page with all the items from your cart
+- [x] 
   
 
 Extra Credit:

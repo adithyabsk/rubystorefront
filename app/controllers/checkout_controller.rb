@@ -27,6 +27,9 @@ class CheckoutController < ApplicationController
             total_cost: @total,
             user_id: current_user.id,
             item_id: cart_item.item.id)
+        cart_item.item.inventory = cart_item.item.inventory - cart_item.quantity
+        cart_item.item.popularity = cart_item.item.popularity + cart_item.quantity
+        cart_item.item.save
       end
       UserMailer.with(user: current_user, cart_items: current_user.cart.cart_items).purchase_email.deliver_now
       current_user.cart.cart_items.clear

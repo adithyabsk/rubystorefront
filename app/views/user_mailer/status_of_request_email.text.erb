@@ -1,0 +1,5 @@
+<% if @type == "return" %>
+Your return request for item <%=@item.name%> has been <%=@status%> by an Admin.
+<% else %>
+Your restricted item purchase of <%=@item.name%> has been <%=@status%> by an Admin.
+<%end%>

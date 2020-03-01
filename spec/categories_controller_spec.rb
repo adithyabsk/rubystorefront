@@ -1,7 +1,24 @@
 require "rails_helper"
 
 RSpec.describe "Category", type: :request do
-  it "allows any user or guest to view the categories, but not create or edit" do
+  it "allows any guest to view the categories, but not create or edit" do
+	get categories_path
+    expect(response).to be_successful
+    expect(response.body).to include("Food")
+	expect(response.body).to include("Commodity")
+	expect(response.body).to include("Luxury")
+	expect(response.body).not_to include("Edit")
+	expect(response.body).not_to include("New Category")
+  end
+  
+  it "allows any user to view the categories as well" do
+	#get the login page
+	get "/sessions/new"
+    expect(response).to render_template(:new)
+	
+	#log in as an admin
+	post "/sessions", params: {:email => "cmfoley2@ncsu.edu", :password => "colin"}
+  
 	get categories_path
     expect(response).to be_successful
     expect(response.body).to include("Food")
@@ -17,7 +34,7 @@ RSpec.describe "Category", type: :request do
     expect(response).to render_template(:new)
 	
 	#log in as an admin
-	post "/sessions", params: {:email => "carl@gmail.com", :password => "123456"}
+	post "/sessions", params: {:email => "csc517store@gmail.com", :password => "admin"}
 	  
 	#Get the new template
 	get "/categories/new"
@@ -41,16 +58,14 @@ RSpec.describe "Category", type: :request do
     expect(response).to render_template(:new)
 	
 	#log in as an admin
-	post "/sessions", params: {:email => "carl@gmail.com", :password => "123456"}
+	post "/sessions", params: {:email => "csc517store@gmail.com", :password => "admin"}
 	
 	#Get the edit template
-	get "/categories/1/edit"
+	get "/categories/4/edit"
     expect(response).to render_template(:edit)
-	expect(response.body).to include("Food")
-	expect(response.body).to include(".02")
 	
 	#Create the category
-	put "/categories/1", params: {:category => {:name => "Good Food", :tax_slab => 0.05}}
+	put "/categories/3", params: {:category => {:name => "Good Food", :tax_slab => 0.05}}
 	
 	expect(response).to redirect_to(assigns(:category))
     follow_redirect!

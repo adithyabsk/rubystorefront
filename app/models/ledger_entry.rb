@@ -1,7 +1,7 @@
 class LedgerEntry < ApplicationRecord
   include AASM
 
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :item
 
   aasm column: :status do
@@ -40,7 +40,7 @@ class LedgerEntry < ApplicationRecord
   end
 
   def is_admin_ledger?
-    user.is_admin?
+    user.nil? ? false : user.is_admin?
   end
   
 end

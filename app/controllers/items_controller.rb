@@ -131,8 +131,10 @@ class ItemsController < ApplicationController
 
   def add_user_to_subscriber_list
     @item = Item.find(params[:id])
-    @item.subscriber_list.users << current_user
-    @item.subscriber_list.save
+		if not (@item.subscriber_list.users.include? current_user)
+    	@item.subscriber_list.users << current_user
+		end
+    @item.subscriber_list.save!
     flash[:alert] = "You have been added to the item's notifcation list"
     redirect_to item_path(@item.id)
   end

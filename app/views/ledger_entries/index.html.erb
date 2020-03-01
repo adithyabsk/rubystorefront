@@ -30,7 +30,7 @@
     <% @ledger_entries.each do |entry| %>
       <%= form_with url: ledger_entries_index_path do |form| %>
         <tr>
-          <td><%= entry.user.name %></td>
+          <td><%= entry.user.nil? ? "[Deleted]" : entry.user.name %></td>
           <td height="100">
             <% if entry.item.image_url.present? %>
               <%= image_tag entry.item.image_url, :style => "max-height:100px;max-width:100px;height:auto" %>

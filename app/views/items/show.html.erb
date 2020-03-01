@@ -3,7 +3,7 @@
 <h1>Showing Item Details</h1>
 
 
-<table border = "1">
+<table border="1">
   <tr>
     <th>Image</th>
     <th>Name</th>
@@ -19,67 +19,69 @@
       <th>Add to Cart</th>
       <th>Buy It Now</th>
       <th>Request Unavailable Item</th>
-      <%if current_user && current_user.is_admin == true%>
+      <% if current_user && current_user.is_admin == true %>
         <th>Edit</th>
         <th>Delete</th>
       <% end %>
-    <%end%>
+    <% end %>
   </tr>
- 
+
   <% if @item.disabled == true %>
     <tr bgcolor="#7D7D7D">
-	<% elsif current_user && @item.age_restricted && ((Time.zone.now - current_user.dob.to_time) / 1.year.seconds).floor < 18%>
-      <tr bgcolor="#7D7D7D">
+  <% elsif current_user && @item.age_restricted && ((Time.zone.now - current_user.dob.to_time) / 1.year.seconds).floor < 18 %>
+    <tr bgcolor="#7D7D7D">
   <% else %>
     <tr>
   <% end %>
   <td height="100">
-    <%if @item.image_url.present?%>
+    <% if @item.image_url.present? %>
       <%= image_tag @item.image_url, :style => "max-height:100px;max-width:100px;height:auto" %>
     <% else %>
       <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
     <% end %>
-    </td>
-    <td><%= @item.name %></td>
-    <td><%= @item.brand %></td>
-    <td><%= @item.inventory %>
-      <%if @item.inventory < 1%> - Currently Unavailable<% end %>
-    </td>
-    <td><%= number_to_currency(@item.cost) %></td>
-    <td><%= @item.restricted %></td>
-    <td><%= @item.age_restricted %></td>
-    <td><%= Category.find_by_id(@item.category_id).name %></td>
-    <td><%= Category.find(@item.category_id).tax_slab %></td>
-    <% if current_user && (!@item.age_restricted || ((Time.zone.now - current_user.dob.to_time) / 1.year.seconds).floor > 18) %>
-      <% if !@item.disabled %>
-        <td><%= button_to "Add Item to Wishlist", add_item_to_wishlist_path(@item.id, current_user.id), method: :post%></td>
-        <%if @item.inventory > 0%>
-    
-	  <td><%= button_to 'Add to cart', cart_items_path(:item_id => @item.id)%></td>
-          <td><%= button_to "Buy it now", cart_items_path(:item_id => @item.id, :buynow =>true), method: :post%></td>
-          <td>Item still available</td>
-        <%else%>
-          <td></td>
-          <td></td>
-          <td><%= link_to "Subscribe for availability notifications", add_user_to_subscriber_list_path, method: :post%> </td>
-        <%end%>
-      <%else%>
-        <td>Item Disabled</td>
-        <td>Item Disabled</td>
-        <td>Item Disabled</td>
-        <td>Item Disabled</td>
+  </td>
+  <td><%= @item.name %></td>
+  <td><%= @item.brand %></td>
+  <td><%= @item.inventory %>
+    <% if @item.inventory < 1 %> - Currently Unavailable
+    <% end %>
+  </td>
+  <td><%= number_to_currency(@item.cost) %></td>
+  <td><%= @item.restricted %></td>
+  <td><%= @item.age_restricted %></td>
+  <td><%= Category.find_by_id(@item.category_id).name %></td>
+  <td><%= Category.find(@item.category_id).tax_slab %></td>
+  <% if current_user && (!@item.age_restricted || ((Time.zone.now - current_user.dob.to_time) / 1.year.seconds).floor > 18) %>
+    <% if !@item.disabled %>
+      <td><%= button_to "Add Item to Wishlist", add_item_to_wishlist_path(@item.id, current_user.id), method: :post %></td>
+      <% if @item.inventory > 0 %>
+        <td><%= button_to 'Add to cart', cart_items_path(:item_id => @item.id) %></td>
+        <td><%= button_to "Buy it now", cart_items_path(:item_id => @item.id, :buynow => true), method: :post %></td>
+        <td>Item still available</td>
+      <% else %>
+        <td></td>
+        <td></td>
+        <% hide_subscribe = SubscriberList.find_by(item: @item).users.include? current_user %>
+        <% subscribe_string = hide_subscribe ? "Already Subscribed" : "Subscribe for availability" %>
+        <td><%= button_to subscribe_string, add_user_to_subscriber_list_path, disabled: hide_subscribe %> </td>
       <% end %>
-      <% if current_user.is_admin %>
-        <td><%= link_to 'Edit', edit_item_path(@item) %></td>
-        <% if @item.disabled == true %>
-          <td><%= link_to 'Enable', enable_item_path(@item), method: :enable, data: {confirm: 'Are you sure?' } %> </td>
-        <% else %>
-          <td><%= link_to 'Disable', disable_item_path(@item), method: :disable, data: {confirm: 'Are you sure?' } %> </td>
-        <% end %>
-      <%end%>
-    <%end%>
+    <% else %>
+      <td>Item Disabled</td>
+      <td>Item Disabled</td>
+      <td>Item Disabled</td>
+      <td>Item Disabled</td>
+    <% end %>
+    <% if current_user.is_admin %>
+      <td><%= link_to 'Edit', edit_item_path(@item) %></td>
+      <% if @item.disabled == true %>
+        <td><%= link_to 'Enable', enable_item_path(@item), method: :enable, data: {confirm: 'Are you sure?'} %> </td>
+      <% else %>
+        <td><%= link_to 'Disable', disable_item_path(@item), method: :disable, data: {confirm: 'Are you sure?'} %> </td>
+      <% end %>
+    <% end %>
+  <% end %>
 
 
 
-<br>
+  <br>
 <%= link_to 'Back', items_path %>

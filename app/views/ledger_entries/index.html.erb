@@ -1,13 +1,28 @@
 <h1>Purchases</h1>
+
+<% if current_user && current_user.is_admin == true%>
+<%= form_tag ledger_entries_index_path, method: :get do %>
+  Filters: User - 
+  <%= select_tag :user_id, options_for_select(LedgerEntry.all.collect{|i| User.find_by_id(i.user_id).name}.uniq.unshift("All"), params[:user_id]), onchange: "this.form.submit();"%>
+  Item -
+  <%= select_tag :item_id, options_for_select(LedgerEntry.all.select { |i| Item.find_by_id(i.item_id).disabled == false}.collect{|i| Item.find_by_id(i.item_id).name}.uniq.unshift("All"), params[:item_id]), onchange: "this.form.submit();"%>
+<% end %>
+<% else %>
+<%= form_tag ledger_entries_index_path(params[:id]), method: :get do %>
+  Filter: Item -
+  <%= select_tag :item_id, options_for_select(LedgerEntry.all.select { |i| Item.find_by_id(i.item_id).disabled == false}.collect{|i| Item.find_by_id(i.item_id).name}.uniq.unshift("All"), params[:item_id]), onchange: "this.form.submit();"%>
+<% end %>
+<% end %>
+
 <table border="1">
   <tr>
-    <th><%= link_to "User Name", :sort => "user_id", :show_all => params[:show_all] %></th>
+    <th><%= link_to "User Name", :sort => "user_id", :item_id => params[:item_id], :user_id => params[:user_id] %></th>
     <th>Image</th>
-    <th><%= link_to "Name", :sort => "name", :show_all => params[:show_all] %></th>
+    <th><%= link_to "Name", :sort => "item_id", :item_id => params[:item_id], :user_id => params[:user_id]%></th>
     <th>Brand</th>
     <th>Quantity Bought</th>
     <th>Total Cost</th>
-    <th><%= link_to "Status", :sort => "status", :show_all => params[:show_all] %></th>
+    <th><%= link_to "Status", :sort => "status", :item_id => params[:item_id], :user_id => params[:user_id] %></th>
     <th>Action Selector</th>
     <th>Apply Action</th>
   </tr>

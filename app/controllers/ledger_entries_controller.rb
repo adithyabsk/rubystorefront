@@ -3,8 +3,7 @@ class LedgerEntriesController < ApplicationController
     if session[:user_id] == nil
       redirect_to root_path
     end
-    show_all = params.has_key?(:show_all) and current_user.is_admin?
-    @ledger_entries = show_all ? LedgerEntry.all : LedgerEntry.where(user_id: params[:id])
+    @ledger_entries = current_user.is_admin? ? LedgerEntry.order(params[:sort]).select { |i| (params[:user_id] == nil || User.find(i.user_id).name == params[:user_id] || params[:user_id] == "All") && (params[:item_id] == nil || Item.find(i.item_id).name == params[:item_id] || params[:item_id] == "All")} : LedgerEntry.where(user_id: params[:id]).order(params[:sort]).select { |i| (params[:item_id] == nil || Item.find(i.item_id).name == params[:item_id] || params[:item_id] == "All")}
     if [:entry_id, :action_option].all? { |k| params.key?(k) }
       LedgerEntry.find(params[:entry_id]).send (params[:action_option] + "!").to_sym, current_user
       respond_to do |format|

@@ -97,6 +97,16 @@
   * Click on the Feedback link at the top of the page and fill out the feedback form
   * Log in as admin above and view that the "Anonymous" feedback was submitted
 
+## Item
+- [x] Is it possible to sort items based on some sort of popularity metric?
+  * The chosen popularity metric is the number of purchases, you can indeed sort by this metric
+  * Simply click the link and the items should sort in whatever order is required
+- [x] Is it possible to sort items based on popularity/cost?
+  * For popularity see above
+  * For cost, simply click on the Cost column
+- [x] Is it possible to sort items based on brand/category/availability?
+  * Please note that the Google Doc requirements stated to allow for filter capabilities and not sort
+  * This functionality is implemented using a drop down interface
 
 Extra Credit:
 

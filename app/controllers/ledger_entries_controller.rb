@@ -7,12 +7,22 @@ class LedgerEntriesController < ApplicationController
     if [:entry_id, :action_option].all? { |k| params.key?(k) }
       if params[:action_option].to_s == "approve_return"
         send_status_email("approved", "return", LedgerEntry.find(params[:entry_id]))
+        @ledger_entry = LedgerEntry.find(params[:entry_id])
+        @item = @ledger_entry.item
+        @item.inventory = @item.inventory + @ledger_entry.quantity
+        @item.popularity = @item.popularity - @ledger_entry.quantity
+        @item.save
       elsif params[:action_option].to_s == "approve_restricted"
         send_status_email("approved", "restricted", LedgerEntry.find(params[:entry_id]))
       elsif params[:action_option].to_s == "reject_return"
         send_status_email("denied", "return", LedgerEntry.find(params[:entry_id]))
       elsif params[:action_option].to_s == "reject_restricted"
         send_status_email("denied", "restricted", LedgerEntry.find(params[:entry_id]))
+        @ledger_entry = LedgerEntry.find(params[:entry_id])
+        @item = @ledger_entry.item
+        @item.inventory = @item.inventory + @ledger_entry.quantity
+        @item.popularity = @item.popularity - @ledger_entry.quantity
+        @item.save
       end
       LedgerEntry.find(params[:entry_id]).send (params[:action_option] + "!").to_sym, current_user
       respond_to do |format|

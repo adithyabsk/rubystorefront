@@ -1,37 +1,37 @@
 <h1>Listing Items</h1>
 <p id="notice"><%= notice %></p>
 
-<%= link_to "Sort By Popular", :sort => "popularity"%>
+<%= link_to "Sort By Popular", :sort => "popularity" %>
 </br>
 
 <%= form_tag items_path, method: :get do %>
-  Filters: Category - 
-  <% if current_user && current_user.is_admin == true%>
-  <%= select_tag :category, options_for_select(Item.all.collect{|i| Category.find_by_id(i.category_id).name}.uniq.unshift("All"), params[:category]), onchange: "this.form.submit();"%>
+  Filters: Category -
+  <% if current_user && current_user.is_admin == true %>
+    <%= select_tag :category, options_for_select(Item.all.collect { |i| Category.find_by_id(i.category_id).name }.uniq.unshift("All"), params[:category]), onchange: "this.form.submit();" %>
   <% else %>
-  <%= select_tag :category, options_for_select(Item.all.select { |i| i.disabled == false}.collect{|i| Category.find_by_id(i.category_id).name}.uniq.unshift("All"), params[:category]), onchange: "this.form.submit();"%>
+    <%= select_tag :category, options_for_select(Item.all.select { |i| i.disabled == false }.collect { |i| Category.find_by_id(i.category_id).name }.uniq.unshift("All"), params[:category]), onchange: "this.form.submit();" %>
   <% end %>
-  Brand - 
-  <%= select_tag :brand, options_for_select(Item.all.collect{|i| i.brand}.uniq.unshift("All"), params[:brand]), onchange: "this.form.submit();"%>
-Availability - 
+  Brand -
+  <%= select_tag :brand, options_for_select(Item.all.collect { |i| i.brand }.uniq.unshift("All"), params[:brand]), onchange: "this.form.submit();" %>
+  Availability -
   <%= select_tag :available, options_for_select(["All", "Available", "Unavailable"], params[:available]), onchange: "this.form.submit();" %>
 <% end %>
- 
-<table border = "1">
+
+<table border="1">
   <tr>
     <th>Image</th>
-    <th><%= link_to "Name", :sort => "name", :category => params[:category], :brand => params[:brand], :available => params[:available]%></th>
-    <th><%= link_to "Brand", :sort => "brand", :category => params[:category], :brand => params[:brand], :available => params[:available]%></th>
-    <th><%= link_to "Cost", :sort => "cost", :category => params[:category], :brand => params[:brand], :available => params[:available]%></th>
+    <th><%= link_to "Name", :sort => "name", :category => params[:category], :brand => params[:brand], :available => params[:available] %></th>
+    <th><%= link_to "Brand", :sort => "brand", :category => params[:category], :brand => params[:brand], :available => params[:available] %></th>
+    <th><%= link_to "Cost", :sort => "cost", :category => params[:category], :brand => params[:brand], :available => params[:available] %></th>
     <% if current_user %>
       <th>Buy It Now</th>
-      <%if current_user.is_admin%>
+      <% if current_user.is_admin %>
         <th>Edit</th>
         <th>Delete</th>
       <% end %>
-    <%end%>
+    <% end %>
   </tr>
- 
+
   <% @items.each do |item| %>
     <% if item.disabled == true %>
       <tr bgcolor="#7D7D7D">
@@ -40,31 +40,31 @@ Availability -
     <% end %>
     <td height="100">
       <%= link_to item_path(item.id) do %>
-	<%if item.image_url.present?%>
-	  <%= image_tag item.image_url, :style => "max-height:100px;max-width:100px;height:auto" %>
-	<% else %>
-	  <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
-	<% end %>
-      </td>
-      <td><%= link_to item.name, item_path(item.id) %></td>
-      <td><%= item.brand %></td>
-      <td><%= number_to_currency(item.cost) %></td>
-      <% if current_user %>
-	<%if item.inventory > 0 && (!item.age_restricted || ((Time.zone.now - current_user.dob.to_time) / 1.year.seconds).floor > 18) %>
-	  <td><%= link_to "Buy it now", cart_items_path(:item_id => item.id, :buynow =>true), method: :post%></td>
-	<%else%>
-	  <td></td>
-	<%end%>
-	<%if current_user.is_admin%>
-	  <td><%= link_to 'Edit', edit_item_path(item) %></td>
-	  <% if item.disabled == true %>
-	    <td><%= link_to 'Enable', enable_item_path(item), method: :enable, data: {confirm: 'Are you sure?' } %> </td>
-	  <% else %>
-	    <td><%= link_to 'Disable', disable_item_path(item), method: :disable, data: {confirm: 'Are you sure?' } %> </td>
-	  <% end %>
-	<% end %>
-      <%end%>
-    </tr>
+        <% if item.image_url.present? %>
+          <%= image_tag item.image_url, :style => "max-height:100px;max-width:100px;height:auto" %>
+        <% else %>
+          <%= image_tag "https://via.placeholder.com/75", align: "middle" %>
+        <% end %>
+        </td>
+        <td><%= link_to item.name, item_path(item.id) %></td>
+        <td><%= item.brand %></td>
+        <td><%= number_to_currency(item.cost) %></td>
+        <% if current_user %>
+          <% if item.inventory > 0 && (!item.age_restricted || ((Time.zone.now - current_user.dob.to_time) / 1.year.seconds).floor > 18) %>
+            <td><%= link_to "Buy it now", cart_items_path(:item_id => item.id, :buynow => true), method: :post %></td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <% if current_user.is_admin %>
+            <td><%= link_to 'Edit', edit_item_path(item) %></td>
+            <% if item.disabled == true %>
+              <td><%= link_to 'Enable', enable_item_path(item), method: :enable, data: {confirm: 'Are you sure?'} %> </td>
+            <% else %>
+              <td><%= link_to 'Disable', disable_item_path(item), method: :disable, data: {confirm: 'Are you sure?'} %> </td>
+            <% end %>
+          <% end %>
+        <% end %>
+        </tr>
+      <% end %>
   <% end %>
-<%end%>
 </table>

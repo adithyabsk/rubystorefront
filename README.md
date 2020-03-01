@@ -15,6 +15,38 @@
       * Username: old@gmail.com
       * Password: old
 
+## Admin Functionality
+- [x] Is the admin able to log in and create/view/update/delete items/users?
+  * Log-in: Use above credentials
+  * Navigate to modify users for create/view/update/delete
+- [x] Are the email and password fields disabled/hidden when she/he tries to edit the admin account?
+  * Click on update for admin to see that email and password as hidden
+- [x] Is the admin able to view the purchase history (by items and by users)?
+  * Go back to items view
+  * Click on "Manage Purchases/Requests"
+  * You can click on
+    * User Name to sort by that
+    * Name to sort by product
+- [x] Does the admin receive special item requests/return requests and is she/he able to approve/reject them?
+  * Sign out and log in as the user you created above
+  * Make sure to add four items to your cart (this will help you test all things at the same time)
+    * Car
+    * Watch
+    * Apple
+    * Bannana
+  * Run through your purchase flow
+  * Request for approval is automatically created for the luxury items
+  * Make requests for returns of the Car and Watch
+  * Log in as admin (using above credentials)
+  * Click "Manage Purchases/Requests"
+  * Approve / Deny the purchase of the Car / Watch
+  * Approve / Deny the requests of the Apple / Bannana
+  * Log out of admin and log back in as normal user to verify the above
+- [x] Is the admin able to buy items?
+  * Log back in as admin user
+  * Run through purchase flow
+  * Look at admin purchased items in "My Purchases" tab
+
 Extra Credit:
 
 1) No user/visitor should access any private content associated with other user/admin's account.

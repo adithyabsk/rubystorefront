@@ -9,15 +9,15 @@
 require 'faker'
 
 [
-    ["Admin", "csc517store@gmail.com", "admin", true],
-    ["Carl Klier", "caklier@ncsu.edu", "carl", false],
-    ["Adithya Balaji", "abalaji2@ncsu.edu", "adithya", false],
-    ["Colin Foley", "cmfoley2@ncsu.edu", "colin", false],
-    ["Generic", "generic@email.com", "generic", false],
-    ["Broken", "broken@email.com", "broken", false]
-].each do |name, email, password, is_admin|
+    ["Admin", "csc517store@gmail.com", "admin", true, "01/01/1998"],
+    ["Carl Klier", "caklier@ncsu.edu", "carl", false, "01/01/1998"],
+    ["Adithya Balaji", "abalaji2@ncsu.edu", "adithya", false, "01/01/1998"],
+    ["Colin Foley", "cmfoley2@ncsu.edu", "colin", false, "01/01/1998"],
+    ["Young User", "young@gmail.com", "young", false, "01/01/2008"],
+    ["Old User", "old@gmail.com", "old", false, "01/01/1940"]
+].each do |name, email, password, is_admin, dob|
   User.create!(name:name, email:email, password: password, password_confirmation: password, is_admin: is_admin,
-              phone_num: "5555555555", dob: "01/01/1998", address_l1: "line 1", address_l2: "line 2", city: "gso",
+              phone_num: "5555555555", dob: dob, address_l1: "line 1", address_l2: "line 2", city: "gso",
               state: "NC", zip:"27560", card_name: name, card_num: "1234567890123456", card_expire: "01/22",
               card_ccv: 555
               )

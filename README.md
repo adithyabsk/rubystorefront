@@ -1,9 +1,73 @@
 # README
 
-Login Info:
+## General Information
+*Login Info*
+* Admin
+  * Username: csc517store@gmail.com
+  * Password: admin
+* Users
+  * Please create a user to test email functionality
+  * Users for testing age functionality
+    * Young User:
+      * Username: young@gmail.com
+      * Password: young
+    * Old User:
+      * Username: old@gmail.com
+      * Password: old
 
-Admin: csc517store@gmail.com
-Password: admin
+## Admin Functionality
+- [x] Is the admin able to log in and create/view/update/delete items/users?
+  * Log-in: Use above credentials
+  * Navigate to modify users for create/view/update/delete
+- [x] Are the email and password fields disabled/hidden when she/he tries to edit the admin account?
+  * Click on update for admin to see that email and password as hidden
+- [x] Is the admin able to view the purchase history (by items and by users)?
+  * Go back to items view
+  * Click on "Manage Purchases/Requests"
+  * You can click on
+    * User Name to sort by that
+    * Name to sort by product
+- [x] Does the admin receive special item requests/return requests and is she/he able to approve/reject them?
+  * Sign out and log in as the user you created above
+  * Make sure to add four items to your cart (this will help you test all things at the same time)
+    * Car
+    * Watch
+    * Apple
+    * Bannana
+  * Run through your purchase flow
+  * Request for approval is automatically created for the luxury items
+  * Make requests for returns of the Car and Watch
+  * Log in as admin (using above credentials)
+  * Click "Manage Purchases/Requests"
+  * Approve / Deny the purchase of the Car / Watch
+  * Approve / Deny the requests of the Apple / Bannana
+  * Log out of admin and log back in as normal user to verify the above
+- [x] Is the admin able to buy items?
+  * Log back in as admin user
+  * Run through purchase flow
+  * Look at admin purchased items in "My Purchases" tab
+
+## User
+- [x] Is the user able to log in with his/her email id and password?
+  * Use your user/login from above
+- [x] Is the user able to edit his own profile?
+  * Click Profile > Edit, to verify this as true
+- [x] Is the user able to add items to the cart?
+  * Add items to cart by clicking on any item
+- [x] Is the user able to add items to the wishlist?
+  * Test this on the item page as well
+- [x] Is the mailer implemented for “subscribe” to unavailable items?
+  * Test this on the coffee page
+    * Other people might have modified this item so you need to log in to admin
+    * Set inventory to zero
+    * Log back in as user
+  * Subscribe to the item's availability
+  * Log in as admin and set the inventory to a number greater than zero
+  * Check that your user email receives an email
+- [x] Does the application impose age-specific-functionality? (Disallow under 18s to buy age-restricted items, apply discounts for 65+)
+  * To test this use the above age specific accounts (for ease)
+  * Test young user first
+  
 
 Extra Credit:
 

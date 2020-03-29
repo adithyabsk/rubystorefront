@@ -1,5 +1,5 @@
 <%= form_with model: @item, local: true do |form| %>
- 
+
   <% if @item.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -13,42 +13,42 @@
       </ul>
     </div>
   <% end %>
-  
+
   <div class="field">
   <%= form.label :category_id %>
   <%= select("item", "category_id", Category.all.collect{ |c| [ c.name, c.id] }) %>
   </div>
- 
+
  <p>
     <%= form.label :image_url %><br>
     <%= form.text_field :image_url %>
   </p>
-  
+
   <p>
     <%= form.label :name %><br>
     <%= form.text_field :name %>
   </p>
-  
+
   <p>
     <%= form.label :brand %><br>
     <%= form.text_field :brand %>
   </p>
-  
+
   <p>
     <%= form.label :inventory %><br>
     <%= form.number_field :inventory %>
   </p>
- 
+
   <p>
     <%= form.label :cost %><br>
     <%= form.number_field :cost, :step => "0.01" %>
   </p>
-  
+
   <p>
     <%= form.label :restricted %><br>
     <%= form.check_box :restricted %>
   </p>
-  
+
   <p>
     <%= form.label :age_restricted %><br>
     <%= form.check_box :age_restricted %>
@@ -63,10 +63,10 @@
     <%end%>
   <\p>
   <% end %>
-  
-  
+
+
   <p>
     <%= form.submit %>
   </p>
- 
+
 <% end %>

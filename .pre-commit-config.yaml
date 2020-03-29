@@ -14,3 +14,7 @@ repos:
     rev: v5.6.0
     hooks:
       -   id: reek
+-   repo: https://github.com/adithyabsk/mirrors-rails-best-practices
+    rev: v1.20.0
+    hooks:
+      -   id: rails_best_practices

@@ -1,0 +1,12 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+      -   id: check-yaml
+      -   id: end-of-file-fixer
+      -   id: trailing-whitespace
+-   repo: https://github.com/adithyabsk/mirrors-rubocop
+    rev: v0.80.1
+    hooks:
+    -   id: rubocop
+        additional_dependencies: ['rubocop-performance:1.5.2', 'rubocop-rspec:1.38.1']

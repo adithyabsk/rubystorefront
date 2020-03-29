@@ -5,14 +5,14 @@ class ItemsController < ApplicationController
     # All of the sorting and filters makes this complecated
     if current_user && current_user.is_admin == true
       @items = Item.order(params[:sort]).select do |i|
-        (params[:category].nil? || Category.find_by_id(i.category_id).name == params[:category].gsub('+', ' ') || params[:category] == 'All') &&
-          (params[:brand].nil? || i.brand == params[:brand].gsub('+', ' ') || params[:brand] == 'All') &&
+        (params[:category].nil? || Category.find_by_id(i.category_id).name == params[:category].tr('+', ' ') || params[:category] == 'All') &&
+          (params[:brand].nil? || i.brand == params[:brand].tr('+', ' ') || params[:brand] == 'All') &&
           (params[:available].nil? || params[:available] == 'All' || (params[:available] == 'Available' && i.inventory > 0) || (params[:available] == 'Unavailable' && i.inventory == 0))
       end .reverse
     else
       @items = Item.order(params[:sort]).select do |i|
-        i.disabled == false && (params[:category].nil? || Category.find_by_id(i.category_id).name == params[:category].gsub('+', ' ') || params[:category] == 'All') &&
-          (params[:brand].nil? || i.brand == params[:brand].gsub('+', ' ') || params[:brand] == 'All') &&
+        i.disabled == false && (params[:category].nil? || Category.find_by_id(i.category_id).name == params[:category].tr('+', ' ') || params[:category] == 'All') &&
+          (params[:brand].nil? || i.brand == params[:brand].tr('+', ' ') || params[:brand] == 'All') &&
           (params[:available].nil? || params[:available] == 'All' || (params[:available] == 'Available' && i.inventory > 0) || (params[:available] == 'Unavailable' && i.inventory == 0))
       end .reverse
     end
@@ -25,7 +25,6 @@ class ItemsController < ApplicationController
 
   def purchase
     @item = Item.find(params[:id])
-    @Total = @item.cost
   end
 
   def new

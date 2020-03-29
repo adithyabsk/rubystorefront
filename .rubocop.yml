@@ -1,6 +1,10 @@
 inherit_from: .rubocop_todo.yml
+require:
+  - rubocop-performance
+  - rubocop-rspec
 
 AllCops:
   Exclude:
     - '.git/**/*'
+    - 'node_modules/**/*'
   TargetRubyVersion: 2.7

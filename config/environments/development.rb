@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -36,17 +38,16 @@ Rails.application.configure do
 
   # Configuring email
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries=true
-  config.action_mailer.default_url_options = {:host => 'localhost:3000', protocol: 'http'}
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = { host: 'localhost:3000', protocol: 'http' }
   config.action_mailer.smtp_settings = {
-	  address: 'smtp.gmail.com',
-	  port: 587,
-	  domain: 'csc517store.com',
-	  user_name: 'csc517store@gmail.com',
-	  password: 'kcjboadznetzxaij',
-	  authentication: 'plain'
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'csc517store.com',
+    user_name: 'csc517store@gmail.com',
+    password: 'kcjboadznetzxaij',
+    authentication: 'plain'
   }
-	  
 
   config.action_mailer.perform_caching = false
 

@@ -1,14 +1,15 @@
-class UsersController < ApplicationController
+# frozen_string_literal: true
 
+class UsersController < ApplicationController
   def index
-    if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
+    if session[:user_id].nil? || User.find(session[:user_id]).is_admin? == false
       redirect_to root_url
     end
     @users = User.all
   end
 
   def show
-    if session[:user_id] == nil || (User.find(session[:user_id]).is_admin? == false && User.find(params[:id]).id != session[:user_id])
+    if session[:user_id].nil? || (User.find(session[:user_id]).is_admin? == false && User.find(params[:id]).id != session[:user_id])
       redirect_to root_url
     end
     @user = User.find(params[:id])
@@ -19,23 +20,19 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if session[:user_id] == nil || (User.find(session[:user_id]).is_admin? == false && User.find(params[:id]).id != session[:user_id])
+    if session[:user_id].nil? || (User.find(session[:user_id]).is_admin? == false && User.find(params[:id]).id != session[:user_id])
       redirect_to root_url
     end
     @user = User.find(params[:id])
   end
 
   def create
-    if current_user && !current_user.is_admin
-      redirect_to root_url
-    end
-    if params[:password].blank?
-      params.delete(:password)
-    end
+    redirect_to root_url if current_user && !current_user.is_admin
+    params.delete(:password) if params[:password].blank?
     @user = User.new(user_params)
 
     if @user.save
-      if current_user && current_user.is_admin
+      if current_user&.is_admin
         redirect_to users_path
       else
         redirect_to sessions_new_path
@@ -46,7 +43,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if session[:user_id] == nil || (User.find(session[:user_id]).is_admin? == false && User.find(params[:id]).id != session[:user_id])
+    if session[:user_id].nil? || (User.find(session[:user_id]).is_admin? == false && User.find(params[:id]).id != session[:user_id])
       redirect_to root_url
     end
     @user = User.find(params[:id])
@@ -58,7 +55,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false || User.find(params[:id]).is_admin? == true
+    if session[:user_id].nil? || User.find(session[:user_id]).is_admin? == false || User.find(params[:id]).is_admin? == true
       redirect_to root_url
     end
     @user = User.find(params[:id])

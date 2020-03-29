@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddUserAndItemToLedgerEntry < ActiveRecord::Migration[6.0]
   def change
     remove_column :cart_items, :ledger_entry_id

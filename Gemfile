@@ -74,6 +74,7 @@ gem 'rspec-rails'
 gem 'aasm', '~> 5.0'
 
 # Linting
+gem 'reek', '~> 5.6.0', require: false
 gem 'rubocop', '~> 0.80.1', require: false
 gem 'rubocop-performance', '~> 1.5.2', require: false
 gem 'rubocop-rspec', '~> 1.38.1', require: false

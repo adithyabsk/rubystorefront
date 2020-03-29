@@ -4,16 +4,16 @@ class ItemsController < ApplicationController
   def index
     # All of the sorting and filters makes this complecated
     if current_user && current_user.is_admin == true
-      @items = Item.order(params[:sort]).select do |i|
-        (params[:category].nil? || Category.find_by_id(i.category_id).name == params[:category].tr('+', ' ') || params[:category] == 'All') &&
-          (params[:brand].nil? || i.brand == params[:brand].tr('+', ' ') || params[:brand] == 'All') &&
-          (params[:available].nil? || params[:available] == 'All' || (params[:available] == 'Available' && i.inventory > 0) || (params[:available] == 'Unavailable' && i.inventory == 0))
+      @items = Item.order(params[:sort]).select do |item|
+        (params[:category].nil? || Category.find_by_id(item.category_id).name == params[:category].tr('+', ' ') || params[:category] == 'All') &&
+          (params[:brand].nil? || item.brand == params[:brand].tr('+', ' ') || params[:brand] == 'All') &&
+          (params[:available].nil? || params[:available] == 'All' || (params[:available] == 'Available' && item.inventory > 0) || (params[:available] == 'Unavailable' && item.inventory == 0))
       end .reverse
     else
-      @items = Item.order(params[:sort]).select do |i|
-        i.disabled == false && (params[:category].nil? || Category.find_by_id(i.category_id).name == params[:category].tr('+', ' ') || params[:category] == 'All') &&
-          (params[:brand].nil? || i.brand == params[:brand].tr('+', ' ') || params[:brand] == 'All') &&
-          (params[:available].nil? || params[:available] == 'All' || (params[:available] == 'Available' && i.inventory > 0) || (params[:available] == 'Unavailable' && i.inventory == 0))
+      @items = Item.order(params[:sort]).select do |item|
+        item.disabled == false && (params[:category].nil? || Category.find_by_id(item.category_id).name == params[:category].tr('+', ' ') || params[:category] == 'All') &&
+          (params[:brand].nil? || item.brand == params[:brand].tr('+', ' ') || params[:brand] == 'All') &&
+          (params[:available].nil? || params[:available] == 'All' || (params[:available] == 'Available' && item.inventory > 0) || (params[:available] == 'Unavailable' && item.inventory == 0))
       end .reverse
     end
     session[:cart] ||= [] unless session.include?(:cart)
@@ -28,9 +28,7 @@ class ItemsController < ApplicationController
   end
 
   def new
-    if session[:user_id].nil? || User.find(session[:user_id]).is_admin? == false
-      redirect_to root_url
-    end
+    admin?(root_url)
     # #if current_user
     ##  OtpMailer.with(user: current_user).otp_email.deliver_now
     # #end
@@ -38,9 +36,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-    if session[:user_id].nil? || User.find(session[:user_id]).is_admin? == false
-      redirect_to root_url
-    end
+    admin?(root_url)
     # if current_user and current_user.authenticate_otp(params[:items][:otp]) == false
     #  self.errors[:base] << "OTP is incorrect"
     #  render 'new'
@@ -55,18 +51,14 @@ class ItemsController < ApplicationController
 
   # GET /recipes/1/edit
   def edit
-    if session[:user_id].nil? || User.find(session[:user_id]).is_admin? == false
-      redirect_to items_path(params[:id])
-    end
+    admin?(root_url)
     @item = Item.find(params[:id])
   end
 
   # PATCH/PUT /recipes/1
   # PATCH/PUT /recipes/1.json
   def update
-    if session[:user_id].nil? || User.find(session[:user_id]).is_admin? == false
-      redirect_to items_path(params[:id])
-    end
+    admin?(root_url)
     @item = Item.find(params[:id])
     orig_inventory = @item.inventory
     if @item.update(item_params)
@@ -83,9 +75,7 @@ class ItemsController < ApplicationController
   end
 
   def disable
-    if session[:user_id].nil? || User.find(session[:user_id]).is_admin? == false
-      redirect_to items_path(params[:id])
-    end
+    admin?(items_path(params[:id]))
     @item = Item.find(params[:id])
     # disable item
     @item.disabled = true
@@ -105,9 +95,7 @@ class ItemsController < ApplicationController
   end
 
   def enable
-    if session[:user_id].nil? || User.find(session[:user_id]).is_admin? == false
-      redirect_to items_path(params[:id])
-    end
+    admin?(params[:id])
     @item = Item.find(params[:id])
     # disable item
     @item.disabled = false

@@ -1,10 +1,32 @@
 # frozen_string_literal: true
 
 class LedgerEntriesController < ApplicationController
+  def admin_entries
+    LedgerEntry.order(params[:sort]).select do |entry|
+      (params[:user_id].nil? ||
+          User.find(entry.user_id).name == params[:user_id] ||
+          params[:user_id] == 'All'
+      ) && (params[:item_id].nil? ||
+          Item.find(entry.item_id).name == params[:item_id] ||
+          params[:item_id] == 'All'
+           )
+    end
+  end
+
+  def user_entries
+    LedgerEntry.where(user_id: params[:id]).order(params[:sort]).select do |entry|
+      (params[:item_id].nil? ||
+          Item.find(entry.item_id).name == params[:item_id] ||
+          params[:item_id] == 'All'
+      )
+    end
+  end
+
   def index
-    redirect_to root_path if session[:user_id].nil?
-    @ledger_entries = current_user.is_admin? ? LedgerEntry.order(params[:sort]).select { |i| (params[:user_id].nil? || User.find(i.user_id).name == params[:user_id] || params[:user_id] == 'All') && (params[:item_id].nil? || Item.find(i.item_id).name == params[:item_id] || params[:item_id] == 'All') } : LedgerEntry.where(user_id: params[:id]).order(params[:sort]).select { |i| (params[:item_id].nil? || Item.find(i.item_id).name == params[:item_id] || params[:item_id] == 'All') }
-    if %i[entry_id action_option].all? { |k| params.key?(k) }
+    redirect_to root_path if invalid_session?
+    @ledger_entries = current_user.admin? ? admin_entries : user_entries
+
+    if %i[entry_id action_option].all? { |key| params.key?(key) }
       if params[:action_option].to_s == 'approve_return'
         send_status_email('approved', 'return', LedgerEntry.find(params[:entry_id]))
         @ledger_entry = LedgerEntry.find(params[:entry_id])

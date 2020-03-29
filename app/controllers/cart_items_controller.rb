@@ -1,18 +1,23 @@
 # frozen_string_literal: true
 
 class CartItemsController < ApplicationController
+  # Create item if not exist otherwise, increment existing cart item
+  def init_or_increment(selected_item)
+    cart = current_user.cart
+    if cart.items.include?(selected_item)
+      cart_item = cart.cart_items.find_by(item_id: selected_item)
+      cart_item.quantity += 1
+    else
+      cart_item = CartItem.new(cart: cart, item: selected_item)
+    end
+    cart_item
+  end
+
   def create
     selected_item = Item.find(params[:item_id])
-    cart = current_user.cart
-    # Create item if not exist otherwise, increment exisitng cart item
-    if cart.items.include?(selected_item)
-      @cart_item = cart.cart_items.find_by(item_id: selected_item)
-      @cart_item.quantity += 1
-    else
-      @cart_item = CartItem.new
-      @cart_item.cart = cart
-      @cart_item.item = selected_item
-    end
+
+    @cart_item = init_or_increment(selected_item)
+
     # Save cart item and redirect back to cart_path
     if @cart_item.save
       if params[:buynow]

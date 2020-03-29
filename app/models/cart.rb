@@ -15,7 +15,7 @@ class Cart < ApplicationRecord
 
   def total_cost
     if ((Time.zone.now - User.find(user_id).dob.to_time) / 1.year.seconds).floor > 65
-      cart_items.sum { |l| l.total_cost * 0.9 }
+      cart_items.sum { |item| item.total_cost * 0.9 }
     else
       cart_items.sum(&:total_cost)
     end

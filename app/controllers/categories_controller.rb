@@ -15,25 +15,19 @@ class CategoriesController < ApplicationController
 
   # GET /categories/new
   def new
-    if session[:user_id].nil? || !User.find(session[:user_id]).is_admin
-      redirect_to categories_path
-    end
+    admin?(categories_path)
     @category = Category.new
   end
 
   # GET /categories/1/edit
   def edit
-    if session[:user_id].nil? || !User.find(session[:user_id]).is_admin
-      redirect_to categories_path
-    end
+    admin?(categories_path)
   end
 
   # POST /categories
   # POST /categories.json
   def create
-    if session[:user_id].nil? || !User.find(session[:user_id]).is_admin
-      redirect_to categories_path
-    end
+    admin?(categories_path)
     @category = Category.new(category_params)
 
     respond_to do |format|
@@ -50,9 +44,7 @@ class CategoriesController < ApplicationController
   # PATCH/PUT /categories/1
   # PATCH/PUT /categories/1.json
   def update
-    if session[:user_id].nil? || !User.find(session[:user_id]).is_admin
-      redirect_to categories_path
-    end
+    admin?(categories_path)
     respond_to do |format|
       if @category.update(category_params)
         format.html { redirect_to @category, notice: 'Category was successfully updated.' }

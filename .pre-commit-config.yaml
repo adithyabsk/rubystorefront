@@ -18,3 +18,9 @@ repos:
     rev: v1.20.0
     hooks:
       -   id: rails_best_practices
+-   repo: https://github.com/adithyabsk/mirrors-brakeman
+    rev: v4.8.0
+    hooks:
+      -   id: brakeman
+          args: ["--no-pager"]
+          pass_filenames: false

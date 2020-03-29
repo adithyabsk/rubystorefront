@@ -72,6 +72,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
+    brakeman (4.8.0)
     builder (3.2.4)
     byebug (11.1.1)
     capybara (3.31.0)
@@ -303,6 +304,7 @@ DEPENDENCIES
   active_model_otp
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
+  brakeman (~> 4.8.0)
   byebug
   capybara (>= 2.15)
   debase (~> 0.2.4)

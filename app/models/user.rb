@@ -33,4 +33,8 @@ class User < ApplicationRecord
     build_wishlist
     true
   end
+
+  def admin?
+    is_admin
+  end
 end

@@ -15,11 +15,11 @@ class ApplicationController < ActionController::Base
     session[:user_id].nil? || User.find(params[:id]).id != session[:user_id]
   end
 
-  def logged_in?
+  def redirect_nonlogged_in
     redirect_to root_path if invalid_session? || User.find(params[:id]).id != session[:user_id]
   end
 
-  def admin?(redirect_path)
+  def redirect_nonadmin(redirect_path)
     redirect_to redirect_path if invalid_session? || !User.find(session[:user_id]).is_admin
   end
 end

@@ -15,19 +15,19 @@ class CategoriesController < ApplicationController
 
   # GET /categories/new
   def new
-    admin?(categories_path)
+    redirect_nonadmin(categories_path)
     @category = Category.new
   end
 
   # GET /categories/1/edit
   def edit
-    admin?(categories_path)
+    redirect_nonadmin(categories_path)
   end
 
   # POST /categories
   # POST /categories.json
   def create
-    admin?(categories_path)
+    redirect_nonadmin(categories_path)
     @category = Category.new(category_params)
 
     respond_to do |format|
@@ -44,7 +44,7 @@ class CategoriesController < ApplicationController
   # PATCH/PUT /categories/1
   # PATCH/PUT /categories/1.json
   def update
-    admin?(categories_path)
+    redirect_nonadmin(categories_path)
     respond_to do |format|
       if @category.update(category_params)
         format.html { redirect_to @category, notice: 'Category was successfully updated.' }

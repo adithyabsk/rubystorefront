@@ -1,27 +1,6 @@
 # frozen_string_literal: true
 
 class LedgerEntriesController < ApplicationController
-  def admin_entries
-    LedgerEntry.order(params[:sort]).select do |entry|
-      (params[:user_id].nil? ||
-          User.find(entry.user_id).name == params[:user_id] ||
-          params[:user_id] == 'All'
-      ) && (params[:item_id].nil? ||
-          Item.find(entry.item_id).name == params[:item_id] ||
-          params[:item_id] == 'All'
-           )
-    end
-  end
-
-  def user_entries
-    LedgerEntry.where(user_id: params[:id]).order(params[:sort]).select do |entry|
-      (params[:item_id].nil? ||
-          Item.find(entry.item_id).name == params[:item_id] ||
-          params[:item_id] == 'All'
-      )
-    end
-  end
-
   def index
     redirect_to root_path if invalid_session?
     @ledger_entries = current_user.admin? ? admin_entries : user_entries
@@ -60,6 +39,31 @@ class LedgerEntriesController < ApplicationController
   end
 
   private
+
+  def sort
+    LedgerEntry.column_names.include?(params[:sort]) ? params[:sort] : 'user_id'
+  end
+
+  def admin_entries
+    LedgerEntry.order(sort).select do |entry|
+      (ledger_entry_params[:user_id].nil? ||
+          User.find(entry.user_id).name == ledger_entry_params[:user_id] ||
+          ledger_entry_params[:user_id] == 'All'
+      ) && (ledger_entry_params[:item_id].nil? ||
+          Item.find(entry.item_id).name == ledger_entry_params[:item_id] ||
+          ledger_entry_params[:item_id] == 'All'
+           )
+    end
+  end
+
+  def user_entries
+    LedgerEntry.where(user_id: ledger_entry_params[:id]).order(ledger_entry_params[:sort]).select do |entry|
+      (ledger_entry_params[:item_id].nil? ||
+          Item.find(entry.item_id).name == ledger_entry_params[:item_id] ||
+          ledger_entry_params[:item_id] == 'All'
+      )
+    end
+  end
 
   def ledger_entry_params
     params.require(:ledger_entry).permit(:status, :quantity, :total_cost, :item_id, :user_id, :id, :action_options, :entry_id, :show_all)

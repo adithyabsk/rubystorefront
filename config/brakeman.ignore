@@ -1,0 +1,66 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "4f1e7153aa4a6a38727bf95e0fec6c163d151f95c180943c518cc10da598c5e6",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/ledger_entries_controller.rb",
+      "line": 17,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "LedgerEntry.where(:user_id => params[:id]).order(params[:sort])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "LedgerEntriesController",
+        "method": "user_entries"
+      },
+      "user_input": "params[:sort]",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
+      "fingerprint": "7852d6d6c4408785efc916f661711c934d28cf0af249664c299e07894e7677a2",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/controllers/ledger_entries_controller.rb",
+      "line": 49,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "LedgerEntry.find(params[:entry_id]).send((params[:action_option] + \"!\").to_sym, current_user)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "LedgerEntriesController",
+        "method": "index"
+      },
+      "user_input": "(params[:action_option] + \"!\").to_sym",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "c0c7fcc46a7345b28a73dbfa0e1ed7fa8a2c9317825dbfce56c4d58b1ffd44e3",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/ledger_entries_controller.rb",
+      "line": 5,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "LedgerEntry.order(params[:sort])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "LedgerEntriesController",
+        "method": "admin_entries"
+      },
+      "user_input": "params[:sort]",
+      "confidence": "High",
+      "note": ""
+    }
+  ],
+  "updated": "2020-03-29 02:54:25 -0400",
+  "brakeman_version": "4.8.0"
+}

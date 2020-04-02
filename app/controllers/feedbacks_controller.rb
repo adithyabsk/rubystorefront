@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class FeedbacksController < ApplicationController
-  before_action :set_feedback, only: [:show, :edit, :update, :destroy]
+  before_action :set_feedback, only: %i[show edit update destroy]
 
   # GET /feedbacks
   # GET /feedbacks.json
@@ -9,8 +11,7 @@ class FeedbacksController < ApplicationController
 
   # GET /feedbacks/1
   # GET /feedbacks/1.json
-  def show
-  end
+  def show; end
 
   # GET /feedbacks/new
   def new
@@ -18,8 +19,7 @@ class FeedbacksController < ApplicationController
   end
 
   # GET /feedbacks/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /feedbacks
   # POST /feedbacks.json
@@ -58,13 +58,14 @@ class FeedbacksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_feedback
-      @feedback = Feedback.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def feedback_params
-      params.require(:feedback).permit(:name, :email, :message)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_feedback
+    @feedback = Feedback.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def feedback_params
+    params.require(:feedback).permit(:name, :email, :message)
+  end
 end

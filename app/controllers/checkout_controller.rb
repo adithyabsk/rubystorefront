@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class CheckoutController < ApplicationController
   def show
-    if current_user.cart.cart_items.size == 0
-      flash[:alert] = "You have no items in your cart"
+    if current_user.cart.cart_items.empty?
+      flash[:alert] = 'You have no items in your cart'
       redirect_to cart_path(current_user.cart.id)
     else
       UserMailer.with(user: current_user).otp_email.deliver_now
@@ -11,8 +13,8 @@ class CheckoutController < ApplicationController
   end
 
   def purchase
-    if current_user.authenticate_otp(params[:otp], drift: 120) == nil
-      flash[:alert] = "OTP is incorrect or has expired"
+    if current_user.authenticate_otp(params[:otp], drift: 120).nil?
+      flash[:alert] = 'OTP is incorrect or has expired'
       redirect_to checkout_show_path
     else
       current_user.cart.cart_items.each do |cart_item|
@@ -23,10 +25,11 @@ class CheckoutController < ApplicationController
           @total = cart_item.total_cost
         end
         LedgerEntry.create!(
-            quantity: cart_item.quantity,
-            total_cost: @total,
-            user_id: current_user.id,
-            item_id: cart_item.item.id)
+          quantity: cart_item.quantity,
+          total_cost: @total,
+          user_id: current_user.id,
+          item_id: cart_item.item.id
+        )
         cart_item.item.inventory = cart_item.item.inventory - cart_item.quantity
         cart_item.item.popularity = cart_item.item.popularity + cart_item.quantity
         cart_item.item.save
@@ -40,5 +43,4 @@ class CheckoutController < ApplicationController
   def send_otp
     UserMailer.with(user: current_user).otp_email.deliver_now
   end
-
 end

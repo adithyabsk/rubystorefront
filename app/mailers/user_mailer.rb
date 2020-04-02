@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserMailer < ApplicationMailer
   default from: 'csc517store@gmail.com'
 
@@ -9,14 +11,14 @@ class UserMailer < ApplicationMailer
 
   def otp_email
     @user = params[:user]
-    mail(to: @user.email, subject: "Your OTP from the CSC517 Store")
+    mail(to: @user.email, subject: 'Your OTP from the CSC517 Store')
   end
 
   def purchase_email
     @cart_items = params[:cart_items]
     @user = params[:user]
     # make purchased items available as an instance variable
-    mail(to: @user.email, subject: "Your Recent Purchase")
+    mail(to: @user.email, subject: 'Your Recent Purchase')
   end
 
   def status_of_request_email
@@ -24,7 +26,7 @@ class UserMailer < ApplicationMailer
     @type = params[:type]
     @item = params[:item]
     @user = params[:user]
-    if @type == "return"
+    if @type == 'return'
       mail(to: @user.email, subject: "Return Request #{@status}")
     else
       mail(to: @user.email, subject: "Restricted Item Purchase #{@status}")

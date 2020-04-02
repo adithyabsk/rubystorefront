@@ -1,16 +1,13 @@
-class UsersController < ApplicationController
+# frozen_string_literal: true
 
+class UsersController < ApplicationController
   def index
-    if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false
-      redirect_to root_url
-    end
+    is_admin?(root_url)
     @users = User.all
   end
 
   def show
-    if session[:user_id] == nil || (User.find(session[:user_id]).is_admin? == false && User.find(params[:id]).id != session[:user_id])
-      redirect_to root_url
-    end
+    is_admin?(root_url)
     @user = User.find(params[:id])
   end
 
@@ -19,23 +16,17 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if session[:user_id] == nil || (User.find(session[:user_id]).is_admin? == false && User.find(params[:id]).id != session[:user_id])
-      redirect_to root_url
-    end
+    is_admin?(root_url)
     @user = User.find(params[:id])
   end
 
   def create
-    if current_user && !current_user.is_admin
-      redirect_to root_url
-    end
-    if params[:password].blank?
-      params.delete(:password)
-    end
+    is_admin?(root_url)
+    params.delete(:password) if params[:password].blank?
     @user = User.new(user_params)
 
     if @user.save
-      if current_user && current_user.is_admin
+      if current_user&.is_admin
         redirect_to users_path
       else
         redirect_to sessions_new_path
@@ -46,9 +37,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if session[:user_id] == nil || (User.find(session[:user_id]).is_admin? == false && User.find(params[:id]).id != session[:user_id])
-      redirect_to root_url
-    end
+    is_admin?(root_url)
     @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to @user
@@ -58,9 +47,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if session[:user_id] == nil || User.find(session[:user_id]).is_admin? == false || User.find(params[:id]).is_admin? == true
-      redirect_to root_url
-    end
+    is_admin?(root_url)
     @user = User.find(params[:id])
     @user.ledger_entries.each do |le|
       le.user = nil

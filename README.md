@@ -81,12 +81,12 @@ discounts for 65+)
 - [x] Is the user able to request a return for a purchased item?
   * Purchase an item as one of the registered users, Click on My Purchases, under action selector select request_return, under apply action click apply, see status change from Ordered to Return Requested.
 - [x] Is the user able to view his purchase history?
-  * purchase an item as one of the users, click on My Purchases in the navigation header, see history of purchases. 
+  * purchase an item as one of the users, click on My Purchases in the navigation header, see history of purchases.
 - [x] Is the user receiving emails on the approval of a return request?
   * Login with a email that you have access to, purchase an item, go to My Purchases, select return_request and click apply. Then, login with admin and click on Manage Purchases/Requests, Find your user and select the action to approve return. hit apply. Then check your email address for an email with the subject "Return Request approved"
 - [x] Does the item status change in purchase history on approval of a return item by admin?
   * Login with a email that you have access to, purchase an item, go to My Purchases, for that item - select return_request and click apply. Verify status says "Return Requested" Then, login with admin and click on Manage Purchases/Requests, Find your user and item and select the action to approve return. hit apply. Log back in with your user, click on My Purchases, find the item you bought and verify status says "Return Approved"
-  
+
 ## Visitor
 - [x] Can a visitor view all existing items?
   * Yep, the items view is home page
@@ -123,11 +123,11 @@ be added to the purchase history of the user - is this working as expected?
 
 ## Extra Crredit
 - [x] No user/visitor should access any private content associated with other user/admin's account.
-  * We accomplished this through restricting the paths that could be called in the our controller classes. For example, 
+  * We accomplished this through restricting the paths that could be called in the our controller classes. For example,
   in our User controller, we wanted to lock down our api so that a user or visitor couldn't call the index method to
   view all the users who are signed up. We added a check to make sure that the user is an admin before getting all the
   users. Likewise, no guests are able to call methods to edit/update users, destroy users, or view users. Logged in
-  users are not able to create or destroy users or view and edit/update users besides besides themself. 
+  users are not able to create or destroy users or view and edit/update users besides besides themself.
 
 Additionally, no guest is able to access anyone's cart items, ledger(purchases), or wishlist. This was done via code in
 the respective controllers. Lastly, logged in users cannot access or edit each other's cart, ledger(purchases), or
@@ -143,8 +143,8 @@ rspec spec/categories_controller_spec.rb
 rspec spec/categories_model_spec.rb
 ```
 
-The model and controller we tested on was Category using Rspec  
-run using rspec spec/categories_controller_spec.rb or spec/categories_model_spec.rb  
+The model and controller we tested on was Category using Rspec
+run using rspec spec/categories_controller_spec.rb or spec/categories_model_spec.rb
 
 ![Sucessful Tests](https://i.imgur.com/kSbIDy2.png)
 

@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 class CartItem < ApplicationRecord
   belongs_to :item
   belongs_to :cart
 
   def sub_total_cost
-    self.quantity * self.item.cost
+    quantity * item.cost
   end
-  
+
   def tax
-	self.quantity * self.item.cost * Category.find(self.item.category_id).tax_slab
+    quantity * item.cost * Category.find(item.category_id).tax_slab
   end
-  
+
   def total_cost
-	self.sub_total_cost + self.tax
+    sub_total_cost + tax
   end
 end

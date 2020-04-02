@@ -2,7 +2,7 @@
 
 <% if current_user && current_user.is_admin == true%>
 <%= form_tag ledger_entries_index_path, method: :get do %>
-  Filters: User - 
+  Filters: User -
   <%= select_tag :user_id, options_for_select(LedgerEntry.all.collect{|i| User.find_by_id(i.user_id).name}.uniq.unshift("All"), params[:user_id]), onchange: "this.form.submit();"%>
   Item -
   <%= select_tag :item_id, options_for_select(LedgerEntry.all.select { |i| Item.find_by_id(i.item_id).disabled == false}.collect{|i| Item.find_by_id(i.item_id).name}.uniq.unshift("All"), params[:item_id]), onchange: "this.form.submit();"%>

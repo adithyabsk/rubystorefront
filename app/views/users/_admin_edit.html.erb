@@ -1,5 +1,5 @@
 <%= form_with model: @user, local: true do |form| %>
- 
+
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -13,12 +13,12 @@
       </ul>
     </div>
   <% end %>
- 
+
   <p>
     <%= form.label :name %><br>
     <%= form.text_field :name %>
   </p>
- 
+
   <p>
     <%= form.label "Phone Number" %><br>
     <%= form.text_field :phone_num %>
@@ -69,5 +69,5 @@
   <p>
     <%= form.submit %>
   </p>
- 
+
 <% end %>

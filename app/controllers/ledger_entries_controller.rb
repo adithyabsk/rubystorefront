@@ -46,7 +46,9 @@ class LedgerEntriesController < ApplicationController
         @item.popularity = @item.popularity - @ledger_entry.quantity
         @item.save
       end
-      LedgerEntry.find(params[:entry_id]).send (params[:action_option] + '!').to_sym, current_user
+      entry = LedgerEntry.find(params[:entry_id])
+      method = params[:action_option]
+      entry.send (method + '!').to_sym, current_user if entry.aasm.events({ permitted: true }, current_user).map(&:name).include?(method)
       respond_to do |format|
         format.js { render inline: 'location.reload();' }
       end

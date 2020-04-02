@@ -6,12 +6,12 @@ repos:
       -   id: end-of-file-fixer
       -   id: trailing-whitespace
 -   repo: https://github.com/adithyabsk/mirrors-rubocop
-    rev: v0.80.1
+    rev: v0.81.0
     hooks:
     -   id: rubocop
         additional_dependencies: ['rubocop-performance:1.5.2', 'rubocop-rspec:1.38.1']
 -   repo: https://github.com/adithyabsk/mirrors-reek
-    rev: v5.6.0
+    rev: v6.0.0
     hooks:
       -   id: reek
           stages: [push]

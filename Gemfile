@@ -64,7 +64,7 @@ gem 'active_model_otp'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Allows for fake data generation
-gem 'faker', '~> 2.10'
+gem 'faker', '~> 2.11'
 
 # Allow for Request Testing
 gem 'rails-controller-testing'

@@ -2,12 +2,12 @@
 
 class CartsController < ApplicationController
   def show
-    logged_in?
+    redirect_nonlogged_in
     @cart = Cart.find(params[:id])
   end
 
   def empty
-    logged_in?
+    redirect_nonlogged_in
     @cart = current_user.cart
     @cart.cart_items.each(&:destroy)
     redirect_to root_path

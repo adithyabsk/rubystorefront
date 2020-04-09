@@ -12,7 +12,7 @@ class Item < ApplicationRecord
   validates :brand, presence: true
   validates :inventory, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :category_id, presence: true
-  validates :image_url, format: { with: /\A.*(.png|.jpg)\z/ }
+  validates :image_url, format: { with: /\A.*(.png|.jpg)\z/ }, allow_nil: true
 
   before_create :build_default_subscriber_list
 

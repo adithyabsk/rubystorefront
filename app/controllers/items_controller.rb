@@ -2,7 +2,7 @@
 
 class ItemsController < ApplicationController
   def index
-    # All of the sorting and filters makes this complecated
+    # All of the sorting and filters makes this complicated
     if current_user && current_user.is_admin == true
       @items = Item.order(params[:sort]).select do |item|
         (params[:category].nil? || Category.find_by_id(item.category_id).name == params[:category].tr('+', ' ') || params[:category] == 'All') &&
@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
   end
 
   def new
-    admin?(root_url)
+    redirect_nonadmin(root_url)
     # #if current_user
     ##  OtpMailer.with(user: current_user).otp_email.deliver_now
     # #end
@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-    admin?(root_url)
+    redirect_nonadmin(root_url)
     # if current_user and current_user.authenticate_otp(params[:items][:otp]) == false
     #  self.errors[:base] << "OTP is incorrect"
     #  render 'new'
@@ -51,14 +51,14 @@ class ItemsController < ApplicationController
 
   # GET /recipes/1/edit
   def edit
-    admin?(root_url)
+    redirect_nonadmin(root_url)
     @item = Item.find(params[:id])
   end
 
   # PATCH/PUT /recipes/1
   # PATCH/PUT /recipes/1.json
   def update
-    admin?(root_url)
+    redirect_nonadmin(root_url)
     @item = Item.find(params[:id])
     orig_inventory = @item.inventory
     if @item.update(item_params)
@@ -75,7 +75,7 @@ class ItemsController < ApplicationController
   end
 
   def disable
-    admin?(items_path(params[:id]))
+    redirect_nonadmin(items_path(params[:id]))
     @item = Item.find(params[:id])
     # disable item
     @item.disabled = true
@@ -95,7 +95,7 @@ class ItemsController < ApplicationController
   end
 
   def enable
-    admin?(params[:id])
+    redirect_nonadmin(params[:id])
     @item = Item.find(params[:id])
     # disable item
     @item.disabled = false

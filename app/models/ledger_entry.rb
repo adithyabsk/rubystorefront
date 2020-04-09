@@ -16,19 +16,19 @@ class LedgerEntry < ApplicationRecord
       transitions from: %i[ordered order_approved], to: :return_requested
     end
 
-    event :approve_return, guard: proc { |cu| cu.is_admin? } do
+    event :approve_return, guard: proc { |cu| cu.admin? } do
       transitions from: :return_requested, to: :return_approved
     end
 
-    event :reject_return, guard: proc { |cu| cu.is_admin? } do
+    event :reject_return, guard: proc { |cu| cu.admin? } do
       transitions from: :return_requested, to: :return_rejected
     end
 
-    event :approve_restricted, guard: proc { |cu| cu.is_admin? } do
+    event :approve_restricted, guard: proc { |cu| cu.admin? } do
       transitions from: :approval_requested, to: :order_approved
     end
 
-    event :reject_restricted, guard: proc { |cu| cu.is_admin? } do
+    event :reject_restricted, guard: proc { |cu| cu.admin? } do
       transitions from: :approval_requested, to: :order_rejected
     end
   end
@@ -38,10 +38,10 @@ class LedgerEntry < ApplicationRecord
   end
 
   def is_user?(current_user)
-    !current_user.is_admin?
+    !current_user.admin?
   end
 
   def is_admin_ledger?
-    user.nil? ? false : user.is_admin?
+    user.nil? ? false : user.admin?
   end
 end

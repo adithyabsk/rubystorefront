@@ -20,6 +20,6 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_nonadmin(redirect_path)
-    redirect_to redirect_path if invalid_session? || !User.find(session[:user_id]).is_admin
+    redirect_to redirect_path if invalid_session? || !User.find(session[:user_id]).admin?
   end
 end

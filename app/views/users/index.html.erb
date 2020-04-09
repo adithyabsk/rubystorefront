@@ -6,7 +6,7 @@
     <th>Name</th>
     <th>Email</th>
     <th>Password</th>
-    <th>is_admin?</th>
+    <th>Admin</th>
     <th>Phone #</th>
     <th>DOB</th>
     <th>Address L1</th>
@@ -26,7 +26,7 @@
       <td><%= user.name %></td>
       <td><%= user.email %></td>
       <td><%= user.password %></td>
-      <td><%= user.is_admin %></td>
+      <td><%= user.admin? %></td>
       <td><%= user.phone_num%></td>
       <td><%= user.dob %></td>
       <td><%= user.address_l1 %></td>
@@ -41,7 +41,7 @@
 
       <td><%= link_to 'Show', user_path(user) %></td>
       <td><%= link_to 'Edit', edit_user_path(user) %></td>
-      <%if current_user && current_user.is_admin == true && user.is_admin == false%>
+      <%if current_user && current_user.admin? && !user.admin?%>
           <td><%= link_to 'Destroy', user_path(user), method: :delete, data: {confirm: 'Are you sure?' } %> </td>
       <%end%>
     </tr>

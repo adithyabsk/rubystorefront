@@ -14,7 +14,7 @@
       <tr>
         <td><%= category.name %></td>
         <td><%= category.tax_slab %></td>
-		<%if current_user && current_user.is_admin == true%>
+		<%if current_user && current_user.admin?%>
 			<td><%= link_to 'Edit', edit_category_path(category) %></td>
 		<% end %>
       </tr>
@@ -25,6 +25,6 @@
 <br>
 
 <%= link_to "Back To Items", items_path %>
-<%if current_user && current_user.is_admin == true%>
+<%if current_user && current_user.admin?%>
 	<%= link_to 'New Category', new_category_path %>
 <% end %>

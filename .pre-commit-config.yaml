@@ -10,7 +10,7 @@ repos:
     hooks:
     -   id: rubocop
         additional_dependencies: ['rubocop-performance:1.5.2', 'rubocop-rspec:1.38.1']
-        args: ["-a"]
+        args: ["-a", "--force-exclusion"]
         require_serial: true
 -   repo: https://github.com/adithyabsk/mirrors-reek
     rev: v6.0.0

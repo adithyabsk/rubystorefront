@@ -27,7 +27,7 @@ class LedgerEntriesController < ApplicationController
       end
       entry = LedgerEntry.find(params[:entry_id])
       method = params[:action_option]
-      entry.send (method + '!').to_sym, current_user if entry.aasm.events({ permitted: true }, current_user).map(&:name).include?(method)
+      entry.send (method + '!').to_sym, current_user if entry.aasm.events({ permitted: true }, current_user).map { |event| event&.name }.include?(method.to_sym)
       respond_to do |format|
         format.js { render inline: 'location.reload();' }
       end

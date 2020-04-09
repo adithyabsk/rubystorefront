@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def invalid_session?
-    session[:user_id].nil? || User.find(params[:id]).id != session[:user_id]
+    current_user.nil? # TODO: make this work # || User.find(params[:id]).id != session[:user_id]
   end
 
   def redirect_nonlogged_in

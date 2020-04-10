@@ -12,8 +12,8 @@
   <%= @user.password%>
 </p>
 <p>
-  <strong>is_admin?:</strong>
-  <%= @user.is_admin %>
+  <strong>Admin:</strong>
+  <%= @user.admin? %>
 </p>
 <p>
   <strong>Phone #</strong>
@@ -61,6 +61,6 @@
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %>
-<%if !@user.is_admin && current_user.is_admin %>
+<%if !@user.admin? && current_user.admin? %>
 <%= link_to ' | Destroy', user_path(@user), method: :delete, data: {confirm: 'Are you sure?' } %> |
 <%end%>

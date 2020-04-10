@@ -19,7 +19,7 @@
       <th>Add to Cart</th>
       <th>Buy It Now</th>
       <th>Request Unavailable Item</th>
-      <% if current_user && current_user.is_admin == true %>
+      <% if current_user && current_user.admin? %>
         <th>Edit</th>
         <th>Delete</th>
       <% end %>
@@ -71,7 +71,7 @@
       <td>Item Disabled</td>
       <td>Item Disabled</td>
     <% end %>
-    <% if current_user.is_admin %>
+    <% if current_user.admin? %>
       <td><%= link_to 'Edit', edit_item_path(@item) %></td>
       <% if @item.disabled == true %>
         <td><%= link_to 'Enable', enable_item_path(@item), method: :enable, data: {confirm: 'Are you sure?'} %> </td>

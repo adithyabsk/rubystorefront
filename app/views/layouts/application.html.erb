@@ -28,7 +28,7 @@
     <% end %>
 
     <%= link_to "Give Feedback", feedbacks_new_path %>  |
-    <% if current_user && current_user.is_admin %>
+    <% if current_user && current_user.admin? %>
       <%= link_to "Modify Users", users_path %>  |
       <%= link_to "View Feedback", feedbacks_index_path %>  |
       <%= link_to "Create Item", new_item_path %>  |

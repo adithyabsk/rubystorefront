@@ -2,12 +2,12 @@
 
 class UsersController < ApplicationController
   def index
-    is_admin?(root_url)
+    redirect_nonadmin(root_url)
     @users = User.all
   end
 
   def show
-    is_admin?(root_url)
+    redirect_nonadmin(root_url)
     @user = User.find(params[:id])
   end
 
@@ -16,17 +16,17 @@ class UsersController < ApplicationController
   end
 
   def edit
-    is_admin?(root_url)
+    redirect_nonadmin(root_url)
     @user = User.find(params[:id])
   end
 
   def create
-    is_admin?(root_url)
+    redirect_nonadmin(root_url)
     params.delete(:password) if params[:password].blank?
     @user = User.new(user_params)
 
     if @user.save
-      if current_user&.is_admin
+      if current_user&.admin?
         redirect_to users_path
       else
         redirect_to sessions_new_path
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    is_admin?(root_url)
+    redirect_nonadmin(root_url)
     @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to @user
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    is_admin?(root_url)
+    redirect_nonadmin(root_url)
     @user = User.find(params[:id])
     @user.ledger_entries.each do |le|
       le.user = nil
@@ -61,6 +61,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :is_admin, :phone_num, :dob, :address_l1, :address_l2, :city, :state, :zip, :card_name, :card_num, :card_expire, :card_ccv)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin?, :phone_num, :dob, :address_l1, :address_l2, :city, :state, :zip, :card_name, :card_num, :card_expire, :card_ccv)
   end
 end

@@ -1,6 +1,6 @@
 <h1>Purchases</h1>
 
-<% if current_user && current_user.is_admin == true%>
+<% if current_user && current_user.admin?%>
 <%= form_tag ledger_entries_index_path, method: :get do %>
   Filters: User -
   <%= select_tag :user_id, options_for_select(LedgerEntry.all.collect{|i| User.find_by_id(i.user_id).name}.uniq.unshift("All"), params[:user_id]), onchange: "this.form.submit();"%>

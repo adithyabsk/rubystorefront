@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
   def index
     puts params[:sort]
     # All of the sorting and filters makes this complicated
-    if current_user && current_user.is_admin == true
+    if current_user&.admin?
       @items = Item.order(params[:sort]).select do |item|
         (params[:category].nil? || Category.find_by_id(item.category_id).name == params[:category].tr('+', ' ') || params[:category] == 'All') &&
           (params[:brand].nil? || item.brand == params[:brand].tr('+', ' ') || params[:brand] == 'All') &&

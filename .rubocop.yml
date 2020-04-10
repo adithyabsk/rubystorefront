@@ -10,4 +10,5 @@ AllCops:
   Exclude:
     - '.git/**/*'
     - 'node_modules/**/*'
+    - 'db/**/*'
   TargetRubyVersion: 2.7

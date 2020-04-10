@@ -27,7 +27,7 @@ class LedgerEntriesController < ApplicationController
       end
       entry = LedgerEntry.find(params[:entry_id])
       method = params[:action_option]
-      entry.send (method + '!').to_sym, current_user if entry.aasm.events({ permitted: true }, current_user).map(&:name).include?(method)
+      entry.send (method + '!').to_sym, current_user if entry.aasm.events({ permitted: true }, current_user).map { |event| event&.name }.include?(method.to_sym)
       respond_to do |format|
         format.js { render inline: 'location.reload();' }
       end
@@ -40,27 +40,27 @@ class LedgerEntriesController < ApplicationController
 
   private
 
-  def sort
+  def sort_column_name
     LedgerEntry.column_names.include?(params[:sort]) ? params[:sort] : 'user_id'
   end
 
   def admin_entries
-    LedgerEntry.order(sort).select do |entry|
-      (ledger_entry_params[:user_id].nil? ||
-          User.find(entry.user_id).name == ledger_entry_params[:user_id] ||
-          ledger_entry_params[:user_id] == 'All'
-      ) && (ledger_entry_params[:item_id].nil? ||
-          Item.find(entry.item_id).name == ledger_entry_params[:item_id] ||
-          ledger_entry_params[:item_id] == 'All'
+    LedgerEntry.order(sort_column_name).select do |entry|
+      (params[:user_id].nil? ||
+          User.find(entry.user_id).name == params[:user_id] ||
+          params[:user_id] == 'All'
+      ) && (params[:item_id].nil? ||
+          Item.find(entry.item_id).name == params[:item_id] ||
+          params[:item_id] == 'All'
            )
     end
   end
 
   def user_entries
-    LedgerEntry.where(user_id: ledger_entry_params[:id]).order(ledger_entry_params[:sort]).select do |entry|
-      (ledger_entry_params[:item_id].nil? ||
-          Item.find(entry.item_id).name == ledger_entry_params[:item_id] ||
-          ledger_entry_params[:item_id] == 'All'
+    LedgerEntry.where(user_id: params[:id]).order(params[:sort]).select do |entry|
+      (params[:item_id].nil? ||
+          Item.find(entry.item_id).name == params[:item_id] ||
+          params[:item_id] == 'All'
       )
     end
   end

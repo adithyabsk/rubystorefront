@@ -17,8 +17,8 @@ require 'faker'
   ['Colin Foley', 'cmfoley2@ncsu.edu', 'colin', false, '01/01/1998'],
   ['Young User', 'young@gmail.com', 'young', false, '01/01/2008'],
   ['Old User', 'old@gmail.com', 'old', false, '01/01/1940']
-].each do |name, email, password, is_admin, dob|
-  User.create!(name: name, email: email, password: password, password_confirmation: password, is_admin: is_admin,
+].each do |name, email, password, admin, dob|
+  User.create!(name: name, email: email, password: password, password_confirmation: password, admin: admin,
                phone_num: '5555555555', dob: dob, address_l1: 'line 1', address_l2: 'line 2', city: 'gso',
                state: 'NC', zip: '27560', card_name: name, card_num: '1234567890123456', card_expire: '01/22',
                card_ccv: 555)

@@ -6,7 +6,7 @@
 
 <%= form_tag items_path, method: :get do %>
   Filters: Category -
-  <% if current_user && current_user.is_admin == true %>
+  <% if current_user && current_user.admin? %>
     <%= select_tag :category, options_for_select(Item.all.collect { |i| Category.find_by_id(i.category_id).name }.uniq.unshift("All"), params[:category]), onchange: "this.form.submit();" %>
   <% else %>
     <%= select_tag :category, options_for_select(Item.all.select { |i| i.disabled == false }.collect { |i| Category.find_by_id(i.category_id).name }.uniq.unshift("All"), params[:category]), onchange: "this.form.submit();" %>
@@ -25,7 +25,7 @@
     <th><%= link_to "Cost", :sort => "cost", :category => params[:category], :brand => params[:brand], :available => params[:available] %></th>
     <% if current_user %>
       <th>Buy It Now</th>
-      <% if current_user.is_admin %>
+      <% if current_user.admin? %>
         <th>Edit</th>
         <th>Delete</th>
       <% end %>
@@ -55,7 +55,7 @@
           <% else %>
             <td></td>
           <% end %>
-          <% if current_user.is_admin %>
+          <% if current_user.admin? %>
             <td><%= link_to 'Edit', edit_item_path(item) %></td>
             <% if item.disabled == true %>
               <td><%= link_to 'Enable', enable_item_path(item), method: :enable, data: {confirm: 'Are you sure?'} %> </td>

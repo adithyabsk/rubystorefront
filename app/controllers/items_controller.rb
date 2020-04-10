@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+# rubocop:todo Metrics/AbcSize
+
 class ItemsController < ApplicationController
   def index
+    puts params[:sort]
     # All of the sorting and filters makes this complicated
     if current_user && current_user.is_admin == true
       @items = Item.order(params[:sort]).select do |item|
@@ -23,9 +26,9 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def purchase
-    @item = Item.find(params[:id])
-  end
+  #  def purchase
+  #    @item = Item.find(params[:id])
+  #  end
 
   def new
     redirect_nonadmin(root_url)
@@ -136,3 +139,4 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :cost, :image_url, :brand, :restricted, :age_restricted, :inventory, :category_id)
   end
 end
+# rubocop:enable Metrics/AbcSize

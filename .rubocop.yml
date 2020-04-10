@@ -3,6 +3,9 @@ require:
   - rubocop-performance
   - rubocop-rspec
 
+RSpec/ExampleLength:
+  Enabled: false
+
 AllCops:
   Exclude:
     - '.git/**/*'

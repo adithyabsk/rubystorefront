@@ -76,28 +76,10 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers', '~> 4.2.0'
 
-<<<<<<< HEAD
-# Enable OTP
-gem 'active_model_otp'
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
-# Allows for fake data generation
-gem 'faker', '~> 2.10'
-
-gem 'aasm', '~> 5.0'
-
-# Linting
-gem 'brakeman', '~> 4.8.0', require: false
-gem 'rails_best_practices', '~> 1.20.0', require: false
-gem 'reek', '~> 5.6.0', require: false
-gem 'rubocop', '~> 0.80.1', require: false
-gem 'rubocop-performance', '~> 1.5.2', require: false
-gem 'rubocop-rspec', '~> 1.38.1', require: false
-
-# Allow for Request Testing
-gem 'rails-controller-testing', '~> 1.0.4'
-gem 'rspec', '~> 3.0'
-gem 'rspec-rails', '~> 4.0.0'
+  # Allow for Testing
+  gem 'database_cleaner-active_record'
+  gem 'factory_bot_rails'
+  gem 'rails-controller-testing', '~> 1.0.4'
+  gem 'rspec', '~> 3.0'
+  gem 'rspec-rails', '~> 4.0.0'
 end

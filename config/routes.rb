@@ -36,7 +36,6 @@ Rails.application.routes.draw do
       post :disable
       post :enable
       put :add
-      get :purchase
     end
   end
   resources :users do

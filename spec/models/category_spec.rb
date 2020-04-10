@@ -1,9 +1,8 @@
 # frozen_string_literal: true
-# rubocop:disable all
 
 require 'rails_helper'
 
-RSpec.describe Category, type: :model do
+describe Category do
   it 'must have a name' do
     category = described_class.new(name: nil)
     expect(category).not_to be_valid

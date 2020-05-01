@@ -66,7 +66,7 @@ group :development do
   gem 'reek', '~> 6.0.0'
   gem 'rubocop', '~> 0.81.0'
   gem 'rubocop-performance', '~> 1.5.2'
-  gem 'rubocop-rspec', '~> 1.38.1'
+  gem 'rubocop-rspec', '~> 1.39.0'
 end
 
 group :test do

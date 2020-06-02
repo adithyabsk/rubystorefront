@@ -74,7 +74,7 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver', '~> 3.142.7'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers', '~> 4.2.0'
+  gem 'webdrivers', '~> 4.4.1'
 
   # Allow for Request Testing
   gem 'rails-controller-testing', '~> 1.0.4'

@@ -64,7 +64,7 @@ group :development do
   gem 'brakeman', '~> 4.8.0'
   gem 'rails_best_practices', '~> 1.20.0'
   gem 'reek', '~> 6.0.0'
-  gem 'rubocop', '~> 0.81.0'
+  gem 'rubocop', '~> 0.93.0'
   gem 'rubocop-performance', '~> 1.5.2'
   gem 'rubocop-rspec', '~> 1.38.1'
 end

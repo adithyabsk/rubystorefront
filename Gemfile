@@ -61,7 +61,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   # Linting
-  gem 'brakeman', '~> 4.8.0'
+  gem 'brakeman', '~> 5.0.0'
   gem 'rails_best_practices', '~> 1.20.0'
   gem 'reek', '~> 6.0.0'
   gem 'rubocop', '~> 0.81.0'

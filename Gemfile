@@ -38,7 +38,7 @@ gem 'tzinfo-data', '1.2019.3', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'faker', '~> 2.11.0'
 
 # State machine for purchases
-gem 'aasm', '~> 5.0.8'
+gem 'aasm', '~> 5.2.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.6', require: false

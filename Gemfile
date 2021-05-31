@@ -29,7 +29,7 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'image_processing', '~> 1.2'
 
 # Enable OTP
-gem 'active_model_otp', '~> 2.0.1'
+gem 'active_model_otp', '~> 2.2.0'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', '1.2019.3', platforms: %i[mingw mswin x64_mingw jruby]
